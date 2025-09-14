@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Enorm";
+  src: url("/fonts/enorm-bold.otf") format("opentype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "OpenSans";
+  src: url("/fonts/OpenSans-VariableFont_wdth,wght.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@theme inline {
+  --font-enorm: "Enorm";
+
+  --color-background-dark: var(--background-dark);
+  --color-background-light: var(--background-light);
+  --color-foreground-main: var(--foreground-main);
+  --color-foreground-second: var(--foreground-second);
+  --color-card-grey: var(--card-grey);
+  --color-card-highlight: var(--card-highlight);
+} 
+
+@layer utilities {
+  .title-large {
+    font-size: var(--title-large);
+  }
+  .title-small {
+    font-size: var(--title-small);
+  }
+  .paragraph-large {
+    font-size: var(--paragraph-large);
+  }
+  .paragraph-small {
+    font-size: var(--paragraph-small)
+  }
+}
+
+body {
+  background: var(--background-dark);
+  color: var(--foreground-main);
+  font-family: "OpenSans";
+}
+
+:root {
+  --background-dark: hsl(0, 0%, 5%);
+  --background-light: hsl(0, 0%, 10%);
+  --foreground-main: hsl(0, 0%, 90%);
+  --foreground-second: hsl(0, 0%, 70%);
+
+  --card-grey: hsl(0, 0%, 15%);
+  --card-highlight: hsl(200, 10%, 20%);
+  
+  --rounding-large: 1rem;
+  --rounding-small: 0.5rem;
+  --padding-large: 2.5rem;
+  --padding-small: 1rem;
+  --gap-large: 3rem;
+  --gap-medium: 2rem;
+  --gap-small: 1rem;
+
+  --title-large: 3rem;
+  --title-small: 2rem;
+  --paragraph-large: 1.5rem;
+  --paragraph-small: 1.25rem;
+}
