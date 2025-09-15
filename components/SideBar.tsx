@@ -28,7 +28,7 @@ const SideBar = () => {
 		}
 	]
 
-	const [selected, setSelected] = useState(0);
+	const [selected, setSelected] = useState(1);
 
     return (
         <section className='w-[20dvw] h-screen bg-background-dark p-[var(--padding-large)] flex flex-col gap-[var(--gap-large)] fixed'>

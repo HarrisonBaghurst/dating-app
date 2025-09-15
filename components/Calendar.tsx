@@ -3,27 +3,15 @@
 import React, { useEffect, useState } from 'react'
 import CalendarCard from './CalendarCard'
 import Loader from './Loader';
+import type { CalendarEvent } from '@/types/event'
 
 type CalendarProps = {
     month: number;
     year: number;
 }
 
-type Event = {
-    id: number;
-    created_at: string;
-    title: string;
-    date: string;
-    location: string;
-    start_time: string;
-    end_time: string;
-    extra_info: string;
-    remind: boolean;
-    type: string;
-}
-
 const Calendar = ({ month, year }: CalendarProps) => {
-    const [events, setEvents] = useState<Event[] | null>(null);
+    const [events, setEvents] = useState<CalendarEvent[] | null>(null);
 
     // fetch events for month
     useEffect(() => {
@@ -74,6 +62,8 @@ const Calendar = ({ month, year }: CalendarProps) => {
             <CalendarCard 
             key={dayNum}
             date={dayNum}
+            month={month}
+            year={year}
             isToday={isToday}
             events={dayEvents}
             />
@@ -81,20 +71,22 @@ const Calendar = ({ month, year }: CalendarProps) => {
     });
 
     return (
-        <div className='flex flex-col gap-[var(--gap-small)]'>
-            <div className='grid grid-cols-7 gap-[var(--gap-small)]'>
-                {weekDays.map((day, i) => (
-                    <div 
-                    key={i}
-                    className='w-full p-[var(--padding-small)] flex justify-center paragraph-large bg-background-dark rounded-[var(--rounding-small)]'
-                    >
-                        {day}
-                    </div>
-                ))}
-            </div>
-            <div className='grid grid-cols-7 gap-[var(--gap-small)]'>
-                {blanks}
-                {days}
+        <div className='flex flex-col gap-[var(--gap-large)]'>
+            <div className='flex flex-col gap-[var(--gap-small)]'>
+                <div className='grid grid-cols-7 gap-[var(--gap-small)]'>
+                    {weekDays.map((day, i) => (
+                        <div 
+                        key={i}
+                        className='w-full p-[var(--padding-small)] flex justify-center paragraph-large bg-background-dark rounded-[var(--rounding-small)]'
+                        >
+                            {day}
+                        </div>
+                    ))}
+                </div>
+                <div className='grid grid-cols-7 gap-[var(--gap-small)]'>
+                    {blanks}
+                    {days}
+                </div>
             </div>
         </div>
     )

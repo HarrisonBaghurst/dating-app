@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SideBar from "@/components/SideBar";
+import { ModalProvider } from "@/providers/ModalProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,7 +20,9 @@ export default function RootLayout({
       >
         <SideBar />
         <div className="ml-[20dvw] w-full">
-          {children}
+          <ModalProvider>
+            {children}
+          </ModalProvider>
         </div>
       </body>
     </html>
