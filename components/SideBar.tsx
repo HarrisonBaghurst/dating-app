@@ -22,7 +22,7 @@ const SideBar = () => {
 			"link": "/",
 		},
 		{
-			"text": "View",
+			"text": "List View",
 			"icon": "/icons/eye.svg",
 			"link": "/",
 		}

@@ -51,11 +51,11 @@ body {
   --foreground-second: hsl(0, 0%, 70%);
 
   --card-grey: hsl(0, 0%, 15%);
-  --card-highlight: hsl(200, 10%, 20%);
+  --card-highlight: hsl(220, 10%, 20%);
   
   --rounding-large: 1rem;
   --rounding-small: 0.5rem;
-  --padding-large: 2.5rem;
+  --padding-large: 3rem;
   --padding-small: 1rem;
   --gap-large: 3rem;
   --gap-medium: 2rem;
