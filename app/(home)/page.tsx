@@ -20,16 +20,17 @@ const page = () => {
 
 		// set up the interval for updating the clock 
 		const interval = setInterval(() => {
-			const newTime = new Date();
-			setTime(newTime);
+			setTime(new Date());
 		}, 1000);
+
+		setTime(new Date());
 			
 		// remove interval on dismount
 		return () => clearInterval(interval);
 	}, []);
 
 	// until time is found return loader element 
-	if (!time || calendarMonth === null || calendarYear === null) return <Loader />;
+	if (!time || calendarMonth === null || calendarYear === null) return null;
 
 	const updateCalendarMonth = (change: number) => { // +1 increases month shown in calendar, -1 decreases month
 		let currentMonth = calendarMonth;

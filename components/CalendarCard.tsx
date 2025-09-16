@@ -22,7 +22,6 @@ const CalendarCard = ({ date, month, year, isToday, events }: CalendarCardProps)
     return (
         <motion.div
         whileHover={{
-            scale: 1.04,
             borderColor: "var(--card-highlight)",
         }}
         transition={{ duration: 0.2 }}

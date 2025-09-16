@@ -1,7 +1,9 @@
 import { getOrdinal } from '@/lib/dateUtils';
+import { useModal } from '@/providers/ModalProvider';
 import { CalendarEvent } from '@/types/event';
 import Image from 'next/image';
 import React from 'react'
+import CreateEvent from './CreateEvent';
 
 type EventsListProps = {
     date?: number;
@@ -11,6 +13,8 @@ type EventsListProps = {
 }
 
 const EventsList = ({ date, month, year, events }: EventsListProps) => {
+	const { openModal } = useModal();
+
 	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 	const sortedEvents = [...events].sort((a, b) => {
@@ -19,7 +23,7 @@ const EventsList = ({ date, month, year, events }: EventsListProps) => {
 	})
 
     return (
-		<div className='bg-background-dark w-full rounded-[var(--rounding-large)] p-[var(--padding-large)] paragraph-large flex flex-col gap-[var(--gap-medium)] h-full'>
+		<div className='bg-background-light w-full rounded-[var(--rounding-large)] p-[var(--padding-large)] paragraph-large flex flex-col gap-[var(--gap-medium)] h-full'>
 			{date && month && year && (
 				<div className='flex justify-between items-center'>
 					<h1 className='flex items-baseline text-foreground-main font-enorm title-large'>
@@ -34,6 +38,11 @@ const EventsList = ({ date, month, year, events }: EventsListProps) => {
 					width={32}
 					height={32}
 					className='cursor-pointer'
+					onClick={() => {openModal(
+						<CreateEvent 
+						defaultDate={new Date(year, month, date)}
+						/>
+					)}}
 					/>
 				</div>
 			)}
@@ -47,7 +56,7 @@ const EventsList = ({ date, month, year, events }: EventsListProps) => {
 					{sortedEvents.map((event, i) => (
 						<div
 						key={i}
-						className='flex flex-col gap-[var(--gap-small)] bg-background-light p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
+						className='flex flex-col gap-[var(--gap-small)] bg-card-grey p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
 						>
 							<div className=' grid grid-cols-4'>
 								<p className='text-foreground-main paragraph-large col-span-2'>{event.title}</p>

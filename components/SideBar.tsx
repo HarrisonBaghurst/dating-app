@@ -56,7 +56,7 @@ const SideBar = () => {
 					key={i}
 					className={cn(
 						'rounded-[var(--rounding-small)] p-[var(--padding-small)] flex items-center gap-[var(--gap-medium)] cursor-pointer',
-						i === selected && 'bg-background-light'
+						i === selected && 'bg-card-highlight'
 					)}
 					>	
 						<Image 

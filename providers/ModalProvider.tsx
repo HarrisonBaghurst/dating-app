@@ -13,10 +13,12 @@ const ModalContext = createContext<ModalContextType | undefined>(undefined);
 export function ModalProvider({ children }: { children: ReactNode }) {
     const [isOpen, setIsOpen] = useState(false);
     const [content, setContent] = useState<ReactNode>(null);
+    const [modalKey, setModalKey] = useState<number>(0);
 
     const openModal = (newContent: ReactNode) => {
         setContent(newContent);
         setIsOpen(true);
+        setModalKey((prev) => prev + 1);
     }
 
     const closeModal = () => {
@@ -30,6 +32,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
             <Modal
             isOpen={isOpen}
             onClose={closeModal}
+            modalKey={modalKey}
             >
                 {content}
             </Modal>
