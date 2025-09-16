@@ -1,6 +1,6 @@
 'use client'
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/classUtils';
 import React from 'react'
 import { CalendarEvent } from '@/types/event';
 import { getOrdinal } from '@/lib/dateUtils';

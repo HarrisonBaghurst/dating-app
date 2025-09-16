@@ -56,7 +56,7 @@ const DatePicker = ({ defaultDate = null, onChange }: DatePickerProps) => {
             onChange={(e) => setDay(e.target.value)}
             />
             <Input 
-            type="number"   
+            type="number"  
             value={month}
             placeholder="MM"
             onChange={(e) => setMonth(e.target.value)}

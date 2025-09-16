@@ -23,7 +23,7 @@ const EventsList = ({ date, month, year, events }: EventsListProps) => {
 	})
 
     return (
-		<div className='bg-background-light w-full rounded-[var(--rounding-large)] p-[var(--padding-large)] paragraph-large flex flex-col gap-[var(--gap-medium)] h-full'>
+		<div className='bg-background-light w-full rounded-[var(--rounding-large)] p-[var(--padding-large)] paragraph-large flex flex-col gap-[var(--gap-medium)] h-fit'>
 			{date && month && year && (
 				<div className='flex justify-between items-center'>
 					<h1 className='flex items-baseline text-foreground-main font-enorm title-large'>
@@ -63,7 +63,7 @@ const EventsList = ({ date, month, year, events }: EventsListProps) => {
 								<p className='text-right'>{`${event.start_time.substring(0, 5)} - ${event.end_time.substring(0, 5)}`}</p>
 								<p className='text-right'>{event.location}</p>
 							</div>
-							{event.extra_info !== 'NULL' && (
+							{event.extra_info !== 'NULL' && event.extra_info !== '' && (
 								<p>
 									{event.extra_info}
 								</p>

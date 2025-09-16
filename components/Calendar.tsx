@@ -17,7 +17,13 @@ const Calendar = ({ month, year }: CalendarProps) => {
     useEffect(() => {
         setEvents(null);
         const fetchEvents = async () => {
-            const res = await fetch(`/api/events/get?month=${month}&year=${year}`);
+            const res = await fetch(`/api/events/get`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ month, year })
+            });
             const data = await res.json();
             if (data.events) {
                 setEvents(data.events);

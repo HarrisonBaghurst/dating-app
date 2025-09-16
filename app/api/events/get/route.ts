@@ -1,15 +1,8 @@
-import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
+import { supabase } from "@/lib/supabaseClient";
 
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-)
-
-export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
-    const month = searchParams.get('month');
-    const year = searchParams.get('year');
+export async function POST(request: Request) {
+    const { month, year } = await request.json();
 
     if (!month || !year) {
         return NextResponse.json({ error: 'Missing month or year' }, { status: 400 });
