@@ -48,7 +48,7 @@ const DatePicker = ({ defaultDate = null, onChange }: DatePickerProps) => {
     }, [day, month, year])
 
     return (
-        <div className="grid grid-cols-3 gap-[var(--gap-medium)]">
+        <div className="grid grid-cols-3 gap-[var(--gap-small)]">
             <Input 
             type="number"
             value={day}

@@ -112,7 +112,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                     ))}
                 </div>
             </div>
-            <div className='flex flex-col gap-[var(--gap-medium)]'>
+            <div className='flex flex-col gap-[var(--gap-small)]'>
                 {/* title of event input field */}
                 <Input 
                 type='text'
@@ -136,7 +136,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                 />
                 {/* time of event selector - conditional render based on type of event */}
                 {selected !== 'All Day' && (
-                    <div className='flex gap-[var(--gap-medium)]'>
+                    <div className='flex gap-[var(--gap-small)]'>
                         <Input
                         type='time'
                         value={startTime}
