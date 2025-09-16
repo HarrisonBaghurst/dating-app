@@ -11,10 +11,11 @@ type ToggleStateProps = {
 
 const ToggleState = ({ imageOn, imageOff, onState, onChange }: ToggleStateProps) => {
     return (
-        <div 
+        <button 
+        type='button'
         onClick={onChange}
         className={cn(
-            'w-fit h-fit p-[var(--padding-small)] rounded-full',
+            'h-full aspect-1/1 p-[var(--padding-small)] rounded-full flex items-center justify-center',
             onState? 'bg-card-highlight': 'bg-card-grey'
         )}> 
             <Image 
@@ -23,7 +24,7 @@ const ToggleState = ({ imageOn, imageOff, onState, onChange }: ToggleStateProps)
             width={32}
             height={32}
             />
-        </div>
+        </button>
     ) 
 }
 

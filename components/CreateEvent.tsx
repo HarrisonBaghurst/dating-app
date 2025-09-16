@@ -1,10 +1,11 @@
 'use client'
 
 import { motion } from 'framer-motion';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Input } from './ui/input';
 import DatePicker from './DatePicker';
 import ToggleState from './ToggleState';
+import Button from './Button';
 
 type CreateEventProps = {
     defaultDate?: Date | null;
@@ -21,6 +22,24 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
     const [endTime, setEndTime] = useState<string>('00:00');
     const [extraInfo, setExtraInfo] = useState<string>('');
     const [remind, setRemind] = useState(false);
+
+    // can click continue button
+    const [clickable, setClickable] = useState(false);
+
+    useEffect(() => {
+        if (
+            title && date && (
+                (selected === 'Deadline' && startTime !== '00:00') || 
+                (selected === 'Reminder' && startTime !== '00:00') ||
+                (selected === 'Event' && startTime !== '00:00' && endTime !== '00:00') ||
+                (selected === 'All Day')
+            )
+        ) {
+            setClickable(true);
+            return;
+        }
+        setClickable(false);
+    }, [selected, title, date, startTime, endTime]);
 
     return (
         <div className='h-full w-full bg-background-light rounded-[var(--rounding-large)] p-[var(--padding-large)] flex flex-col gap-[var(--gap-medium)]'>
@@ -85,12 +104,17 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
             value={extraInfo}
             onChange={(e) => setExtraInfo(e.target.value)}
             />
-            <div>
+            <div className='flex gap-[var(--gap-medium)] items-center'>
                 <ToggleState 
                 imageOn={'/icons/bell-ringing.svg'}
                 imageOff={'/icons/bell-off.svg'}
                 onState={remind}
                 onChange={() => setRemind(!remind)}
+                />
+                <Button 
+                text='Create New Event'
+                clickable={clickable}
+                onClick={() => {}}
                 />
             </div>
         </div>
