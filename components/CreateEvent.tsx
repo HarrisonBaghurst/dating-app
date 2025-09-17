@@ -26,6 +26,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
     const [startTime, setStartTime] = useState<string>('00:00');
     const [endTime, setEndTime] = useState<string>('00:00');
     const [extraInfo, setExtraInfo] = useState<string>('');
+    const [repeat, setRepeat] = useState<string>('1');
     const [remind, setRemind] = useState(false);
 
     // can click continue button
@@ -49,35 +50,48 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
     const createEvent = async () => {
         if (!date) return;
 
-        const y = date.getFullYear();
-        const m = String(date.getMonth() + 1).padStart(2, '0');
-        const d = String(date.getDate()).padStart(2, '0');
+        const numRepeats = selected === 'Event' ? Math.max(1, parseInt(repeat || '1', 10) || 1) : 1;
 
-        const formattedDate = `${y}-${m}-${d}`;
+        try {
+            for (let i = 0; i < numRepeats; i++) {
+                const newDate = new Date(date.getTime());
+                newDate.setDate(newDate.getDate() + i * 7);
 
-        const res = await fetch('/api/events/post', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                title,
-                date: formattedDate,
-                location,
-                startTime,
-                endTime,
-                extraInfo,
-                remind,
-                eventType: selected.toLowerCase(),
-            }),
-        });
+                const y = newDate.getFullYear();
+                const m = String(newDate.getMonth() + 1).padStart(2, '0');
+                const d = String(newDate.getDate()).padStart(2, '0');
+                const formattedDate = `${y}-${m}-${d}`;
 
-        if (!res.ok) {
-            alert('error sending to database');
-            return;
+                // build payload - remove undefined fields
+                const payload: Record<string, any> = {
+                    title,
+                    date: formattedDate,
+                    location,
+                    startTime,
+                    endTime,
+                    extraInfo,
+                    remind,
+                    eventType: selected.toLowerCase(),
+                };
+
+                const res = await fetch('/api/events/post', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+
+                if (!res.ok) {
+                    const text = await res.text().catch(() => null);
+                    throw new Error(`Failed to create event #${i + 1}: ${res.status} ${res.statusText} ${text ?? ''}`);
+                }
+            }
+
+            closeModal();
+            refresh();
+        } catch (err) {
+            console.error(err);
+            alert('Error creating events: ' + (err instanceof Error ? err.message : 'unknown'));
         }
-        closeModal();
-        refresh();
     }
 
     return (
@@ -161,6 +175,14 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                 value={extraInfo}
                 onChange={(e) => setExtraInfo(e.target.value)}
                 />
+                {/* repeat number */}
+                {selected === 'Event' && (
+                    <Input
+                    type='number'
+                    value={repeat}
+                    onChange={(e) => setRepeat(e.target.value)}
+                    />
+                )}
             </div>
             <div className='flex gap-[var(--gap-medium)] items-center'>
                 {/* reminder toggle */}

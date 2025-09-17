@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     }
 
     const startDate = new Date(Number(year), Number(month), 1).toISOString();
-    const endDate = new Date(Number(year), Number(month) + 1, 0).toISOString();
+    const endDate = new Date(Number(year), Number(month) + 1, 1).toISOString();
 
     const { data, error } = await supabase
         .from('full-schedule')

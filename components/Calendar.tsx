@@ -20,7 +20,6 @@ const Calendar = ({ month, year }: CalendarProps) => {
         setEvents(null);
         const fetchEvents = async () => {
             try {
-                console.log(`fetching events for ${month} ${year}`)
                 const res = await fetch(`/api/events/get`, {
                     method: 'POST',
                     headers: {
@@ -33,6 +32,7 @@ const Calendar = ({ month, year }: CalendarProps) => {
                     setEvents([]);
                 }
                 const data = await res.json();
+                console.log(data);
                 setEvents(data.events ?? []);
             } catch (err) {
                 console.error(err);
@@ -66,13 +66,10 @@ const Calendar = ({ month, year }: CalendarProps) => {
         const isToday = dayNum === todayDate && month === todayMonth && year === todayYear;
         
         const dayEvents = events.filter(event => {
-            const eventDate = new Date(event.date);
-            return (
-                eventDate.getDate() === dayNum && 
-                eventDate.getMonth() === month && 
-                eventDate.getFullYear() === year
-            );
+            const [y, m, d] = event.date.split('-').map(Number);
+            return d === dayNum && (m - 1) === month && y === year;
         });
+
 
         return (
             <CalendarCard 

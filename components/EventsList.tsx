@@ -1,9 +1,12 @@
+'use client'
+
 import { getOrdinal } from '@/lib/dateUtils';
 import { useModal } from '@/providers/ModalProvider';
 import { CalendarEvent } from '@/types/event';
 import Image from 'next/image';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CreateEvent from './CreateEvent';
+import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
 
 type EventsListProps = {
     date?: number;
@@ -13,19 +16,47 @@ type EventsListProps = {
 }
 
 const EventsList = ({ date, month, year, events }: EventsListProps) => {
-	const { openModal } = useModal();
+	const { openModal, closeModal } = useModal();
+	const { refresh } = useRefreshEventsContext();
 
 	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
-	const sortedEvents = [...events].sort((a, b) => {
-		const timeA = a.start_time.localeCompare(b.start_time);
-		return timeA;
-	})
+	const [deadlines, setDeadlines] = useState<CalendarEvent[]>([]); 
+	const [reminders, setReminders] = useState<CalendarEvent[]>([]); 
+	const [normalEvents, setNormalEvents] = useState<CalendarEvent[]>([]); 
+	const [allDayEvents, setAllDayEvents] = useState<CalendarEvent[]>([]); 
 
-	const deadlines = sortedEvents.filter(ev => ev.type === 'deadline');
-	const reminders = sortedEvents.filter(ev => ev.type === 'reminder');
-	const normalEvents = sortedEvents.filter(ev => ev.type === 'event');
-	const allDayEvents = sortedEvents.filter(ev => ev.type === 'all day');
+	useEffect(() => {
+		const sortedEvents = [...events].sort((a, b) => {
+			const timeA = a.start_time.localeCompare(b.start_time);
+			return timeA;
+		})
+	
+		setDeadlines(sortedEvents.filter(ev => ev.type === 'deadline'));
+		setReminders(sortedEvents.filter(ev => ev.type === 'reminder'));
+		setNormalEvents(sortedEvents.filter(ev => ev.type === 'event'));
+		setAllDayEvents(sortedEvents.filter(ev => ev.type === 'all day'));
+	}, [events])
+
+	const deleteEvent = async (id: number) => {
+		try {
+			const res = await fetch('/api/events/del', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ id })
+			});
+			if (!res.ok) {
+				console.error('Failed to delete event');
+				return;
+			}
+			refresh();
+			closeModal();
+		} catch (err) {
+			console.error(err);
+		}
+	}
 
     return (
 		<div className='bg-background-light w-full rounded-[var(--rounding-large)] p-[var(--padding-large)] paragraph-large flex flex-col gap-[var(--gap-medium)] h-fit'>
@@ -62,10 +93,19 @@ const EventsList = ({ date, month, year, events }: EventsListProps) => {
 							<div
 							key={i}
 							className='flex flex-col gap-[var(--gap-small)] bg-card-grey p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
-							>
-								<div className='flex justify-between items-center'>
-									<p className='text-foreground-main paragraph-large col-span-2'>{event.title}</p>
-									<p className='text-right'>{`${event.start_time.substring(0, 5)}`}</p>
+							>	
+								<div className='flex gap-[var(--gap-large)] items-center'>
+									<div className='flex justify-between items-center w-full'>
+										<p className='text-foreground-main paragraph-large col-span-2'>{event.title}</p>
+										<p className='text-right'>{`${event.start_time.substring(0, 5)}`}</p>
+									</div>
+									<Image 
+									src={'/icons/circle-minus.svg'}
+									alt='delete icon'
+									width={24}
+									height={24}
+									onClick={() => deleteEvent(event.id)}
+									/>
 								</div>
 								{event.extra_info !== 'NULL' && event.extra_info !== '' && (
 									<p>
@@ -84,9 +124,18 @@ const EventsList = ({ date, month, year, events }: EventsListProps) => {
 							key={i}
 							className='flex flex-col gap-[var(--gap-small)] bg-card-grey p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
 							>
-								<div className='flex justify-between items-center'>
-									<p className='text-foreground-main paragraph-large col-span-2'>{event.title}</p>
-									<p className='text-right'>{`${event.start_time.substring(0, 5)}`}</p>
+								<div className='flex gap-[var(--gap-large)] items-center'>
+									<div className='flex justify-between items-center w-full'>
+										<p className='text-foreground-main paragraph-large col-span-2'>{event.title}</p>
+										<p className='text-right'>{`${event.start_time.substring(0, 5)}`}</p>
+									</div>
+									<Image 
+									src={'/icons/circle-minus.svg'}
+									alt='delete icon'
+									width={24}
+									height={24}
+									onClick={() => deleteEvent(event.id)}
+									/>
 								</div>
 								{event.extra_info !== 'NULL' && event.extra_info !== '' && (
 									<p>
@@ -105,10 +154,19 @@ const EventsList = ({ date, month, year, events }: EventsListProps) => {
 							key={i}
 							className='flex flex-col gap-[var(--gap-small)] bg-card-grey p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
 							>
-								<div className=' grid grid-cols-4 items-center'>
-									<p className='text-foreground-main paragraph-large col-span-2'>{event.title}</p>
-									<p className='text-right'>{event.location}</p>
-									<p className='text-right'>{`${event.start_time.substring(0, 5)} - ${event.end_time.substring(0, 5)}`}</p>
+								<div className='flex gap-[var(--gap-large)] items-center'>
+									<div className=' grid grid-cols-4 items-center w-full'>
+										<p className='text-foreground-main paragraph-large col-span-2'>{event.title}</p>
+										<p className='text-right'>{event.location}</p>
+										<p className='text-right'>{`${event.start_time.substring(0, 5)} - ${event.end_time.substring(0, 5)}`}</p>
+									</div>
+									<Image 
+									src={'/icons/circle-minus.svg'}
+									alt='delete icon'
+									width={24}
+									height={24}
+									onClick={() => deleteEvent(event.id)}
+									/>
 								</div>
 								{event.extra_info !== 'NULL' && event.extra_info !== '' && (
 									<p>
@@ -127,8 +185,17 @@ const EventsList = ({ date, month, year, events }: EventsListProps) => {
 							key={i}
 							className='flex flex-col gap-[var(--gap-small)] bg-card-grey p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
 							>
-								<div className='flex items-center'>
-									<p className='text-foreground-main paragraph-large col-span-2'>{event.title}</p>
+								<div className='flex gap-[var(--gap-large)] items-center'>
+									<div className='flex items-center w-full'>
+										<p className='text-foreground-main paragraph-large col-span-2'>{event.title}</p>
+									</div>
+									<Image 
+									src={'/icons/circle-minus.svg'}
+									alt='delete icon'
+									width={24}
+									height={24}
+									onClick={() => deleteEvent(event.id)}
+									/>
 								</div>
 								{event.extra_info !== 'NULL' && event.extra_info !== '' && (
 									<p>
