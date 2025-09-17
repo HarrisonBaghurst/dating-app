@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/lib/classUtils';
-import React from 'react'
+import React, { useMemo } from 'react'
 import { CalendarEvent } from '@/types/event';
 import { getOrdinal } from '@/lib/dateUtils';
 import { useModal } from '@/providers/ModalProvider';
@@ -19,6 +19,33 @@ type CalendarCardProps = {
 const CalendarCard = ({ date, month, year, isToday, events }: CalendarCardProps) => {
     const { openModal } = useModal();
 
+    const maxVisible = 5;
+
+    const sortedEvents = useMemo(() => {
+        const typeOrder: Record<string, number> = {
+            deadline: 0,
+            reminder: 1,
+            event: 2,
+            'all day': 3,
+        };
+
+        return [...events].sort((a, b) => {
+            const typeA = typeOrder[a.type] ?? 99;
+            const typeB = typeOrder[b.type] ?? 99;
+
+            if (typeA !== typeB) {
+                return typeA - typeB;
+            }
+
+            // Compare by start_time if both have it
+            if (a.start_time && b.start_time) {
+                return a.start_time.localeCompare(b.start_time);
+            }
+
+            return 0;
+        });
+    }, [events]);
+
     return (
         <motion.div
         whileHover={{
@@ -33,10 +60,10 @@ const CalendarCard = ({ date, month, year, isToday, events }: CalendarCardProps)
         onClick={() => {
             openModal(
             <EventsList 
-                date={date}
-                month={month}
-                year={year}
-                events={events}
+            date={date}
+            month={month}
+            year={year}
+            events={events}
             />
             )
         }}
@@ -46,9 +73,12 @@ const CalendarCard = ({ date, month, year, isToday, events }: CalendarCardProps)
                 <span className='paragraph-small'>{getOrdinal(date)}</span>
             </p>
             <div className='paragraph-small text-foreground-second'>
-                {events?.map((event, i) => (
-                <div key={i}>{event.title}</div>
+                {sortedEvents.slice(0, maxVisible - (sortedEvents.length > maxVisible ? 1 : 0)).map((event, i) => (
+                    <div key={i}>{event.title}</div>
                 ))}
+                {sortedEvents.length > maxVisible && (
+                    <div>+{sortedEvents.length - (maxVisible - 1)} more</div>
+                )}
             </div>
         </motion.div>
     )
