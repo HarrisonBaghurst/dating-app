@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import CalendarCard from './CalendarCard'
 import Loader from './Loader';
 import type { CalendarEvent } from '@/types/event'
+import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
 
 type CalendarProps = {
     month: number;
@@ -11,26 +12,35 @@ type CalendarProps = {
 }
 
 const Calendar = ({ month, year }: CalendarProps) => {
+    const { trigger } = useRefreshEventsContext();
     const [events, setEvents] = useState<CalendarEvent[] | null>(null);
 
     // fetch events for month
     useEffect(() => {
         setEvents(null);
         const fetchEvents = async () => {
-            const res = await fetch(`/api/events/get`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ month, year })
-            });
-            const data = await res.json();
-            if (data.events) {
-                setEvents(data.events);
+            try {
+                console.log(`fetching events for ${month} ${year}`)
+                const res = await fetch(`/api/events/get`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ month, year })
+                });
+                if (!res.ok) {
+                    console.error('Failed to fetch events');
+                    setEvents([]);
+                }
+                const data = await res.json();
+                setEvents(data.events ?? []);
+            } catch (err) {
+                console.error(err);
+                setEvents([]);
             }
         }
         fetchEvents();
-    }, [month, year])
+    }, [month, year, trigger])
 
     // don't show calendar until events are loaded
     if (events === null) return <Loader />;

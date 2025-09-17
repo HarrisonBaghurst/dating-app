@@ -58,7 +58,7 @@ const EventsList = ({ date, month, year, events }: EventsListProps) => {
 						key={i}
 						className='flex flex-col gap-[var(--gap-small)] bg-card-grey p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
 						>
-							<div className=' grid grid-cols-4'>
+							<div className=' grid grid-cols-4 items-center'>
 								<p className='text-foreground-main paragraph-large col-span-2'>{event.title}</p>
 								<p className='text-right'>{`${event.start_time.substring(0, 5)} - ${event.end_time.substring(0, 5)}`}</p>
 								<p className='text-right'>{event.location}</p>

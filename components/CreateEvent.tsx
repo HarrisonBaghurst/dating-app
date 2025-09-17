@@ -7,12 +7,14 @@ import DatePicker from './DatePicker';
 import ToggleState from './ToggleState';
 import Button from './Button';
 import { useModal } from '@/providers/ModalProvider';
+import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
 
 type CreateEventProps = {
     defaultDate?: Date | null;
 }
 
 const CreateEvent = ({ defaultDate }: CreateEventProps) => {
+    const { refresh } = useRefreshEventsContext();
     const { closeModal } = useModal();
     const eventTypes = ['Deadline', 'Reminder', 'Event', 'All Day'] as const;
 
@@ -75,6 +77,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
             return;
         }
         closeModal();
+        refresh();
     }
 
     return (
