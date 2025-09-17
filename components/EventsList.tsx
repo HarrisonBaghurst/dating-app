@@ -22,6 +22,11 @@ const EventsList = ({ date, month, year, events }: EventsListProps) => {
 		return timeA;
 	})
 
+	const deadlines = sortedEvents.filter(ev => ev.type === 'deadline');
+	const reminders = sortedEvents.filter(ev => ev.type === 'reminder');
+	const normalEvents = sortedEvents.filter(ev => ev.type === 'event');
+	const allDayEvents = sortedEvents.filter(ev => ev.type === 'all day');
+
     return (
 		<div className='bg-background-light w-full rounded-[var(--rounding-large)] p-[var(--padding-large)] paragraph-large flex flex-col gap-[var(--gap-medium)] h-fit'>
 			{date && month && year && (
@@ -46,32 +51,94 @@ const EventsList = ({ date, month, year, events }: EventsListProps) => {
 					/>
 				</div>
 			)}
-			<div className='flex flex-col gap-[var(--gap-small)]'>
-				{sortedEvents.length === 0 ? (
+			<div className='flex flex-col gap-[var(--gap-large)]'>
+				{events.length === 0 && (
 					<h2 className='title-small font-enorm text-foreground-second'>Nothing Scheduled</h2>
-				) : (
-					<h2 className='title-small font-enorm'>Events</h2>
 				)}
-				<div className='flex flex-col gap-[var(--gap-small)]'>
-					{sortedEvents.map((event, i) => (
-						<div
-						key={i}
-						className='flex flex-col gap-[var(--gap-small)] bg-card-grey p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
-						>
-							<div className=' grid grid-cols-4 items-center'>
-								<p className='text-foreground-main paragraph-large col-span-2'>{event.title}</p>
-								<p className='text-right'>{`${event.start_time.substring(0, 5)} - ${event.end_time.substring(0, 5)}`}</p>
-								<p className='text-right'>{event.location}</p>
+				{deadlines.length !== 0 && 
+					<div className='flex flex-col gap-[var(--gap-small)]'>
+						<h2 className='title-small font-enorm'>Deadlines</h2>	
+						{deadlines.map((event, i) => (
+							<div
+							key={i}
+							className='flex flex-col gap-[var(--gap-small)] bg-card-grey p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
+							>
+								<div className='flex justify-between items-center'>
+									<p className='text-foreground-main paragraph-large col-span-2'>{event.title}</p>
+									<p className='text-right'>{`${event.start_time.substring(0, 5)}`}</p>
+								</div>
+								{event.extra_info !== 'NULL' && event.extra_info !== '' && (
+									<p>
+										{event.extra_info}
+									</p>
+								)}
 							</div>
-							{event.extra_info !== 'NULL' && event.extra_info !== '' && (
-								<p>
-									{event.extra_info}
-								</p>
-									
-							)}
-						</div>
-					))}
-				</div>
+						))}
+					</div>
+				}
+				{reminders.length !== 0 && 
+					<div className='flex flex-col gap-[var(--gap-small)]'>
+						<h2 className='title-small font-enorm'>Reminders</h2>	
+						{reminders.map((event, i) => (
+							<div
+							key={i}
+							className='flex flex-col gap-[var(--gap-small)] bg-card-grey p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
+							>
+								<div className='flex justify-between items-center'>
+									<p className='text-foreground-main paragraph-large col-span-2'>{event.title}</p>
+									<p className='text-right'>{`${event.start_time.substring(0, 5)}`}</p>
+								</div>
+								{event.extra_info !== 'NULL' && event.extra_info !== '' && (
+									<p>
+										{event.extra_info}
+									</p>
+								)}
+							</div>
+						))}
+					</div>
+				}
+				{normalEvents.length !== 0 && 
+					<div className='flex flex-col gap-[var(--gap-small)]'>
+						<h2 className='title-small font-enorm'>Events</h2>	
+						{normalEvents.map((event, i) => (
+							<div
+							key={i}
+							className='flex flex-col gap-[var(--gap-small)] bg-card-grey p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
+							>
+								<div className=' grid grid-cols-4 items-center'>
+									<p className='text-foreground-main paragraph-large col-span-2'>{event.title}</p>
+									<p className='text-right'>{event.location}</p>
+									<p className='text-right'>{`${event.start_time.substring(0, 5)} - ${event.end_time.substring(0, 5)}`}</p>
+								</div>
+								{event.extra_info !== 'NULL' && event.extra_info !== '' && (
+									<p>
+										{event.extra_info}
+									</p>
+								)}
+							</div>
+						))}
+					</div>
+				}
+				{allDayEvents.length !== 0 && 
+					<div className='flex flex-col gap-[var(--gap-small)]'>
+						<h2 className='title-small font-enorm'>All Day</h2>	
+						{allDayEvents.map((event, i) => (
+							<div
+							key={i}
+							className='flex flex-col gap-[var(--gap-small)] bg-card-grey p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
+							>
+								<div className='flex items-center'>
+									<p className='text-foreground-main paragraph-large col-span-2'>{event.title}</p>
+								</div>
+								{event.extra_info !== 'NULL' && event.extra_info !== '' && (
+									<p>
+										{event.extra_info}
+									</p>
+								)}
+							</div>
+						))}
+					</div>
+				}
 			</div>
 		</div>
     )
