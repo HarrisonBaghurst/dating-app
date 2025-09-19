@@ -18,16 +18,6 @@ const SideBar = () => {
 			"text": "Calendar",
 			"icon": "/icons/calendar-week.svg",
 			"dest": "/calendar",
-		},
-		{
-			"text": "Create",
-			"icon": "/icons/square-plus.svg",
-			"dest": "...",
-		},
-		{
-			"text": "List View",
-			"icon": "/icons/eye.svg",
-			"dest": "...",
 		}
 	]
 
