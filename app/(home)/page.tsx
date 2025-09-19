@@ -1,87 +1,87 @@
 'use client'
 
-import Calendar from '@/components/Calendar';
-import Loader from '@/components/Loader';
+import EventsList from '@/components/EventsList';
+import TitleTime from '@/components/TitleTime';
+import { months } from '@/constants/CalendarInfo';
+import { getOrdinal } from '@/lib/dateUtils';
+import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
+import { CalendarEvent } from '@/types/event';
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
+import Loader from '@/components/Loader';
+import CreateEvent from '@/components/CreateEvent';
 
 const page = () => {
-	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+	const today = new Date();
+    const todayDate = today.getDate();
+    const todayMonth = today.getMonth();
+    const todayYear = today.getFullYear();
 
-	const [time, setTime] = useState<Date | null>(null); // used for clock and current day checking 
-	const [calendarMonth, setCalendarMonth] = useState<number | null>(null); 
-	const [calendarYear, setCalendarYear] = useState<number | null>(null);
-	
+	const {trigger} = useRefreshEventsContext();
+	const [events, setEvents] = useState<CalendarEvent[] | null>(null);
+
+	// fetch events for month
 	useEffect(() => {
-		// get month and year
-		const tempTime = new Date();
-		setCalendarMonth(tempTime.getMonth());
-		setCalendarYear(tempTime.getFullYear());
-
-		// set up the interval for updating the clock 
-		const interval = setInterval(() => {
-			setTime(new Date());
-		}, 1000);
-
-		setTime(new Date());
-			
-		// remove interval on dismount
-		return () => clearInterval(interval);
-	}, []);
-
-	// until time is found return loader element 
-	if (!time || calendarMonth === null || calendarYear === null) return null;
-
-	const updateCalendarMonth = (change: number) => { // +1 increases month shown in calendar, -1 decreases month
-		let currentMonth = calendarMonth;
-		currentMonth += change;
-		if (currentMonth >= 12) {
-			currentMonth -= 12;
-			setCalendarYear(calendarYear + 1);
+		setEvents(null);
+		const fetchEvents = async () => {
+			try {
+				const res = await fetch(`/api/events/get`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ month: todayMonth, year: todayYear })
+				});
+				if (!res.ok) {
+					console.error('Failed to fetch events');
+					setEvents([]);
+				}
+				const data = await res.json();
+				console.log(data);
+				setEvents(data.events);
+			} catch (err) {
+				console.error(err);
+				setEvents([]);
+			}
 		}
-		else if (currentMonth < 0) {
-			currentMonth += 12;
-			setCalendarYear(calendarYear - 1);
-		}
-		setCalendarMonth(currentMonth);
-	}
-
+		fetchEvents();
+	}, [trigger])
+	
 	return (
-		<section className='w-full h-fit bg-background-light rounded-l-[var(--rounding-large)] overflow-hidden p-[var(--padding-large)] flex flex-col gap-[var(--gap-large)]'>
-			<div className='flex items-center justify-between'>
-				<div className='flex gap-[var(--gap-small)] items-center'>
-					<Image 
-					src={'/icons/chevron-left.svg'}
-					alt={'left arrow icon'}
-					width={32}
-					height={32}
-					className='cursor-pointer'
-					onClick={() => updateCalendarMonth(-1)}
-					/>
-					<h1 className='title-large font-enorm'>
-						{`${months[calendarMonth]}, ${calendarYear}`}
-					</h1>
-					<Image 
-					src={'/icons/chevron-left.svg'}
-					alt={'left arrow icon'}
-					width={32}
-					height={32}
-					className='cursor-pointer rotate-180'
-					onClick={() => updateCalendarMonth(1)}
-					/>
-				</div>
-				<h2 className='title-small font-enorm'>
-					{`${String(time.getHours()).padStart(2, '0')} : ${String(time.getMinutes()).padStart(2, '0')} : ${String(time.getSeconds()).padStart(2, '0')}`}
-				</h2>
+		<section className='w-full h-fit min-h-screen bg-background-light rounded-l-[var(--rounding-large)] overflow-hidden p-[var(--padding-large)] flex flex-col gap-[var(--gap-large)]'>
+			<div className='flex justify-between items-center'>
+				<h1 className='title-large font-enorm'>
+					{todayDate}
+					<span className='title-small'>{getOrdinal(todayDate)}</span>
+					{` ${months[todayMonth]}, ${todayYear}`}
+				</h1>
+				<TitleTime />
 			</div>
-			<Calendar 
-			month={calendarMonth}
-			year={calendarYear}
-			/>
+			<div className='grid grid-cols-2 gap-[var(--gap-large)]'>
+				<div className='flex flex-col gap-[var(--gap-large)]'>
+					<div className='h-fit bg-background-dark p-[var(--padding-small)] rounded-[calc(var(--rounding-large)+var(--padding-small))] gap-[var(--gap-small)]'>
+						{events? (
+							<EventsList 
+							title='Today'
+							events={events.filter((event: CalendarEvent) => (new Date(event.date)).getDate() === today.getDate()) ?? []}
+							/>
+						): <Loader />}
+					</div>
+					<div className='h-fit bg-background-dark p-[var(--padding-small)] rounded-[calc(var(--rounding-large)+var(--padding-small))] gap-[var(--gap-small)]'>
+						{events? (
+							<EventsList 
+							title='Tomorrow'
+							events={events.filter((event: CalendarEvent) => (new Date(event.date)).getDate() === today.getDate() + 1) ?? []}
+							/>
+						): <Loader />}
+					</div>
+				</div>
+				<div className='h-fit bg-background-dark p-[var(--padding-small)] rounded-[calc(var(--rounding-large)+var(--padding-small))]'>
+					<CreateEvent />
+				</div>
+			</div>
+			
 		</section>
 	)
 }
 
 export default page
-
-// events, reminders, deadlines, all-day event

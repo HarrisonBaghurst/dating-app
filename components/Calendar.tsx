@@ -5,6 +5,7 @@ import CalendarCard from './CalendarCard'
 import Loader from './Loader';
 import type { CalendarEvent } from '@/types/event'
 import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
+import { weekDays } from '@/constants/CalendarInfo';
 
 type CalendarProps = {
     month: number;
@@ -46,7 +47,6 @@ const Calendar = ({ month, year }: CalendarProps) => {
     if (events === null) return <Loader />;
 
     // days setup for visuals of calendar
-    const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     let firstDayOfMonth = new Date(year, month, 1).getDay();
     firstDayOfMonth = (firstDayOfMonth + 6) % 7;

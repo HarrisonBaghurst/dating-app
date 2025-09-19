@@ -1,34 +1,37 @@
 'use client'
 
 import { cn } from '@/lib/classUtils'
+import { motion } from 'framer-motion'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import React from 'react'
 
 const SideBar = () => {	
 	const links = [
 		{
 			"text": "Home",
 			"icon": "/icons/home.svg",
-			"link": "/",
+			"dest": "/",
 		},
 		{
 			"text": "Calendar",
 			"icon": "/icons/calendar-week.svg",
-			"link": "/",
+			"dest": "/calendar",
 		},
 		{
 			"text": "Create",
 			"icon": "/icons/square-plus.svg",
-			"link": "/",
+			"dest": "...",
 		},
 		{
 			"text": "List View",
 			"icon": "/icons/eye.svg",
-			"link": "/",
+			"dest": "...",
 		}
 	]
 
-	const [selected, setSelected] = useState(1);
+	const pathname = usePathname();
 
     return (
         <section className='w-[20dvw] h-screen bg-background-dark p-[var(--padding-large)] flex flex-col gap-[var(--gap-large)] fixed'>
@@ -51,23 +54,36 @@ const SideBar = () => {
 				</div>
 			</div>
 			<div className='paragraph-large flex flex-col gap-[var(--gap-small)]'>
-				{links.map((link, i) => (
-					<div
-					key={i}
-					className={cn(
-						'rounded-[var(--rounding-small)] p-[var(--padding-small)] flex items-center gap-[var(--gap-medium)] cursor-pointer',
-						i === selected && 'bg-card-highlight'
-					)}
-					>	
-						<Image 
-						src={link.icon}
-						alt={`${link.text} icon`}
-						width={32}
-						height={32}
-						/>
-						{link.text}
-					</div>
-				))}
+				{links.map((link, i) => {
+					const isActive = link.dest === '/' ? pathname === '/' : pathname.includes(link.dest);
+
+					return (
+						<Link
+						href={link.dest}
+						key={i}
+						className={cn(
+							'relative rounded-[var(--rounding-small)] p-[var(--padding-small)] cursor-pointer',
+						)}
+						>	
+							{isActive && (
+								<motion.div
+								layoutId='activeBackground'
+								className='absolute inset-0 bg-card-highlight rounded-[var(--rounding-small)]'
+								transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+								/>
+							)}
+							<div className='relative flex items-center gap-[var(--gap-medium)]'>
+								<Image 
+								src={link.icon}
+								alt={`${link.text} icon`}
+								width={32}
+								height={32}
+								/>
+								{link.text}
+							</div>
+						</Link>
+					)
+				})}
 			</div>
         </section>
     )

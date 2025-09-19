@@ -13,9 +13,10 @@ type EventsListProps = {
 	month?: number;
 	year?: number;
     events: CalendarEvent[];
+	title?: string;
 }
 
-const EventsList = ({ date, month, year, events }: EventsListProps) => {
+const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 	const { openModal, closeModal } = useModal();
 	const { refresh } = useRefreshEventsContext();
 
@@ -60,6 +61,12 @@ const EventsList = ({ date, month, year, events }: EventsListProps) => {
 
     return (
 		<div className='bg-background-light w-full rounded-[var(--rounding-large)] p-[var(--padding-large)] paragraph-large flex flex-col gap-[var(--gap-medium)] h-fit'>
+			{title && (
+				<h2 className='title-large font-enorm'>
+					{title}
+				</h2>
+
+			)}
 			{date && month && year && (
 				<div className='flex justify-between items-center'>
 					<h1 className='flex items-baseline text-foreground-main font-enorm title-large'>
