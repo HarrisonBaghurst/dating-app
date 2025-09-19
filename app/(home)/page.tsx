@@ -64,7 +64,7 @@ const page = () => {
 							title='Today'
 							events={events.filter((event: CalendarEvent) => (new Date(event.date)).getDate() === today.getDate()) ?? []}
 							/>
-						): <Loader />}
+						): <div className='relative h-[15rem]'><Loader /></div>}
 					</div>
 					<div className='h-fit bg-background-dark p-[var(--padding-small)] rounded-[calc(var(--rounding-large)+var(--padding-small))] gap-[var(--gap-small)]'>
 						{events? (
@@ -72,7 +72,7 @@ const page = () => {
 							title='Tomorrow'
 							events={events.filter((event: CalendarEvent) => (new Date(event.date)).getDate() === today.getDate() + 1) ?? []}
 							/>
-						): <Loader />}
+						): <div className='relative h-[15rem]'><Loader /></div>}
 					</div>
 				</div>
 				<div className='h-fit bg-background-dark p-[var(--padding-small)] rounded-[calc(var(--rounding-large)+var(--padding-small))]'>

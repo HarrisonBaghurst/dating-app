@@ -3,7 +3,7 @@ import React from 'react'
 
 const Loader = () => {
     return (
-        <div className='w-full h-screen bg-background-light rounded-[var(--rounding-large)] flex justify-center items-center'>
+        <div className='w-full h-full bg-background-light rounded-[var(--rounding-large)] flex justify-center items-center'>
             <Image 
 			src={'/icons/loader-2.svg'}
 			alt='rotating loader'

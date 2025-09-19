@@ -65,7 +65,6 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 				<h2 className='title-large font-enorm'>
 					{title}
 				</h2>
-
 			)}
 			{date && month && year && (
 				<div className='flex justify-between items-center'>

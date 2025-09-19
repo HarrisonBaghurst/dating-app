@@ -17,6 +17,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
     const { refresh } = useRefreshEventsContext();
     const { closeModal } = useModal();
     const eventTypes = ['Deadline', 'Reminder', 'Event', 'All Day'] as const;
+    const [clicked, setClicked] = useState(false);
 
     // storing input information
     const [selected, setSelected] = useState<'Deadline' | 'Reminder' | 'Event' | 'All Day'>('Deadline');
@@ -34,7 +35,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
 
     useEffect(() => {
         if (
-            title && date && (
+            !clicked && title && date && (
                 (selected === 'Deadline' && startTime !== '00:00') || 
                 (selected === 'Reminder' && startTime !== '00:00') ||
                 (selected === 'Event' && startTime !== '00:00' && endTime !== '00:00' && location !== '') ||
@@ -45,10 +46,12 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
             return;
         }
         setClickable(false);
-    }, [selected, title, date, startTime, endTime]);
+    }, [selected, title, date, startTime, endTime, clicked]);
 
     const createEvent = async () => {
         if (!date) return;
+
+        setClicked(true);
 
         const numRepeats = selected === 'Event' ? Math.max(1, parseInt(repeat || '1', 10) || 1) : 1;
 
@@ -88,10 +91,23 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
 
             closeModal();
             refresh();
+            setClicked(false);
+            resetInputs();
         } catch (err) {
             console.error(err);
             alert('Error creating events: ' + (err instanceof Error ? err.message : 'unknown'));
         }
+    }
+
+    const resetInputs = () => {
+        setTitle('');
+        setLocation('');
+        setDate(null);
+        setStartTime('00:00');
+        setEndTime('00:00');
+        setExtraInfo('');
+        setRepeat('1');
+        setRemind(false);
     }
 
     return (
