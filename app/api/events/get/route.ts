@@ -4,6 +4,10 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
     const supabase = await createServerSupabaseClient();
 
+    // validate user
+    const { data: { user }, error: userErr } = await supabase.auth.getUser();
+    if (userErr || !user) return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
+
     const { month, year } = await request.json();
 
     if (month === null || month === undefined || year == null || year === undefined) {

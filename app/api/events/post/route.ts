@@ -3,6 +3,10 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
     const supabase = await createServerSupabaseClient();
+    
+    // validate user
+    const { data: { user }, error: userErr } = await supabase.auth.getUser();
+    if (userErr || !user) return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
 
     try {
         const { title, date, location, startTime, endTime, extraInfo, remind, eventType } = await request.json();
