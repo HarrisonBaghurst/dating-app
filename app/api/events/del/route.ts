@@ -1,5 +1,7 @@
+import { createClient } from '@/lib/supabaseClient';
 import { NextResponse } from 'next/server';
-import { supabase } from "@/lib/supabaseClient";
+
+const supabase = await createClient();
 
 export async function POST(request: Request) {
     try {
