@@ -25,6 +25,7 @@ const page = () => {
 		const fetchEvents = async () => {
 			try {
 				const res = await fetch(`/api/events/get`, {
+					credentials: 'include',
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',

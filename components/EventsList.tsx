@@ -42,6 +42,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 	const deleteEvent = async (id: number) => {
 		try {
 			const res = await fetch('/api/events/del', {
+				credentials: 'include',
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
