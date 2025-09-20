@@ -58,7 +58,7 @@ const page = () => {
 			</div>
 			<div className='grid grid-cols-2 gap-[var(--gap-large)]'>
 				<div className='flex flex-col gap-[var(--gap-large)]'>
-					<div className='h-fit bg-background-dark p-[var(--padding-small)] rounded-[calc(var(--rounding-large)+var(--padding-small))] gap-[var(--gap-small)]'>
+					<div className='h-fit bg-card-grey p-[3px] rounded-[calc(var(--rounding-large)+3px)] gap-[var(--gap-small)]'>
 						{events? (
 							<EventsList 
 							title='Today'
@@ -66,7 +66,7 @@ const page = () => {
 							/>
 						): <div className='relative h-[15rem]'><Loader /></div>}
 					</div>
-					<div className='h-fit bg-background-dark p-[var(--padding-small)] rounded-[calc(var(--rounding-large)+var(--padding-small))] gap-[var(--gap-small)]'>
+					<div className='h-fit bg-card-grey p-[3px] rounded-[calc(var(--rounding-large)+3px)] gap-[var(--gap-small)]'>
 						{events? (
 							<EventsList 
 							title='Tomorrow'
@@ -75,7 +75,7 @@ const page = () => {
 						): <div className='relative h-[15rem]'><Loader /></div>}
 					</div>
 				</div>
-				<div className='h-fit bg-background-dark p-[var(--padding-small)] rounded-[calc(var(--rounding-large)+var(--padding-small))]'>
+				<div className='h-fit bg-card-grey p-[3px] rounded-[calc(var(--rounding-large)+3px)]'>
 					<CreateEvent />
 				</div>
 			</div>

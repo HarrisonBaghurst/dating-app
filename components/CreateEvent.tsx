@@ -8,6 +8,7 @@ import ToggleState from './ToggleState';
 import Button from './Button';
 import { useModal } from '@/providers/ModalProvider';
 import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
+import Image from 'next/image';
 
 type CreateEventProps = {
     defaultDate?: Date | null;
@@ -16,7 +17,7 @@ type CreateEventProps = {
 const CreateEvent = ({ defaultDate }: CreateEventProps) => {
     const { refresh } = useRefreshEventsContext();
     const { closeModal } = useModal();
-    const eventTypes = ['Deadline', 'Reminder', 'Event', 'All Day'] as const;
+    const eventTypes = [['Deadline', 'stopwatch.svg'], ['Reminder', 'bulb.svg'], ['Event', 'ticket.svg'], ['All Day', 'hours-24.svg']] as const;
     const [clicked, setClicked] = useState(false);
 
     // storing input information
@@ -35,7 +36,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
 
     useEffect(() => {
         if (
-            !clicked && title && date && (
+            title && date && (
                 (selected === 'Deadline' && startTime !== '00:00') || 
                 (selected === 'Reminder' && startTime !== '00:00') ||
                 (selected === 'Event' && startTime !== '00:00' && endTime !== '00:00' && location !== '') ||
@@ -102,7 +103,6 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
     const resetInputs = () => {
         setTitle('');
         setLocation('');
-        setDate(null);
         setStartTime('00:00');
         setEndTime('00:00');
         setExtraInfo('');
@@ -118,16 +118,16 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                     New Calendar Entry
                 </h1>
                 {/* type of event selector */}
-                <div className='grid grid-cols-4 gap-[var(--gap-large)] paragraph-large text-foreground-main'>
+                <div className='flex justify-between paragraph-large text-foreground-main'>
                     {eventTypes.map((eventType, i) => (
                         <motion.div
                         key={i}
-                        whileHover={! (selected === eventType) ? { borderColor: "var(--card-highlight)" } : {}}
+                        whileHover={! (selected === eventType[0]) ? { borderColor: "var(--card-highlight)" } : {}}
                         transition={{ duration: 0.2 }}
                         className={'relative p-[var(--padding-small)] rounded-[var(--rounding-small)] flex justify-center cursor-pointer border-[3px] border-transparent'}
-                        onClick={() => setSelected(eventType)}
+                        onClick={() => setSelected(eventType[0])}
                         >
-                            {selected === eventType && (
+                            {selected === eventType[0] && (
                                 <motion.div 
                                 layoutId='highlight'
                                 className='absolute inset-0 bg-card-highlight rounded-[var(--rounding-small)]'
@@ -138,9 +138,15 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                                 }}
                                 />
                             )}
-                            <span className='relative z-10'>
-                                {eventType}
-                            </span>
+                                <div className='relative z-10 flex gap-[var(--gap-small)] items-center'>
+                                <Image 
+                                src={`/icons/${eventType[1]}`}
+                                alt='event type image'
+                                width={32}
+                                height={32}
+                                />
+                                {eventType[0]}
+                            </div>
                         </motion.div>
                     ))}
                 </div>
@@ -211,7 +217,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                 {/* final create button */}
                 <Button 
                 text='Create New Calendar Entry'
-                clickable={clickable}
+                clickable={clickable && !clicked}
                 onClick={() => createEvent()}
                 />
             </div>

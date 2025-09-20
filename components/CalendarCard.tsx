@@ -7,6 +7,7 @@ import { getOrdinal } from '@/lib/dateUtils';
 import { useModal } from '@/providers/ModalProvider';
 import EventsList from './EventsList';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 type CalendarCardProps = {
     date: number;
@@ -46,6 +47,15 @@ const CalendarCard = ({ date, month, year, isToday, events }: CalendarCardProps)
         });
     }, [events]);
 
+    const getEventImage = (type: string) => {
+        switch (type) {
+            case 'deadline': return 'stopwatch'
+            case 'reminder': return 'bulb'
+            case 'event': return 'ticket'
+            default: return 'hours-24'
+        }
+    }
+
     return (
         <motion.div
         whileHover={{
@@ -59,12 +69,12 @@ const CalendarCard = ({ date, month, year, isToday, events }: CalendarCardProps)
         )}
         onClick={() => {
             openModal(
-            <EventsList 
-            date={date}
-            month={month}
-            year={year}
-            events={events}
-            />
+                <EventsList 
+                date={date}
+                month={month}
+                year={year}
+                events={events}
+                />
             )
         }}
         >
@@ -74,7 +84,18 @@ const CalendarCard = ({ date, month, year, isToday, events }: CalendarCardProps)
             </p>
             <div className='paragraph-small text-foreground-second'>
                 {sortedEvents.slice(0, maxVisible - (sortedEvents.length > maxVisible ? 1 : 0)).map((event, i) => (
-                    <div key={i}>{event.title}</div>
+                    <div 
+                    key={i}
+                    className='flex items-center gap-[var(--gap-xsmall)]'
+                    >
+                        <Image 
+                        src={`/icons/${getEventImage(event.type)}.svg`}
+                        alt='event icon'
+                        width={20}
+                        height={20}
+                        />
+                        {event.title}
+                    </div>
                 ))}
                 {sortedEvents.length > maxVisible && (
                     <div>+{sortedEvents.length - (maxVisible - 1)} more</div>

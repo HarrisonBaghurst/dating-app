@@ -22,8 +22,14 @@
   --color-background-light: var(--background-light);
   --color-foreground-main: var(--foreground-main);
   --color-foreground-second: var(--foreground-second);
+
   --color-card-grey: var(--card-grey);
   --color-card-highlight: var(--card-highlight);
+
+  --color-event-yellow: var(--event-yellow);
+  --color-event-pink: var(--event-pink);
+  --color-event-blue: var(--event-blue);
+  --color-event-purple: var(--event-purple);
   
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -114,7 +120,12 @@ input:focus {
   --foreground-second: hsl(0, 0%, 70%);
 
   --card-grey: hsl(0, 0%, 15%);
-  --card-highlight: hsl(220, 10%, 30%);
+  --card-highlight: hsl(216, 12%, 17%);
+
+  --event-yellow: hsl(44, 64%, 55%);
+  --event-pink: hsl(348, 64%, 55%);
+  --event-blue: hsl(188, 46%, 49%);
+  --event-purple: hsl(267, 74%, 66%);
 
   --rounding-large: 1rem;
   --rounding-small: 0.5rem;
@@ -123,6 +134,7 @@ input:focus {
   --gap-large: 3rem;
   --gap-medium: 2rem;
   --gap-small: 1rem;
+  --gap-xsmall: 0.4rem;
 
   --title-large: 3rem;
   --title-small: 2rem;

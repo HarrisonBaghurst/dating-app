@@ -94,7 +94,15 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 				)}
 				{deadlines.length !== 0 && 
 					<div className='flex flex-col gap-[var(--gap-small)]'>
-						<h2 className='title-small font-enorm'>Deadlines</h2>	
+						<div className='flex gap-[var(--gap-small)] items-center'>
+							<Image 
+							src={'/icons/stopwatch.svg'}
+							alt='deadline icon'
+							width={32}
+							height={32}
+							/>
+							<h2 className='title-small font-enorm'>Deadlines</h2>	
+						</div>
 						{deadlines.map((event, i) => (
 							<div
 							key={i}
@@ -124,7 +132,15 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 				}
 				{reminders.length !== 0 && 
 					<div className='flex flex-col gap-[var(--gap-small)]'>
-						<h2 className='title-small font-enorm'>Reminders</h2>	
+						<div className='flex gap-[var(--gap-small)] items-center'>
+							<Image 
+							src={'/icons/bulb.svg'}
+							alt='reminder icon'
+							width={32}
+							height={32}
+							/>
+							<h2 className='title-small font-enorm'>Reminders</h2>	
+						</div>
 						{reminders.map((event, i) => (
 							<div
 							key={i}
@@ -154,7 +170,15 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 				}
 				{normalEvents.length !== 0 && 
 					<div className='flex flex-col gap-[var(--gap-small)]'>
-						<h2 className='title-small font-enorm'>Events</h2>	
+						<div className='flex gap-[var(--gap-small)] items-center'>
+							<Image 
+							src={'/icons/ticket.svg'}
+							alt='event icon'
+							width={32}
+							height={32}
+							/>
+							<h2 className='title-small font-enorm'>Events</h2>	
+						</div>
 						{normalEvents.map((event, i) => (
 							<div
 							key={i}
@@ -185,7 +209,15 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 				}
 				{allDayEvents.length !== 0 && 
 					<div className='flex flex-col gap-[var(--gap-small)]'>
-						<h2 className='title-small font-enorm'>All Day</h2>	
+						<div className='flex gap-[var(--gap-small)] items-center'>
+							<Image 
+							src={'/icons/hours-24.svg'}
+							alt='all day icon'
+							width={32}
+							height={32}
+							/>
+							<h2 className='title-small font-enorm'>All Day</h2>	
+						</div>
 						{allDayEvents.map((event, i) => (
 							<div
 							key={i}
