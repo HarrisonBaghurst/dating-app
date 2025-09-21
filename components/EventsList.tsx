@@ -7,6 +7,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import CreateEvent from './CreateEvent';
 import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
+import { cn } from '@/lib/classUtils';
 
 type EventsListProps = {
     date?: number;
@@ -27,6 +28,8 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 	const [normalEvents, setNormalEvents] = useState<CalendarEvent[]>([]); 
 	const [allDayEvents, setAllDayEvents] = useState<CalendarEvent[]>([]); 
 
+	const [clickable, setClickable] = useState(true);
+
 	useEffect(() => {
 		const sortedEvents = [...events].sort((a, b) => {
 			const timeA = a.start_time.localeCompare(b.start_time);
@@ -40,23 +43,27 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 	}, [events])
 
 	const deleteEvent = async (id: number) => {
-		try {
-			const res = await fetch('/api/events/del', {
-				credentials: 'include',
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ id })
-			});
-			if (!res.ok) {
-				console.error('Failed to delete event');
-				return;
+		if (clickable) {
+			setClickable(false);
+			try {
+				const res = await fetch('/api/events/del', {
+					credentials: 'include',
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ id })
+				});
+				if (!res.ok) {
+					console.error('Failed to delete event');
+					return;
+				}
+				refresh();
+				closeModal();
+				setClickable(false);
+			} catch (err) {
+				console.error(err);
 			}
-			refresh();
-			closeModal();
-		} catch (err) {
-			console.error(err);
 		}
 	}
 
@@ -89,7 +96,10 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 					/>
 				</div>
 			)}
-			<div className='flex flex-col gap-[var(--gap-large)]'>
+			<div className={cn(
+				'flex flex-col gap-[var(--gap-large)]',
+				clickable? 'opacity-100' : 'opacity-10'
+			)}>
 				{events.length === 0 && (
 					<h2 className='title-small font-enorm text-foreground-second'>Nothing Scheduled</h2>
 				)}
