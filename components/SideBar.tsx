@@ -42,30 +42,35 @@ const SideBar = () => {
 					const isActive = link.dest === '/' ? pathname === '/' : pathname.includes(link.dest);
 
 					return (
-						<Link
-						href={link.dest}
-						key={i}
-						className={cn(
-							'relative rounded-[var(--rounding-small)] p-[var(--padding-small)] cursor-pointer',
-						)}
-						>	
-							{isActive && (
-								<motion.div
-								layoutId='activeBackground'
-								className='absolute inset-0 bg-card-highlight rounded-[var(--rounding-small)]'
-								transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-								/>
+						<motion.div
+							whileHover={! (isActive) ? { borderColor: "var(--card-highlight)" } : {}}
+							key={i}
+							className={cn(
+								'relative rounded-[var(--rounding-small)] p-[var(--padding-small)] cursor-pointer',
+								'border-[3px] border-transparent'
 							)}
-							<div className='relative flex items-center gap-[var(--gap-medium)]'>
-								<Image 
-								src={link.icon}
-								alt={`${link.text} icon`}
-								width={32}
-								height={32}
-								/>
-								{link.text}
-							</div>
-						</Link>
+							>	
+							<Link
+							href={link.dest}
+							>
+								{isActive && (
+									<motion.div
+									layoutId='activeBackground'
+									className='absolute inset-0 bg-card-highlight rounded-[var(--rounding-small)]'
+									transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+									/>
+								)}
+								<div className='relative flex items-center gap-[var(--gap-medium)]'>
+									<Image 
+									src={link.icon}
+									alt={`${link.text} icon`}
+									width={32}
+									height={32}
+									/>
+									{link.text}
+								</div>
+							</Link>
+						</motion.div>
 					)
 				})}
 			</div>
