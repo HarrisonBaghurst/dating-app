@@ -14,7 +14,7 @@ const Page = () => {
 	useEffect(() => {
 		setCalendarMonth(time.getMonth());
 		setCalendarYear(time.getFullYear());
-	}, [])
+	}, [time])
 	
 	// until time is found return loader element 
 	if (!time || calendarMonth === null || calendarYear === null) return null;

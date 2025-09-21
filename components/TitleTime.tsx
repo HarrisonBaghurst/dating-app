@@ -6,9 +6,6 @@ const TitleTime = () => {
     const [time, setTime] = useState<null | Date>(null)
 
     useEffect(() => {
-		// get month and year
-		const tempTime = new Date();
-
 		// set up the interval for updating the clock 
 		const interval = setInterval(() => {
 			setTime(new Date());

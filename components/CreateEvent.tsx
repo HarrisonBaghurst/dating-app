@@ -9,7 +9,6 @@ import Button from './Button';
 import { useModal } from '@/providers/ModalProvider';
 import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
 import Image from 'next/image';
-import { CalendarEvent } from '@/types/event';
 
 type CreateEventProps = {
     defaultDate?: Date | null;

@@ -2,8 +2,9 @@ import 'server-only'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
+import { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 
-type CookieToSet = { name: string; value: string; options?: any }
+type CookieToSet = { name: string; value: string; options?: Partial<ResponseCookie> }
 
 export async function updateSession(request: NextRequest) {
   const response = NextResponse.next()
@@ -19,7 +20,7 @@ export async function updateSession(request: NextRequest) {
 
         setAll(cookiesToSet: CookieToSet[]) {
           cookiesToSet.forEach(({ name, value, options }) => {
-            const cookieOptions: any = {}
+            const cookieOptions: Partial<ResponseCookie> = {}
             if (options?.path) cookieOptions.path = options.path
             if (options?.maxAge) cookieOptions.maxAge = options.maxAge
             if (options?.expires) cookieOptions.expires = options.expires

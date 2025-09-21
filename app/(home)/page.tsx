@@ -45,7 +45,7 @@ const Page = () => {
 			}
 		}
 		fetchEvents();
-	}, [trigger])
+	}, [trigger, todayMonth, todayYear])
 	
 	return (
 		<section className='w-full h-fit min-h-screen bg-background-light rounded-l-[var(--rounding-large)] overflow-hidden p-[var(--padding-large)] flex flex-col gap-[var(--gap-large)]'>

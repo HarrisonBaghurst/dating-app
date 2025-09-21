@@ -27,7 +27,7 @@ export default function LoginPage() {
   async function handleSignIn() {
     setClickable(false);
 
-    const { data, error } = await supabaseBrowser.auth.signInWithPassword({
+    const { error } = await supabaseBrowser.auth.signInWithPassword({
       email,
       password,
     })
