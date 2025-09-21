@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react'
 import { Input } from './ui/input';
 import DatePicker from './DatePicker';
-import ToggleState from './ToggleState';
 import Button from './Button';
 import { useModal } from '@/providers/ModalProvider';
 import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
@@ -21,7 +20,6 @@ type EventPayload = {
   startTime: string;
   endTime: string;
   extraInfo: string;
-  remind: boolean;
   eventType: 'deadline' | 'reminder' | 'event' | 'all day';
 };
 
@@ -40,7 +38,6 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
     const [endTime, setEndTime] = useState<string>('00:00');
     const [extraInfo, setExtraInfo] = useState<string>('');
     const [repeat, setRepeat] = useState<string>('1');
-    const [remind, setRemind] = useState(false);
 
     // can click continue button
     const [clickable, setClickable] = useState(false);
@@ -84,7 +81,6 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                     startTime,
                     endTime,
                     extraInfo,
-                    remind,
                     eventType: selected.toLowerCase() as EventPayload['eventType'],
                 };
 
@@ -118,7 +114,6 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
         setEndTime('00:00');
         setExtraInfo('');
         setRepeat('1');
-        setRemind(false);
     }
 
     return (
@@ -217,21 +212,12 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                     />
                 )}
             </div>
-            <div className='flex gap-[var(--gap-medium)] items-center'>
-                {/* reminder toggle */}
-                <ToggleState 
-                imageOn={'/icons/bell-ringing.svg'}
-                imageOff={'/icons/bell-off.svg'}
-                onState={remind}
-                onChange={() => setRemind(!remind)}
-                />
-                {/* final create button */}
-                <Button 
-                text='Create New Calendar Entry'
-                clickable={clickable && !clicked}
-                onClick={() => createEvent()}
-                />
-            </div>
+            {/* final create button */}
+            <Button 
+            text='Create New Calendar Entry'
+            clickable={clickable && !clicked}
+            onClick={() => createEvent()}
+            />
         </div>
     )
 }

@@ -7,6 +7,5 @@ export type CalendarEvent = {
     start_time: string;
     end_time: string;
     extra_info: string;
-    remind: boolean;
     type: string;
 };

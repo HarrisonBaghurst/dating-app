@@ -21,7 +21,6 @@ export async function POST(request: Request) {
                     start_time: startTime,
                     end_time: endTime,
                     extra_info: extraInfo,
-                    remind,
                     type: eventType,
                     user_id: user.id,
                 }
