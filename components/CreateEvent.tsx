@@ -9,10 +9,22 @@ import Button from './Button';
 import { useModal } from '@/providers/ModalProvider';
 import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
 import Image from 'next/image';
+import { CalendarEvent } from '@/types/event';
 
 type CreateEventProps = {
     defaultDate?: Date | null;
 }
+
+type EventPayload = {
+  title: string;
+  date: string;
+  location: string;
+  startTime: string;
+  endTime: string;
+  extraInfo: string;
+  remind: boolean;
+  eventType: 'deadline' | 'reminder' | 'event' | 'all day';
+};
 
 const CreateEvent = ({ defaultDate }: CreateEventProps) => {
     const { refresh } = useRefreshEventsContext();
@@ -66,8 +78,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                 const d = String(newDate.getDate()).padStart(2, '0');
                 const formattedDate = `${y}-${m}-${d}`;
 
-                // build payload - remove undefined fields
-                const payload: Record<string, any> = {
+                const payload: EventPayload = {
                     title,
                     date: formattedDate,
                     location,
@@ -75,7 +86,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                     endTime,
                     extraInfo,
                     remind,
-                    eventType: selected.toLowerCase(),
+                    eventType: selected.toLowerCase() as EventPayload['eventType'],
                 };
 
                 const res = await fetch('/api/events/post', {

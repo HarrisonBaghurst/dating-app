@@ -28,7 +28,8 @@ export async function POST(request: Request) {
 
         return NextResponse.json({ message: 'item deleted successfully', data }, { status: 200 })
 
-    } catch (err: any) {
-        return NextResponse.json({ error: err.message }, { status: 500 });
+    } catch (err: unknown) {
+        const error = err as Error;
+        return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
