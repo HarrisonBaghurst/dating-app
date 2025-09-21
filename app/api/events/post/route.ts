@@ -23,6 +23,7 @@ export async function POST(request: Request) {
                     extra_info: extraInfo,
                     remind,
                     type: eventType,
+                    user_id: user.id,
                 }
             ])
             .select();
