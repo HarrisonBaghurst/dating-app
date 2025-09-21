@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
+import Logout from './Logout'
 
 const SideBar = () => {	
 	const links = [
@@ -26,14 +27,7 @@ const SideBar = () => {
     return (
         <section className='w-[20dvw] h-screen bg-background-dark p-[var(--padding-large)] flex flex-col gap-[var(--gap-large)] fixed'>
             <div className='flex justify-between'>
-				<div className='cursor-pointer rounded-full'>
-					<Image 
-					src={'/icons/user-circle.svg'}
-					alt={'user circle icon'}
-					width={32}
-					height={32}
-					/>
-				</div>
+				<Logout />
 				<div className='cursor-pointer rounded-full'>
 					<Image 
 					src={'/icons/chevron-left.svg'}
