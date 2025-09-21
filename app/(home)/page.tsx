@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react';
 import Loader from '@/components/Loader';
 import CreateEvent from '@/components/CreateEvent';
 
-const page = () => {
+const Page = () => {
 	const today = new Date();
     const todayDate = today.getDate();
     const todayMonth = today.getMonth();
@@ -85,4 +85,4 @@ const page = () => {
 	)
 }
 
-export default page
+export default Page

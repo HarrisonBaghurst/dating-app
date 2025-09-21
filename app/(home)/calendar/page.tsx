@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { months } from '@/constants/CalendarInfo'
 import TitleTime from '@/components/TitleTime';
 
-const page = () => {
+const Page = () => {
 	const time = new Date();
 	const [calendarMonth, setCalendarMonth] = useState<number | null>(null); 
 	const [calendarYear, setCalendarYear] = useState<number | null>(null);
@@ -67,4 +67,4 @@ const page = () => {
 	)
 }
 
-export default page
+export default Page
