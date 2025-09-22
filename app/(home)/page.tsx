@@ -49,7 +49,11 @@ const Page = () => {
 	
 	return (
 		<section className='w-full h-fit min-h-screen bg-background-light rounded-l-[var(--rounding-large)] overflow-hidden p-[var(--padding-large)] flex flex-col gap-[var(--gap-large)]'>
-			<div className='flex justify-between items-center'>
+			<div className='
+			flex 
+			flex-col gap-[var(--gap-small)]
+			2xl:justify-between 2xl:items-center 2xl:flex-row 2xl:gap-0
+			'>
 				<h1 className='title-large font-enorm'>
 					{todayDate}
 					<span className='title-small'>{getOrdinal(todayDate)}</span>
@@ -57,7 +61,11 @@ const Page = () => {
 				</h1>
 				<TitleTime />
 			</div>
-			<div className='grid grid-cols-2 gap-[var(--gap-large)]'>
+			<div className='
+			grid gap-[var(--gap-large)]
+			grid-cols-1
+			2xl:grid-cols-2
+			'>
 				<div className='flex flex-col gap-[var(--gap-large)]'>
 					<div className='h-fit bg-card-grey p-[3px] rounded-[calc(var(--rounding-large)+3px)] gap-[var(--gap-small)]'>
 						{events? (

@@ -63,9 +63,10 @@ const CalendarCard = ({ date, month, year, isToday, events }: CalendarCardProps)
         }}
         transition={{ duration: 0.2 }}
         className={cn(
-            'p-[var(--padding-small)] rounded-[var(--rounding-small)] h-[10vw] flex flex-col gap-[var(--gap-small)] cursor-pointer',
+            'p-[var(--padding-small)] rounded-[var(--rounding-small)] flex flex-col gap-[var(--gap-small)] cursor-pointer',
             'border-[3px] border-transparent',
-            isToday ? 'bg-card-highlight' : 'bg-card-grey'
+            isToday ? 'bg-card-highlight' : 'bg-card-grey',
+            'h-[18vh] 2xl:h-[10vw]'
         )}
         onClick={() => {
             openModal(
@@ -91,8 +92,9 @@ const CalendarCard = ({ date, month, year, isToday, events }: CalendarCardProps)
                         <Image 
                         src={`/icons/${getEventImage(event.type)}.svg`}
                         alt='event icon'
-                        width={20}
-                        height={20}
+                        width={0}
+                        height={0}
+                        className='w-[var(--icon-small)] h-[var(--icon-small)]'
                         />
                         {event.title}
                     </div>

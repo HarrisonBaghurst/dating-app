@@ -148,10 +148,13 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                                 <Image 
                                 src={`/icons/${eventType[1]}`}
                                 alt='event type image'
-                                width={32}
-                                height={32}
+                                width={0}
+                                height={0}
+                                className='w-[var(--icon-large)] h-[var(--icon-large)]'
                                 />
-                                {eventType[0]}
+                                <div className='hidden 2xl:block'>
+                                    {eventType[0]}
+                                </div>
                             </div>
                         </motion.div>
                     ))}

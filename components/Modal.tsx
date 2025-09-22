@@ -30,8 +30,11 @@ const Modal = ({ isOpen, onClose, children, modalKey }: ModalProps) => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
-                className='w-[35%] h-fit'
-                >
+                className='
+                h-fit
+                w-[95%]
+                2xl:w-[35%]
+                '>
                     {children}
                 </motion.div>
             </motion.div>

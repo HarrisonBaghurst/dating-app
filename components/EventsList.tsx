@@ -85,9 +85,9 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 					<Image 
 					src={'/icons/square-plus.svg'}
 					alt={`plus icon`}
-					width={32}
-					height={32}
-					className='cursor-pointer'
+					width={0}
+					height={0}
+					className='cursor-pointer w-[var(--icon-large)] h-[var(--icon-large)]'
 					onClick={() => {openModal(
 						<CreateEvent 
 						defaultDate={new Date(year, month, date)}
@@ -109,8 +109,9 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 							<Image 
 							src={'/icons/stopwatch.svg'}
 							alt='deadline icon'
-							width={32}
-							height={32}
+							width={0}
+							height={0}
+							className='w-[var(--icon-large)] h-[var(--icon-large)]'
 							/>
 							<h2 className='title-small font-enorm'>Deadlines</h2>	
 						</div>
@@ -127,8 +128,9 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 									<Image 
 									src={'/icons/circle-minus.svg'}
 									alt='delete icon'
-									width={24}
-									height={24}
+									width={0}
+									height={0}
+									className='w-[var(--icon-small)] h-[var(--icon-small)]'
 									onClick={() => deleteEvent(event.id)}
 									/>
 								</div>
@@ -147,8 +149,9 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 							<Image 
 							src={'/icons/bulb.svg'}
 							alt='reminder icon'
-							width={32}
-							height={32}
+							width={0}
+							height={0}
+							className='w-[var(--icon-large)] h-[var(--icon-large)]'
 							/>
 							<h2 className='title-small font-enorm'>Reminders</h2>	
 						</div>
@@ -165,8 +168,9 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 									<Image 
 									src={'/icons/circle-minus.svg'}
 									alt='delete icon'
-									width={24}
-									height={24}
+									width={0}
+									height={0}
+									className='w-[var(--icon-small)] h-[var(--icon-small)]'
 									onClick={() => deleteEvent(event.id)}
 									/>
 								</div>
@@ -185,8 +189,9 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 							<Image 
 							src={'/icons/ticket.svg'}
 							alt='event icon'
-							width={32}
-							height={32}
+							width={0}
+							height={0}
+							className='w-[var(--icon-large)] h-[var(--icon-large)]'
 							/>
 							<h2 className='title-small font-enorm'>Events</h2>	
 						</div>
@@ -204,8 +209,9 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 									<Image 
 									src={'/icons/circle-minus.svg'}
 									alt='delete icon'
-									width={24}
-									height={24}
+									width={0}
+									height={0}
+									className='w-[var(--icon-small)] h-[var(--icon-small)]'
 									onClick={() => deleteEvent(event.id)}
 									/>
 								</div>
@@ -224,8 +230,9 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 							<Image 
 							src={'/icons/hours-24.svg'}
 							alt='all day icon'
-							width={32}
-							height={32}
+							width={0}
+							height={0}
+							className='w-[var(--icon-large)] h-[var(--icon-large)]'
 							/>
 							<h2 className='title-small font-enorm'>All Day</h2>	
 						</div>
@@ -241,8 +248,9 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 									<Image 
 									src={'/icons/circle-minus.svg'}
 									alt='delete icon'
-									width={24}
-									height={24}
+									width={0}
+									height={0}
+									className='w-[var(--icon-small)] h-[var(--icon-small)]'
 									onClick={() => deleteEvent(event.id)}
 									/>
 								</div>

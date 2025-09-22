@@ -140,6 +140,10 @@ input:focus {
   --title-small: 2rem;
   --paragraph-large: 1.5rem;
   --paragraph-small: 1.25rem;
+
+  --icon-large: 32px;
+  --icon-small: 20px;
+
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -172,6 +176,27 @@ input:focus {
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+}
+
+@media (max-width: 640px) {
+  :root {
+    --title-large: 1.5rem;
+    --title-small: 1rem;
+    --paragraph-large: 0.75rem;
+    --paragraph-small: 0.625rem;
+
+    --rounding-large: 0.5rem;
+    --rounding-small: 0.25rem;
+    --padding-large: 1.5rem;
+    --padding-small: 0.5rem;
+    --gap-large: 1.5rem;
+    --gap-medium: 1rem;
+    --gap-small: 0.5rem;
+    --gap-xsmall: 0.2rem;
+
+    --icon-large: 26px;
+    --icon-small: 16px;
+  }
 }
 
 @layer base {

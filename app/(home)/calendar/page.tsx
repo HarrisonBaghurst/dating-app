@@ -35,14 +35,14 @@ const Page = () => {
 
 	return (
 		<section className='w-full h-fit min-h-screen bg-background-light rounded-l-[var(--rounding-large)] overflow-hidden p-[var(--padding-large)] flex flex-col gap-[var(--gap-large)]'>
-			<div className='flex items-center justify-between'>
+			<div className='flex items-center justify-center 2xl:justify-between'>
 				<div className='flex gap-[var(--gap-small)] items-center'>
 					<Image 
 					src={'/icons/chevron-left.svg'}
 					alt={'left arrow icon'}
-					width={32}
-					height={32}
-					className='cursor-pointer'
+					width={0}
+					height={0}
+					className='cursor-pointer w-[var(--icon-large)] h-[var(--icon-large)]'
 					onClick={() => updateCalendarMonth(-1)}
 					/>
 					<h1 className='title-large font-enorm'>
@@ -51,13 +51,15 @@ const Page = () => {
 					<Image 
 					src={'/icons/chevron-left.svg'}
 					alt={'left arrow icon'}
-					width={32}
-					height={32}
-					className='cursor-pointer rotate-180'
+					width={0}
+					height={0}
+					className='cursor-pointer w-[var(--icon-large)] h-[var(--icon-large)] rotate-180'
 					onClick={() => updateCalendarMonth(1)}
 					/>
 				</div>
-				<TitleTime />
+				<div className='hidden 2xl:block'>
+					<TitleTime />
+				</div>
 			</div>
 			<Calendar 
 			month={calendarMonth}

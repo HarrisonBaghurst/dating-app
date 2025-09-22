@@ -32,26 +32,28 @@ const SideBar = () => {
 	const pathname = usePathname();
 
     return (
-        <section className='w-[20dvw] h-screen bg-background-dark p-[var(--padding-large)] flex flex-col justify-between  fixed'>
-            <div className='flex flex-col gap-[var(--gap-large)]'>
-				<div className='flex justify-between'>
-					<Image 
-					src={'/icons/user-circle.svg'}
-					alt={'user circle icon'}
-					width={32}
-					height={32}
-					className='cursor-pointer'
-					/>
-					<div className='cursor-pointer rounded-full'>
-						<Image 
-						src={'/icons/chevron-left.svg'}
-						alt={'left arrow icon'}
-						width={32}
-						height={32}
-						/>
-					</div>
-				</div>
-				<div className='paragraph-large flex flex-col gap-[var(--gap-small)]'>
+        <section className='
+		bg-background-dark p-[var(--padding-large)] flex justify-between fixed z-50
+		bottom-0 left-0 h-[20dvw] w-screen flex-row
+		2xl:top-0 2xl:left-0 2xl:w-[20dvw] 2xl:h-screen 2xl:flex-col
+		'>
+            <div className='
+			flex gap-[var(--gap-large)]
+			flex-row
+			2xl:flex-col
+			'>	
+				<Image 
+				src={'/icons/user-circle.svg'}
+				alt={'user circle icon'}
+				width={0}
+				height={0}
+				className='hidden 2xl:block cursor-pointer w-[var(--icon-large)] h-[var(--icon-large)]'
+				/>
+				<div className='
+				paragraph-large flex gap-[var(--gap-small)]
+				flex-row
+				2xl:flex-col
+				'>
 					{links.map((link, i) => {
 						const isActive = link.dest === '/' ? pathname === '/' : pathname.includes(link.dest);
 
@@ -78,10 +80,13 @@ const SideBar = () => {
 										<Image 
 										src={link.icon}
 										alt={`${link.text} icon`}
-										width={32}
-										height={32}
+										width={0}
+										height={0}
+										className='w-[var(--icon-large)] h-[var(--icon-large)]'
 										/>
-										{link.text}
+										<div className='hidden 2xl:block'>
+											{link.text}
+										</div>
 									</div>
 								</motion.div>
 							</Link>
@@ -103,10 +108,13 @@ const SideBar = () => {
 					<Image 
 					src={'/icons/logout-2.svg'}
 					alt={`logout icon`}
-					width={32}
-					height={32}
+					width={0}
+					height={0}
+					className='w-[var(--icon-large)] h-[var(--icon-large)]'
 					/>
-					{'Logout'}
+					<div className='hidden 2xl:block'>
+						{'Logout'}
+					</div>
 				</div>
 			</motion.div>
         </section>

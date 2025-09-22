@@ -87,7 +87,7 @@ const Calendar = ({ month, year }: CalendarProps) => {
     return (
         <div className='flex flex-col gap-[var(--gap-large)]'>
             <div className='flex flex-col gap-[var(--gap-small)]'>
-                <div className='grid grid-cols-7 gap-[var(--gap-small)]'>
+                <div className='hidden 2xl:grid grid-cols-7 gap-[var(--gap-small)]'>
                     {weekDays.map((day, i) => (
                         <div 
                         key={i}
@@ -97,7 +97,11 @@ const Calendar = ({ month, year }: CalendarProps) => {
                         </div>
                     ))}
                 </div>
-                <div className='grid grid-cols-7 gap-[var(--gap-small)]'>
+                <div className='
+                grid gap-[var(--gap-small)]
+                grid-cols-2
+                2xl:grid-cols-7
+                '>
                     {blanks}
                     {days}
                 </div>

@@ -42,7 +42,11 @@ const LoginForm = () => {
 
     return (
         <div className="flex items-center justify-center min-h-screen w-screen bg-background-light paragraph-large">
-            <div className='bg-background-light p-[var(--padding-large)] rounded-[var(--rounding-large)] border-[3px] border-card-grey w-[35%] flex flex-col gap-[var(--gap-large)]'>
+            <div className='
+            bg-background-light p-[var(--padding-large)] rounded-[var(--rounding-large)] border-[3px] border-card-grey  flex flex-col gap-[var(--gap-large)]
+            w-[75%]
+            2xl:w-[35%]
+            '>
                 <h1 className='title-large font-enorm'>
                     Calendar Login
                 </h1>
