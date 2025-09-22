@@ -22,7 +22,7 @@ const Modal = ({ isOpen, onClose, children, modalKey }: ModalProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className='fixed inset-0 z-50 flex justify-center bg-black/95 w-full h-full items-center'
+            className='fixed inset-0 z-50 flex justify-center bg-black/95 w-full h-full pt-[10dvh]'
             >
                 <motion.div
                 key={modalKey}
@@ -30,7 +30,7 @@ const Modal = ({ isOpen, onClose, children, modalKey }: ModalProps) => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
-                className='w-[35%] h-[80%]'
+                className='w-[35%] h-fit'
                 >
                     {children}
                 </motion.div>
