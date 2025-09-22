@@ -8,16 +8,18 @@ import { useModal } from '@/providers/ModalProvider';
 import EventsList from './EventsList';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { weekDays } from '@/constants/CalendarInfo';
 
 type CalendarCardProps = {
     date: number;
     month: number;
     year: number;
+    day: number;
     isToday: boolean;
     events: CalendarEvent[]
 }
 
-const CalendarCard = ({ date, month, year, isToday, events }: CalendarCardProps) => {
+const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardProps) => {
     const { openModal } = useModal();
 
     const maxVisible = 5;
@@ -79,10 +81,15 @@ const CalendarCard = ({ date, month, year, isToday, events }: CalendarCardProps)
             )
         }}
         >
-            <p className='flex items-baseline text-foreground-main'>
-                <span className='paragraph-large'>{date}</span>
-                <span className='paragraph-small'>{getOrdinal(date)}</span>
-            </p>
+            <div className='flex flex-row-reverse justify-end 2xl:justify-start 2xl:flex-row gap-[var(--gap-small)] items-center'>
+                <p className='flex items-baseline text-foreground-main'>
+                    <span className='paragraph-large'>{date}</span>
+                    <span className='paragraph-small'>{getOrdinal(date)}</span>
+                </p>
+                <p className='block 2xl:hidden paragraph-large'>
+                    {weekDays[day].slice(0,3)}
+                </p>
+            </div>
             <div className='paragraph-small text-foreground-second'>
                 {sortedEvents.slice(0, maxVisible - (sortedEvents.length > maxVisible ? 1 : 0)).map((event, i) => (
                     <div 

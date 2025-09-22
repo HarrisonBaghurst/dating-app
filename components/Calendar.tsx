@@ -52,7 +52,7 @@ const Calendar = ({ month, year }: CalendarProps) => {
     let firstDayOfMonth = new Date(year, month, 1).getDay();
     firstDayOfMonth = (firstDayOfMonth + 6) % 7;
     const blanks = Array.from({ length: firstDayOfMonth }, (_, i) => (
-        <div key={`blank-${i}`} />
+        <div key={`blank-${i}`} className='hidden 2xl:block'/>
     ));
 
     // find current date to compare to current month and year for date highlight
@@ -78,6 +78,7 @@ const Calendar = ({ month, year }: CalendarProps) => {
             date={dayNum}
             month={month}
             year={year}
+            day={i % 7}
             isToday={isToday}
             events={dayEvents}
             />
