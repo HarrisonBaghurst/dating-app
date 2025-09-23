@@ -7,17 +7,18 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import React from 'react'
 import { supabaseBrowser } from '@/lib/supabase/browserClient'
+import { icons } from '@/constants/icons'
 
 const SideBar = () => {	
 	const links = [
 		{
 			"text": "Home",
-			"icon": "/icons/home.svg",
+			"icon": icons.home,
 			"dest": "/",
 		},
 		{
 			"text": "Calendar",
-			"icon": "/icons/calendar-week.svg",
+			"icon": icons.calendar,
 			"dest": "/calendar",
 		}
 	]
@@ -43,7 +44,7 @@ const SideBar = () => {
 			2xl:flex-col
 			'>	
 				<Image 
-				src={'/icons/user-circle.svg'}
+				src={icons.user}
 				alt={'user circle icon'}
 				width={0}
 				height={0}
@@ -106,7 +107,7 @@ const SideBar = () => {
 				className='relative flex items-center gap-[var(--gap-medium)] paragraph-large'
 				>
 					<Image 
-					src={'/icons/logout-2.svg'}
+					src={icons.logout}
 					alt={`logout icon`}
 					width={0}
 					height={0}

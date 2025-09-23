@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { months } from '@/constants/CalendarInfo'
 import TitleTime from '@/components/TitleTime';
+import { icons } from '@/constants/icons';
 
 const Page = () => {
 	const time = new Date();
@@ -36,9 +37,9 @@ const Page = () => {
 	return (
 		<section className='w-full h-fit min-h-screen bg-background-light overflow-hidden p-[var(--padding-large)] flex flex-col gap-[var(--gap-large)]'>
 			<div className='flex items-center justify-center 2xl:justify-between'>
-				<div className='flex gap-[var(--gap-small)] items-center'>
+				<div className='flex gap-[var(--gap-medium)] items-center'>
 					<Image 
-					src={'/icons/chevron-left.svg'}
+					src={icons.leftArrow}
 					alt={'left arrow icon'}
 					width={0}
 					height={0}
@@ -49,8 +50,8 @@ const Page = () => {
 						{`${months[calendarMonth]}, ${calendarYear}`}
 					</h1>
 					<Image 
-					src={'/icons/chevron-left.svg'}
-					alt={'left arrow icon'}
+					src={icons.leftArrow}
+					alt={'right arrow icon'}
 					width={0}
 					height={0}
 					className='cursor-pointer w-[var(--icon-large)] h-[var(--icon-large)] rotate-180'

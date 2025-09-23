@@ -9,6 +9,7 @@ import EventsList from './EventsList';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { weekDays } from '@/constants/CalendarInfo';
+import { icons } from '@/constants/icons';
 
 type CalendarCardProps = {
     date: number;
@@ -51,10 +52,10 @@ const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardP
 
     const getEventImage = (type: string) => {
         switch (type) {
-            case 'deadline': return 'stopwatch'
-            case 'reminder': return 'bulb'
-            case 'event': return 'ticket'
-            default: return 'hours-24'
+            case 'deadline': return icons.deadline
+            case 'reminder': return icons.reminder
+            case 'event': return icons.event
+            default: return icons.allDay
         }
     }
 
@@ -97,7 +98,7 @@ const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardP
                     className='flex items-center gap-[var(--gap-xsmall)]'
                     >
                         <Image 
-                        src={`/icons/${getEventImage(event.type)}.svg`}
+                        src={getEventImage(event.type)}
                         alt='event icon'
                         width={0}
                         height={0}

@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react'
 import CreateEvent from './CreateEvent';
 import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
 import { cn } from '@/lib/classUtils';
+import { icons } from '@/constants/icons';
 
 type EventsListProps = {
     date?: number;
@@ -83,7 +84,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 						{year}
 					</h1>
 					<Image 
-					src={'/icons/square-plus.svg'}
+					src={icons.create}
 					alt={`plus icon`}
 					width={0}
 					height={0}
@@ -107,7 +108,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 					<div className='flex flex-col gap-[var(--gap-small)]'>
 						<div className='flex gap-[var(--gap-small)] items-center'>
 							<Image 
-							src={'/icons/stopwatch.svg'}
+							src={icons.deadline}
 							alt='deadline icon'
 							width={0}
 							height={0}
@@ -126,7 +127,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 										<p className='text-right'>{`${event.start_time.substring(0, 5)}`}</p>
 									</div>
 									<Image 
-									src={'/icons/circle-minus.svg'}
+									src={icons.remove}
 									alt='delete icon'
 									width={0}
 									height={0}
@@ -147,7 +148,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 					<div className='flex flex-col gap-[var(--gap-small)]'>
 						<div className='flex gap-[var(--gap-small)] items-center'>
 							<Image 
-							src={'/icons/bulb.svg'}
+							src={icons.reminder}
 							alt='reminder icon'
 							width={0}
 							height={0}
@@ -166,7 +167,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 										<p className='text-right'>{`${event.start_time.substring(0, 5)}`}</p>
 									</div>
 									<Image 
-									src={'/icons/circle-minus.svg'}
+									src={icons.remove}
 									alt='delete icon'
 									width={0}
 									height={0}
@@ -187,7 +188,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 					<div className='flex flex-col gap-[var(--gap-small)]'>
 						<div className='flex gap-[var(--gap-small)] items-center'>
 							<Image 
-							src={'/icons/ticket.svg'}
+							src={icons.event}
 							alt='event icon'
 							width={0}
 							height={0}
@@ -207,7 +208,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 										<p className='text-right'>{`${event.start_time.substring(0, 5)} - ${event.end_time.substring(0, 5)}`}</p>
 									</div>
 									<Image 
-									src={'/icons/circle-minus.svg'}
+									src={icons.remove}
 									alt='delete icon'
 									width={0}
 									height={0}
@@ -228,7 +229,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 					<div className='flex flex-col gap-[var(--gap-small)]'>
 						<div className='flex gap-[var(--gap-small)] items-center'>
 							<Image 
-							src={'/icons/hours-24.svg'}
+							src={icons.allDay}
 							alt='all day icon'
 							width={0}
 							height={0}
@@ -246,7 +247,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 										<p className='text-foreground-main paragraph-large col-span-2'>{event.title}</p>
 									</div>
 									<Image 
-									src={'/icons/circle-minus.svg'}
+									src={icons.remove}
 									alt='delete icon'
 									width={0}
 									height={0}

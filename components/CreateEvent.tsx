@@ -8,6 +8,7 @@ import Button from './Button';
 import { useModal } from '@/providers/ModalProvider';
 import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
 import Image from 'next/image';
+import { icons } from '@/constants/icons';
 
 type CreateEventProps = {
     defaultDate?: Date | null;
@@ -26,7 +27,7 @@ type EventPayload = {
 const CreateEvent = ({ defaultDate }: CreateEventProps) => {
     const { refresh } = useRefreshEventsContext();
     const { closeModal } = useModal();
-    const eventTypes = [['Deadline', 'stopwatch.svg'], ['Reminder', 'bulb.svg'], ['Event', 'ticket.svg'], ['All Day', 'hours-24.svg']] as const;
+    const eventTypes = [['Deadline', icons.deadline], ['Reminder', icons.reminder], ['Event', icons.event], ['All Day', icons.allDay]] as const;
     const [clicked, setClicked] = useState(false);
 
     // storing input information
@@ -146,7 +147,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                             )}
                                 <div className='relative z-10 flex gap-[var(--gap-small)] items-center'>
                                 <Image 
-                                src={`/icons/${eventType[1]}`}
+                                src={eventType[1]}
                                 alt='event type image'
                                 width={0}
                                 height={0}
