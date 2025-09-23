@@ -34,7 +34,7 @@ const Page = () => {
 	}
 
 	return (
-		<section className='w-full h-fit min-h-screen bg-background-light rounded-l-[var(--rounding-large)] overflow-hidden p-[var(--padding-large)] flex flex-col gap-[var(--gap-large)]'>
+		<section className='w-full h-fit min-h-screen bg-background-light overflow-hidden p-[var(--padding-large)] flex flex-col gap-[var(--gap-large)]'>
 			<div className='flex items-center justify-center 2xl:justify-between'>
 				<div className='flex gap-[var(--gap-small)] items-center'>
 					<Image 

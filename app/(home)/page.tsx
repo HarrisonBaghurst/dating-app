@@ -48,7 +48,7 @@ const Page = () => {
 	}, [trigger, todayMonth, todayYear])
 	
 	return (
-		<section className='w-full h-fit min-h-screen bg-background-light rounded-l-[var(--rounding-large)] overflow-hidden p-[var(--padding-large)] flex flex-col gap-[var(--gap-large)]'>
+		<section className='w-full h-fit min-h-screen bg-background-light overflow-hidden p-[var(--padding-large)] flex flex-col gap-[var(--gap-large)]'>
 			<div className='
 			flex 
 			flex-col gap-[var(--gap-small)]
