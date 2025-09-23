@@ -127,8 +127,8 @@ input:focus {
   --event-blue: hsl(188, 46%, 49%);
   --event-purple: hsl(267, 74%, 66%);
 
-  --rounding-large: 1rem;
-  --rounding-small: 0.5rem;
+  --rounding-large: 0.5rem;
+  --rounding-small: 0.25rem;
   --padding-large: 3rem;
   --padding-small: 1rem;
   --gap-large: 3rem;
@@ -185,8 +185,8 @@ input:focus {
     --paragraph-large: 0.75rem;
     --paragraph-small: 0.625rem;
 
-    --rounding-large: 0.5rem;
-    --rounding-small: 0.25rem;
+    --rounding-large: 0.25rem;
+    --rounding-small: 0.125rem;
     --padding-large: 1.5rem;
     --padding-small: 0.5rem;
     --gap-large: 1.5rem;
