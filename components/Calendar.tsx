@@ -78,7 +78,7 @@ const Calendar = ({ month, year }: CalendarProps) => {
             date={dayNum}
             month={month}
             year={year}
-            day={i % 7}
+            day={(i + firstDayOfMonth) % 7}
             isToday={isToday}
             events={dayEvents}
             />
