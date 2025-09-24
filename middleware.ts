@@ -3,6 +3,7 @@ import { updateSession } from './lib/supabase/middleware'
 
 const PUBLIC_PATHS = [
   '/login',
+  '/fonts',
   '/public/*'
 ]
 
