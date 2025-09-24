@@ -5,9 +5,11 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { months } from '@/constants/CalendarInfo'
 import TitleTime from '@/components/TitleTime';
-import { icons } from '@/constants/icons';
+import { useIcons } from '@/constants/icons';
 
 const Page = () => {
+	const icons = useIcons();
+
 	const time = new Date();
 	const [calendarMonth, setCalendarMonth] = useState<number | null>(null); 
 	const [calendarYear, setCalendarYear] = useState<number | null>(null);

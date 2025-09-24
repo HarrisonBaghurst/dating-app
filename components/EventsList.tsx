@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react'
 import CreateEvent from './CreateEvent';
 import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
 import { cn } from '@/lib/classUtils';
-import { icons } from '@/constants/icons';
+import { useIcons } from '@/constants/icons';
 
 type EventsListProps = {
     date?: number;
@@ -19,6 +19,8 @@ type EventsListProps = {
 }
 
 const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
+	const icons = useIcons()
+
 	const { openModal, closeModal } = useModal();
 	const { refresh } = useRefreshEventsContext();
 

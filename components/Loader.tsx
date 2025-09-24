@@ -1,8 +1,12 @@
-import { icons } from '@/constants/icons'
+'use client'
+
+import { useIcons } from '@/constants/icons'
 import Image from 'next/image'
 import React from 'react'
 
 const Loader = () => {
+	const icons = useIcons()
+
     return (
         <div className='w-full h-full bg-background-light rounded-[var(--rounding-large)] flex justify-center items-center'>
             <Image 

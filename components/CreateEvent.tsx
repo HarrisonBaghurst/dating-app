@@ -8,7 +8,7 @@ import Button from './Button';
 import { useModal } from '@/providers/ModalProvider';
 import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
 import Image from 'next/image';
-import { icons } from '@/constants/icons';
+import { useIcons } from '@/constants/icons';
 
 type CreateEventProps = {
     defaultDate?: Date | null;
@@ -25,6 +25,8 @@ type EventPayload = {
 };
 
 const CreateEvent = ({ defaultDate }: CreateEventProps) => {
+    const icons = useIcons();
+
     const { refresh } = useRefreshEventsContext();
     const { closeModal } = useModal();
     const eventTypes = [['Deadline', icons.deadline], ['Reminder', icons.reminder], ['Event', icons.event], ['All Day', icons.allDay]] as const;

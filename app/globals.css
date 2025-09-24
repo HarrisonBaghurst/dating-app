@@ -114,13 +114,13 @@ input:focus {
 }
 
 :root {
-  --background-dark: hsl(0, 0%, 5%);
-  --background-light: hsl(0, 0%, 10%);
-  --foreground-main: hsl(0, 0%, 90%);
-  --foreground-second: hsl(0, 0%, 70%);
+  --background-dark: hsl(0, 0%, 95%);
+  --background-light: hsl(0, 0%, 90%);
+  --foreground-main: hsl(0, 0%, 10%);
+  --foreground-second: hsl(0, 0%, 30%);
 
-  --card-grey: hsl(0, 0%, 15%);
-  --card-highlight: hsl(216, 12%, 17%);
+  --card-grey: hsl(0, 0%, 85%);
+  --card-highlight: hsl(216, 12%, 83%);
 
   --event-yellow: hsl(44, 64%, 55%);
   --event-pink: hsl(348, 64%, 55%);
@@ -178,6 +178,16 @@ input:focus {
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background-dark: hsl(0, 0%, 5%);
+  --background-light: hsl(0, 0%, 10%);
+  --foreground-main: hsl(0, 0%, 90%);
+  --foreground-second: hsl(0, 0%, 70%);
+
+  --card-grey: hsl(0, 0%, 15%);
+  --card-highlight: hsl(216, 12%, 17%);
 }
 
 @media (max-width: 640px) {

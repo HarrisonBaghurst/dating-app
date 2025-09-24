@@ -7,9 +7,10 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import React from 'react'
 import { supabaseBrowser } from '@/lib/supabase/browserClient'
-import { icons } from '@/constants/icons'
+import { useIcons } from '@/constants/icons'
 
 const SideBar = () => {	
+	const icons = useIcons();
 	const links = [
 		{
 			"text": "Home",
@@ -20,6 +21,11 @@ const SideBar = () => {
 			"text": "Calendar",
 			"icon": icons.calendar,
 			"dest": "/calendar",
+		},
+		{
+			"text": "Settings",
+			"icon": icons.settings,
+			"dest": "/settings",
 		}
 	]
 	

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeProvider } from "@/providers/IconProvider";
 
 export const metadata: Metadata = {
   title: "Personal Calendar",
@@ -16,7 +17,9 @@ export default function RootLayout({
       <body
         className='antialiased flex'
       >
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

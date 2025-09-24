@@ -9,7 +9,7 @@ import EventsList from './EventsList';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { weekDays } from '@/constants/CalendarInfo';
-import { icons } from '@/constants/icons';
+import { useIcons } from '@/constants/icons';
 
 type CalendarCardProps = {
     date: number;
@@ -21,6 +21,8 @@ type CalendarCardProps = {
 }
 
 const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardProps) => {
+    const icons = useIcons();
+    
     const { openModal } = useModal();
 
     const maxVisible = 5;
