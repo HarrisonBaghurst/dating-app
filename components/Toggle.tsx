@@ -17,7 +17,7 @@ const Toggle = ({ state, options, onChange }: ToggleProps) => {
     const usedIcons = [icons.lightMode, icons.darkMode]
 
     return (
-        <div className='flex gap-[var(--gap-medium)]'>
+        <div className='flex gap-[var(--gap-medium)] paragraph-large'>
             {options.map((option , i) => {
                 const optionState = option.split(' ')[0].toLowerCase();
 
