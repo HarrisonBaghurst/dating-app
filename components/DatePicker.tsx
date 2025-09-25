@@ -51,18 +51,21 @@ const DatePicker = ({ defaultDate = null, onChange }: DatePickerProps) => {
         <div className="grid grid-cols-3 gap-[var(--gap-small)]">
             <Input 
             type="number"
+            title="Day"
             value={day}
             placeholder="DD"
             onChange={(e) => setDay(e.target.value)}
             />
             <Input 
-            type="number"  
+            type="number" 
+            title="Month" 
             value={month}
             placeholder="MM"
             onChange={(e) => setMonth(e.target.value)}
             />
             <Input 
             type="number"
+            title="Year"
             value={year}
             placeholder="YYYY"
             onChange={(e) => setYear(e.target.value)}

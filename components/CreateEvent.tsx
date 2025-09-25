@@ -167,6 +167,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                 {/* title of event input field */}
                 <Input 
                 type='text'
+                title='Title'
                 placeholder='Event title'
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -175,6 +176,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                 {selected === 'Event' && (
                     <Input 
                     type='text'
+                    title='Location'
                     placeholder='Location'
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
@@ -190,12 +192,14 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                     <div className='flex gap-[var(--gap-small)]'>
                         <Input
                         type='time'
+                        title='Begins at'
                         value={startTime}
                         onChange={(e) => setStartTime(e.target.value)}
                         />
                         {selected === 'Event' && (
                             <Input
                             type='time'
+                            title='Ends at'
                             value={endTime}
                             onChange={(e) => setEndTime(e.target.value)}
                             />
@@ -205,6 +209,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                 {/* extra information input field */}
                 <Input 
                 type='text'
+                title='Extra info'
                 placeholder='Extra information'
                 value={extraInfo}
                 onChange={(e) => setExtraInfo(e.target.value)}
@@ -213,6 +218,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                 {selected === 'Event' && (
                     <Input
                     type='number'
+                    title='Repeat for # weeks'
                     value={repeat}
                     onChange={(e) => setRepeat(e.target.value)}
                     />

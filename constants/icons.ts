@@ -1,4 +1,4 @@
-import { useTheme } from "@/providers/IconProvider";
+import { useSettings } from "@/providers/SettingsProvider";
 
 const relative = '/icons/';
 const darkRelative = '/icons-dark/'
@@ -24,6 +24,8 @@ const light = {
     settings: expand(relative)('settings'),
     lightMode: expand(relative)('sun'),
     darkMode: expand(relative)('moon-stars'),
+    eye: expand(relative)('eye'),
+    eyeClosed: expand(relative)('eye-closed'),
 }
 
 const dark = {
@@ -42,9 +44,11 @@ const dark = {
     settings: expand(darkRelative)('settings'),
     lightMode: expand(darkRelative)('sun'),
     darkMode: expand(darkRelative)('moon-stars'),
+    eye: expand(darkRelative)('eye'),
+    eyeClosed: expand(darkRelative)('eye-closed'),
 }
 
 export const useIcons = () => {
-    const { theme } = useTheme();
+    const { theme } = useSettings();
     return theme === 'dark' ? dark : light;
 }

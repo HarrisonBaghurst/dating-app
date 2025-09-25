@@ -31,10 +31,10 @@ const SideBar = () => {
 	
 	const router = useRouter()
 	
-		async function handleLogout() {
-			await supabaseBrowser.auth.signOut()
-			router.push('/login')
-		}
+	const handleLogout = async () => {
+		await supabaseBrowser.auth.signOut();
+		router.push('/login');
+	}
 
 	const pathname = usePathname();
 

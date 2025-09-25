@@ -3,18 +3,24 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 type Theme = 'light' | 'dark';
+type InputTitles = 'show' | 'hide';
 
-interface ThemeContextValue {
+interface SettingsContextValue {
 	theme: Theme;
 	toggleTheme: () => void;
+	inputTitles: InputTitles;
+	toggleInputTitles: () => void;
 }
 
-const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
+const SettingsContext = createContext<SettingsContextValue | undefined>(undefined);
 
-export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 	const [theme, setTheme] = useState<Theme | null>(null);
+	const [inputTitles, setInputTitles] = useState<InputTitles | null>(null);
 
 	useEffect(() => {
+
+		// theme setup 
 		const storedTheme = localStorage.getItem('theme') as Theme | null;
 		if (storedTheme) {
 			setTheme(storedTheme);
@@ -25,9 +31,18 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 			setTheme(defaultTheme);
 			document.documentElement.classList.toggle('dark', defaultTheme === 'dark');
 		}
+
+		// input titles setup 
+		const storedInputTitles = localStorage.getItem('inputTitles') as InputTitles | null;
+		if (storedInputTitles) {
+			setInputTitles(storedInputTitles);
+		} else {
+			setInputTitles('show');
+		}
+
 	}, []);
 
-	if (!theme) return null;
+	if (!theme || !inputTitles) return null;
 
 	const toggleTheme = () => {
 		const newTheme: Theme = theme === 'light' ? 'dark': 'light';
@@ -36,15 +51,21 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 		localStorage.setItem('theme', newTheme);
 	};
 
+	const toggleInputTitles = () => {
+		const newInputTitles = inputTitles === 'hide' ? 'show': 'hide';
+		setInputTitles(newInputTitles);
+		localStorage.setItem('inputTitles', newInputTitles)
+	}
+
 	return (
-		<ThemeContext.Provider value={{ theme, toggleTheme }}>
+		<SettingsContext.Provider value={{ theme, toggleTheme, inputTitles, toggleInputTitles }}>
 			{children}
-		</ThemeContext.Provider>
+		</SettingsContext.Provider>
 	);
 };
 
-export const useTheme = () => {
-	const context = useContext(ThemeContext);
+export const useSettings = () => {
+	const context = useContext(SettingsContext);
 	if (!context) throw new Error('useTheme must be used within ThemeProvider');
 	return context;
 };

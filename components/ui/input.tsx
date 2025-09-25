@@ -1,13 +1,20 @@
+'use client'
+
 import * as React from "react"
 
 import { cn } from "@/lib/classUtils"
+import { useSettings } from "@/providers/SettingsProvider";
 
 function Input({ className, type, title, ...props }: React.ComponentProps<"input">) {
-    return (
+    const { inputTitles } = useSettings();
+	
+	return (
 		<div className="flex flex-col gap-[calc(var(--gap-small)/3)] w-full">
-			<p className="paragraph-small text-foreground-second">
-				{title}
-			</p>
+			{inputTitles === 'show' && (
+				<p className="paragraph-small text-foreground-second">
+					{title}
+				</p>
+			)}
 			<input
 			type={type}
 			data-slot="input"

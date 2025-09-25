@@ -6,15 +6,14 @@ import Image from 'next/image'
 import { useIcons } from '@/constants/icons';
 
 type ToggleProps = {
-    state: 'light' | 'dark';
+    keyText: string;
+    state: string;
     options: string[];
+    icons: string[];
     onChange: () => void;
 }
 
-const Toggle = ({ state, options, onChange }: ToggleProps) => {
-    const icons = useIcons();
-
-    const usedIcons = [icons.lightMode, icons.darkMode]
+const Toggle = ({ keyText, state, options, icons, onChange }: ToggleProps) => {
 
     return (
         <div className='flex gap-[var(--gap-medium)] paragraph-large'>
@@ -35,7 +34,7 @@ const Toggle = ({ state, options, onChange }: ToggleProps) => {
                     >
                         {state === optionState && (
                             <motion.div 
-                            layoutId='toggle'
+                            layoutId={keyText}
                             className='absolute inset-0 bg-card-highlight rounded-[var(--rounding-small)]'
                             transition={{
                                 type: 'spring',
@@ -46,7 +45,7 @@ const Toggle = ({ state, options, onChange }: ToggleProps) => {
                         )}
                             <div className='relative z-10 flex gap-[var(--gap-small)] items-center'>
                             <Image 
-                            src={usedIcons[i]}
+                            src={icons[i]}
                             alt='event type image'
                             width={0}
                             height={0}
