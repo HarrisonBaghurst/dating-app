@@ -41,7 +41,7 @@ const SideBar = () => {
     return (
         <section className='
 		bg-background-dark p-[var(--padding-large)] flex justify-between fixed z-50
-		bottom-0 left-0 h-[20dvw] w-screen flex-row
+		bottom-0 left-0 h-[20dvw] w-screen flex-row-reverse
 		2xl:top-0 2xl:left-0 2xl:w-[20dvw] 2xl:h-screen 2xl:flex-col
 		'>
             <div className='
