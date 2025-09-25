@@ -12,8 +12,8 @@ const Page = () => {
     return (
         <section className='bg-background-light w-full min-h-screen p-[var(--padding-large)] paragraph-large flex flex-col gap-[var(--gap-large)]'>
             <h1 className='font-enorm title-large'>Appearance</h1>
-            <div className='flex flex-col gap-[var(--gap-small)]'>
-                <div className='flex justify-between items-center w-1/2 min-w-fit'>
+            <div className='flex flex-col gap-[var(--gap-small)] w-full 2xl:w-1/2'>
+                <div className='flex justify-between items-center'>
                     <p className='title-small font-enorm'>Theme</p>
                     <Toggle 
                     keyText={'theme'}
@@ -23,7 +23,7 @@ const Page = () => {
                     onChange={() => {toggleTheme()}}
                     />
                 </div>
-                <div className='flex justify-between items-center w-1/2 min-w-fit'>
+                <div className='flex justify-between items-center'>
                     <p className='title-small font-enorm'>Input Field Titles</p>
                     <Toggle 
                     keyText={'inputTitles'}
