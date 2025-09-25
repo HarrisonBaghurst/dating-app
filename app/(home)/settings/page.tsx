@@ -4,7 +4,7 @@ import Toggle from '@/components/Toggle'
 import { useTheme } from '@/providers/IconProvider';
 import React from 'react'
 
-const page = () => {
+const Page = () => {
     const { theme, toggleTheme } = useTheme();
 
     return (
@@ -19,4 +19,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
