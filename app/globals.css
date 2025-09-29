@@ -181,13 +181,13 @@ input:focus {
 }
 
 .dark {
-  --background-dark: hsl(0, 0%, 7%);
-  --background-light: hsl(0, 0%, 10%);
+  --background-dark: hsl(217, 16%, 16%);
+  --background-light: hsl(220, 16%, 22%);
   --foreground-main: hsl(0, 0%, 90%);
   --foreground-second: hsl(0, 0%, 70%);
 
-  --card-grey: hsl(0, 0%, 15%);
-  --card-highlight: hsl(218, 17%, 23%);
+  --card-grey: hsl(222, 16%, 28%);
+  --card-highlight: hsl(219, 16%, 40%);
 }
 
 @media (max-width: 640px) {
