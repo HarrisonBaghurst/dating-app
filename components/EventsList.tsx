@@ -71,7 +71,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 	}
 
     return (
-		<div className='bg-background-light w-full rounded-[var(--rounding-large)] p-[var(--padding-large)] paragraph-large flex flex-col gap-[var(--gap-medium)] h-fit'>
+		<div className='bg-card-grey w-full rounded-[var(--rounding-large)] p-[var(--padding-large)] paragraph-large flex flex-col gap-[var(--gap-medium)] h-fit'>
 			{title && (
 				<h2 className='title-large font-enorm'>
 					{title}
@@ -121,7 +121,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 						{deadlines.map((event, i) => (
 							<div
 							key={i}
-							className='flex flex-col gap-[var(--gap-small)] bg-card-grey p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
+							className='flex flex-col gap-[var(--gap-small)] bg-background-light p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
 							>	
 								<div className='flex gap-[var(--gap-large)] items-center'>
 									<div className='flex justify-between items-center w-full'>
@@ -161,7 +161,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 						{reminders.map((event, i) => (
 							<div
 							key={i}
-							className='flex flex-col gap-[var(--gap-small)] bg-card-grey p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
+							className='flex flex-col gap-[var(--gap-small)] bg-background-light p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
 							>
 								<div className='flex gap-[var(--gap-large)] items-center'>
 									<div className='flex justify-between items-center w-full'>
@@ -201,7 +201,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 						{normalEvents.map((event, i) => (
 							<div
 							key={i}
-							className='flex flex-col gap-[var(--gap-small)] bg-card-grey p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
+							className='flex flex-col gap-[var(--gap-small)] bg-background-light p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
 							>
 								<div className='flex gap-[var(--gap-large)] items-center'>
 									<div className=' grid grid-cols-4 items-center w-full'>
@@ -242,7 +242,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 						{allDayEvents.map((event, i) => (
 							<div
 							key={i}
-							className='flex flex-col gap-[var(--gap-small)] bg-card-grey p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
+							className='flex flex-col gap-[var(--gap-small)] bg-background-light p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small'
 							>
 								<div className='flex gap-[var(--gap-large)] items-center'>
 									<div className='flex items-center w-full'>

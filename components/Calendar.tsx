@@ -92,7 +92,7 @@ const Calendar = ({ month, year }: CalendarProps) => {
                     {weekDays.map((day, i) => (
                         <div 
                         key={i}
-                        className='w-full p-[var(--padding-small)] flex justify-center paragraph-large bg-card-highlight rounded-[var(--rounding-small)]'
+                        className='w-full p-[var(--padding-small)] flex justify-center paragraph-large bg-background-dark rounded-[var(--rounding-small)]'
                         >
                             {day}
                         </div>

@@ -67,7 +67,7 @@ const Page = () => {
 			2xl:grid-cols-2
 			'>
 				<div className='flex flex-col gap-[var(--gap-large)]'>
-					<div className='h-fit bg-card-grey p-[3px] rounded-[calc(var(--rounding-large)+3px)] gap-[var(--gap-small)]'>
+					<div className='h-fit rounded-[var(--rounding-large)] gap-[var(--gap-small)]'>
 						{events? (
 							<EventsList 
 							title='Today'
@@ -75,7 +75,7 @@ const Page = () => {
 							/>
 						): <div className='relative h-[15rem]'><Loader /></div>}
 					</div>
-					<div className='h-fit bg-card-grey p-[3px] rounded-[calc(var(--rounding-large)+3px)] gap-[var(--gap-small)]'>
+					<div className='h-fit rounded-[var(--rounding-large)] gap-[var(--gap-small)]'>
 						{events? (
 							<EventsList 
 							title='Tomorrow'
@@ -84,7 +84,7 @@ const Page = () => {
 						): <div className='relative h-[15rem]'><Loader /></div>}
 					</div>
 				</div>
-				<div className='h-fit bg-card-grey p-[3px] rounded-[calc(var(--rounding-large)+3px)]'>
+				<div className='h-fit rounded-[var(--rounding-large)]'>
 					<CreateEvent />
 				</div>
 			</div>

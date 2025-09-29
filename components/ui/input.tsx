@@ -19,7 +19,7 @@ function Input({ className, type, title, ...props }: React.ComponentProps<"input
 			type={type}
 			data-slot="input"
 			className={cn(
-				"placeholder:text-foreground-second text-foreground-main p-[var(--padding-small)] paragraph-large bg-card-grey w-full rounded-[var(--rounding-small)]",
+				"placeholder:text-foreground-second text-foreground-main p-[var(--padding-small)] paragraph-large bg-background-light w-full rounded-[var(--rounding-small)]",
 				"border-[3px] border-transparent",
 			className
 			)}

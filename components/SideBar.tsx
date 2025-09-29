@@ -70,16 +70,16 @@ const SideBar = () => {
 							href={link.dest}
 							>
 								<motion.div
-								whileHover={! (isActive) ? { borderColor: "var(--card-highlight)" } : {}}
+								whileHover={! (isActive) ? { borderColor: "var(--background-light)" } : {}}
 								className={cn(
 									'relative rounded-[var(--rounding-small)] p-[var(--padding-small)] cursor-pointer',
-									'border-[3px] border-transparent'
+									'border-[3px] border-background-dark'
 								)}
 								>	
 									{isActive && (
 										<motion.div
 										layoutId='activeBackground'
-										className='absolute inset-0 bg-card-highlight rounded-[var(--rounding-small)]'
+										className='absolute inset-0 bg-background-light rounded-[var(--rounding-small)]'
 										transition={{ type: 'spring', stiffness: 400, damping: 30 }}
 										/>
 									)}

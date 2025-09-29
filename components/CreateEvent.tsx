@@ -120,7 +120,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
     }
 
     return (
-        <div className='h-fit w-full bg-background-light rounded-[var(--rounding-large)] p-[var(--padding-large)] flex flex-col gap-[var(--gap-large)]'>
+        <div className='h-fit w-full bg-card-grey rounded-[var(--rounding-large)] p-[var(--padding-large)] flex flex-col gap-[var(--gap-large)]'>
             {/* title */}
             <div className='flex flex-col gap-[var(--gap-medium)]'>
                 <h1 className='title-large font-enorm'>
@@ -133,7 +133,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                         key={i}
                         whileHover={! (selected === eventType[0]) ? { borderColor: "var(--card-highlight)" } : {}}
                         transition={{ duration: 0.2 }}
-                        className={'relative p-[var(--padding-small)] rounded-[var(--rounding-small)] flex justify-center cursor-pointer border-[3px] border-transparent'}
+                        className={'relative p-[var(--padding-small)] rounded-[var(--rounding-small)] flex justify-center cursor-pointer border-[3px] border-card-grey'}
                         onClick={() => setSelected(eventType[0])}
                         >
                             {selected === eventType[0] && (
