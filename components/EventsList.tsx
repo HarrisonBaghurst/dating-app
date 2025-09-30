@@ -6,9 +6,9 @@ import { CalendarEvent } from '@/types/event';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import CreateEvent from './CreateEvent';
-import { cn } from '@/lib/classUtils';
 import { useIcons } from '@/constants/icons';
 import EventSection from './EventSection';
+import toTitleCase from '@/lib/stringUtils';
 
 type EventsListProps = {
     date?: number;
@@ -25,22 +25,32 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 
 	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
-	const [deadlines, setDeadlines] = useState<CalendarEvent[]>([]); 
-	const [reminders, setReminders] = useState<CalendarEvent[]>([]); 
-	const [normalEvents, setNormalEvents] = useState<CalendarEvent[]>([]); 
-	const [allDayEvents, setAllDayEvents] = useState<CalendarEvent[]>([]); 
+	const [groupedEvents, setGroupedEvents] = useState<Record<string, CalendarEvent[]>>({});
 
 	useEffect(() => {
-		const sortedEvents = [...events].sort((a, b) => {
-			const timeA = a.start_time.localeCompare(b.start_time);
-			return timeA;
-		})
-	
-		setDeadlines(sortedEvents.filter(ev => ev.type === 'deadline'));
-		setReminders(sortedEvents.filter(ev => ev.type === 'reminder'));
-		setNormalEvents(sortedEvents.filter(ev => ev.type === 'event'));
-		setAllDayEvents(sortedEvents.filter(ev => ev.type === 'all day'));
+		const sortedEvents = [...events].sort((a, b) => 
+			a.start_time.localeCompare(b.start_time)
+		);
+
+		const groupedEvents = sortedEvents.reduce<Record<string, typeof events>>((acc, ev) => {
+			if (!acc[ev.type]) {
+				acc[ev.type] = [];
+			}
+			acc[ev.type].push(ev);
+			return acc;
+		}, {});
+
+		setGroupedEvents(groupedEvents);
 	}, [events])
+
+	const getEventIcon = (type: string) => {
+		switch (type) {
+			case 'deadline': return icons.deadline
+			case 'reminder': return icons.reminder
+			case 'event': return icons.event
+			default: return icons.allDay
+		}
+	}
 
     return (
 		<div className='bg-card-grey w-full rounded-[var(--rounding-large)] p-[var(--padding-large)] paragraph-large flex flex-col gap-[var(--gap-medium)] h-fit border-[1px] border-card-highlight'>
@@ -75,26 +85,14 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 				{events.length === 0 && (
 					<h2 className='title-small font-enorm text-foreground-second'>Nothing Scheduled</h2>
 				)}
-				<EventSection 
-				title={'Deadlines'}
-				events={deadlines}
-				icon={icons.deadline}
-				/>
-				<EventSection
-				title={'Reminders'}
-				events={reminders}
-				icon={icons.reminder}
-				/>
-				<EventSection 
-				title={'Events'}
-				events={normalEvents}
-				icon={icons.event}
-				/>
-				<EventSection 
-				title={'All Day'}
-				events={allDayEvents}
-				icon={icons.allDay}
-				/>
+				{Object.entries(groupedEvents).map(([type, events]) => (
+					<EventSection 
+					key={type}
+					title={toTitleCase(type)}
+					events={events}
+					icon={getEventIcon(type)}
+					/>
+				))}
 			</div>
 		</div>
     )
