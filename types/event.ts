@@ -9,3 +9,8 @@ export type CalendarEvent = {
     extra_info: string;
     type: string;
 };
+
+export type EventType = {
+	id: string;
+	icon: string;
+};

@@ -1,7 +1,7 @@
 'use client'
 
 import { useIcons } from '@/constants/icons';
-import React, { useState } from 'react'
+import React from 'react'
 import toTitleCase from '@/lib/stringUtils';
 
 import {
@@ -20,23 +20,12 @@ import {
 } from "@dnd-kit/sortable";
 import SortableItem from './SortableItem';
 import Image from 'next/image';
-
-type EventType = {
-    id: string;
-    icon: string;
-}
+import { useSettings } from '@/providers/SettingsProvider';
+import { EventType } from '@/types/event';
 
 const EventTypeSorter = () => {
     const icons = useIcons();
-    
-    const initialEvents: EventType[] = [
-        { id: 'deadline', icon: icons.deadline },
-        { id: 'reminder', icon: icons.reminder },
-        { id: 'event', icon: icons.event },
-        { id: 'all day', icon: icons.allDay},
-    ]
-    
-    const [eventTypes, setEventTypes] = useState(initialEvents);
+    const { eventTypeOrder, updateEventTypeOrder } = useSettings();
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -44,6 +33,20 @@ const EventTypeSorter = () => {
             coordinateGetter: sortableKeyboardCoordinates,
         })
     );
+
+    const initialEvents: EventType[] = [
+        { id: 'deadline', icon: icons.deadline },
+        { id: 'reminder', icon: icons.reminder },
+        { id: 'event', icon: icons.event },
+        { id: 'all day', icon: icons.allDay},
+    ]
+    
+
+    if (!eventTypeOrder) {
+        updateEventTypeOrder(initialEvents);
+    }
+
+    if (!eventTypeOrder) return null;
 
     return (
         <div>
@@ -53,20 +56,19 @@ const EventTypeSorter = () => {
             onDragEnd={(event) => {
                 const { active, over } = event;
                 if (over && active.id !== over.id) {
-                    setEventTypes((items) => {
-                        const oldIndex = items.findIndex((i) => i.id === active.id);
-                        const newIndex = items.findIndex((i) => i.id === over.id);
-                        return arrayMove(items, oldIndex, newIndex)
-                    })
+                    const oldIndex = eventTypeOrder.findIndex((i) => i.id === active.id);
+                    const newIndex = eventTypeOrder.findIndex((i) => i.id === over.id);
+                    const newOrder = arrayMove(eventTypeOrder, oldIndex, newIndex);
+                    updateEventTypeOrder(newOrder);
                 }
             }}
             >
                 <SortableContext
-                items={eventTypes.map((i) => i.id)}
+                items={eventTypeOrder.map((i) => i.id)}
                 strategy={verticalListSortingStrategy}
                 >
                     <div className='flex flex-col gap-[var(--gap-small)]'>
-                        {eventTypes.map((event) => (
+                        {eventTypeOrder.map((event) => (
                             <SortableItem key={event.id} id={event.id}>
                                 <div className='bg-card-grey p-[var(--padding-small)] rounded-[var(--rounding-small)] w-1/2 flex justify-between items-center'>
                                     <div className='flex gap-[var(--gap-medium)] items-center'>

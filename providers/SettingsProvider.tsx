@@ -1,5 +1,7 @@
 'use client'
 
+import { useIcons } from '@/constants/icons';
+import { EventType } from '@/types/event';
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 type Theme = 'light' | 'dark';
@@ -10,13 +12,17 @@ interface SettingsContextValue {
 	toggleTheme: () => void;
 	inputTitles: InputTitles;
 	toggleInputTitles: () => void;
+	eventTypeOrder: EventType[] | null;
+	updateEventTypeOrder: (order: EventType[]) => void;
 }
+
 
 const SettingsContext = createContext<SettingsContextValue | undefined>(undefined);
 
 export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 	const [theme, setTheme] = useState<Theme | null>(null);
 	const [inputTitles, setInputTitles] = useState<InputTitles | null>(null);
+	const [eventTypeOrder, setEventTypeOrder] = useState<EventType[] | null>(null);
 
 	useEffect(() => {
 
@@ -40,6 +46,19 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 			setInputTitles('show');
 		}
 
+		// event type order setup 
+		const storedEventTypeOrder = localStorage.getItem('eventTypeOrder') as string | null;
+		if (storedEventTypeOrder) {
+			try {
+				setEventTypeOrder(JSON.parse(storedEventTypeOrder));
+			}
+			catch {
+				setEventTypeOrder(null);
+			}
+		} else {
+			setEventTypeOrder(null);
+		}
+
 	}, []);
 
 	if (!theme || !inputTitles) return null;
@@ -57,8 +76,13 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 		localStorage.setItem('inputTitles', newInputTitles)
 	}
 
+	const updateEventTypeOrder = (order: EventType[]) => {
+		setEventTypeOrder(order);
+		localStorage.setItem('eventTypeOrder', JSON.stringify(order));
+	}
+
 	return (
-		<SettingsContext.Provider value={{ theme, toggleTheme, inputTitles, toggleInputTitles }}>
+		<SettingsContext.Provider value={{ theme, toggleTheme, inputTitles, toggleInputTitles, eventTypeOrder, updateEventTypeOrder }}>
 			{children}
 		</SettingsContext.Provider>
 	);
@@ -66,6 +90,6 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 
 export const useSettings = () => {
 	const context = useContext(SettingsContext);
-	if (!context) throw new Error('useTheme must be used within ThemeProvider');
+	if (!context) throw new Error('useSettings must be used within SettingsProvider');
 	return context;
 };
