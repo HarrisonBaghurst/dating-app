@@ -1,7 +1,7 @@
-- [ ] Share event with link 
-- [ ] Change event information 
-- [ ] Event types (Birthdays, Bills, Meal)
-- [ ] Repeat frequency (Weekly, Monthly) 
-- [ ] Incorrect password handling 
-- [ ] Shopping list 
-- [ ] Custom event order
+[ ] Share event with link 
+[ ] Change event information 
+[ ] Event types (Birthdays, Bills, Meal)
+[ ] Repeat frequency (Weekly, Monthly) 
+[ ] Incorrect password handling 
+[ ] Shopping list 
+[ ] Custom event order
