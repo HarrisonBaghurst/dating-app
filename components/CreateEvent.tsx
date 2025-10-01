@@ -120,7 +120,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
     }
 
     return (
-        <div className='h-fit w-full bg-card-grey rounded-[var(--rounding-large)] p-[var(--padding-large)] flex flex-col gap-[var(--gap-large)] border-[1px] border-card-highlight'>
+        <div className='h-fit w-full bg-card-grey rounded-[var(--rounding-large)] p-[var(--padding-medium)] flex flex-col gap-[var(--gap-large)] border-[1px] border-card-highlight'>
             {/* title */}
             <div className='flex flex-col gap-[var(--gap-medium)]'>
                 <h1 className='title-large font-enorm'>

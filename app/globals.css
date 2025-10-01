@@ -132,6 +132,7 @@ input:focus {
   --rounding-large: 0.5rem;
   --rounding-small: 0.25rem;
   --padding-large: 2.5rem;
+  --padding-medium: 1.75rem;
   --padding-small: 1rem;
   --gap-large: 3rem;
   --gap-medium: 2rem;
@@ -200,6 +201,7 @@ input:focus {
     --rounding-large: 0.25rem;
     --rounding-small: 0.125rem;
     --padding-large: 1.25rem;
+    --padding-medium: 0.875rem;
     --padding-small: 0.5rem;
     --gap-large: 1.5rem;
     --gap-medium: 1rem;

@@ -53,7 +53,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 	}
 
     return (
-		<div className='bg-card-grey w-full rounded-[var(--rounding-large)] p-[var(--padding-large)] paragraph-large flex flex-col gap-[var(--gap-medium)] h-fit border-[1px] border-card-highlight'>
+		<div className='bg-card-grey w-full rounded-[var(--rounding-large)] p-[var(--padding-medium)] paragraph-large flex flex-col gap-[var(--gap-medium)] h-fit border-[1px] border-card-highlight'>
 			{title && (
 				<h2 className='title-large font-enorm'>
 					{title}
