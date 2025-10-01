@@ -6,7 +6,6 @@ import { CalendarEvent } from '@/types/event';
 import { getOrdinal } from '@/lib/dateUtils';
 import { useModal } from '@/providers/ModalProvider';
 import EventsList from './EventsList';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { weekDays } from '@/constants/CalendarInfo';
 import { useIcons } from '@/constants/icons';
@@ -62,14 +61,10 @@ const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardP
     }
 
     return (
-        <motion.div
-        whileHover={{
-            borderColor: "var(--card-highlight)",
-        }}
-        transition={{ duration: 0.2 }}
+        <div
         className={cn(
             'p-[var(--padding-small)] rounded-[var(--rounding-small)] flex flex-col gap-[var(--gap-small)] cursor-pointer',
-            'border-[3px] border-transparent',
+            'border-[1px] border-card-highlight',
             isToday ? 'bg-card-highlight' : 'bg-card-grey',
             'h-[18vh] 2xl:h-[10vw]'
         )}
@@ -113,7 +108,7 @@ const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardP
                     <div>+{sortedEvents.length - (maxVisible - 1)} more</div>
                 )}
             </div>
-        </motion.div>
+        </div>
     )
 }
 
