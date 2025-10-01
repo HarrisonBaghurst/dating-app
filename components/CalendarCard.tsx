@@ -42,7 +42,7 @@ const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardP
 
     if (!eventTypeOrder) return null;
 
-    const sortedEvents = useMemo(() => {
+    const sortEvents = ((events: CalendarEvent[]) => {
 
         return [...events].sort((a, b) => {
             const typeA = eventTypeOrder.findIndex((i) => i.id === a.type);
@@ -59,7 +59,9 @@ const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardP
 
             return 0;
         });
-    }, [events]);
+    });
+
+    const sortedEvents = sortEvents(events);
 
     const getEventImage = (type: string) => {
         switch (type) {

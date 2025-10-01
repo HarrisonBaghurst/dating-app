@@ -96,7 +96,7 @@ const Calendar = ({ month, year }: CalendarProps) => {
                         >
                             {day}
                         </div>
-                    ))}
+                    ))} 
                 </div>
                 <div className='
                 grid gap-[var(--gap-small)]
