@@ -2,13 +2,14 @@
 
 import { getOrdinal } from '@/lib/dateUtils';
 import { useModal } from '@/providers/ModalProvider';
-import { CalendarEvent } from '@/types/event';
+import { CalendarEvent, EventType } from '@/types/event';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import CreateEvent from './CreateEvent';
 import { useIcons } from '@/constants/icons';
 import EventSection from './EventSection';
 import toTitleCase from '@/lib/stringUtils';
+import { useSettings } from '@/providers/SettingsProvider';
 
 type EventsListProps = {
     date?: number;
@@ -20,6 +21,8 @@ type EventsListProps = {
 
 const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 	const icons = useIcons()
+
+	const { eventTypeOrder, updateEventTypeOrder } = useSettings();
 
 	const { openModal } = useModal();
 
@@ -51,6 +54,20 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 			default: return icons.allDay
 		}
 	}
+
+	const initialEvents: EventType[] = [
+		{ id: 'deadline', icon: icons.deadline },
+		{ id: 'reminder', icon: icons.reminder },
+		{ id: 'event', icon: icons.event },
+		{ id: 'all day', icon: icons.allDay},
+	]
+	
+
+	if (!eventTypeOrder) {
+		updateEventTypeOrder(initialEvents);
+	}
+
+	if (!eventTypeOrder) return null;
 
     return (
 		<div className='bg-card-grey w-full rounded-[var(--rounding-large)] p-[var(--padding-medium)] paragraph-large flex flex-col gap-[var(--gap-medium)] h-fit border-[1px] border-card-highlight'>
@@ -85,12 +102,12 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 				{events.length === 0 && (
 					<h2 className='title-small font-enorm text-foreground-second'>Nothing Scheduled</h2>
 				)}
-				{Object.entries(groupedEvents).map(([type, events]) => (
+				{eventTypeOrder.map((eventType) => (
 					<EventSection 
-					key={type}
-					title={toTitleCase(type)}
-					events={events}
-					icon={getEventIcon(type)}
+					key={eventType.id}
+					title={toTitleCase(eventType.id)}
+					events={groupedEvents[eventType.id] || []} 
+					icon={eventType.icon}
 					/>
 				))}
 			</div>

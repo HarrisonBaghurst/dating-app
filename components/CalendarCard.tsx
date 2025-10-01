@@ -2,13 +2,14 @@
 
 import { cn } from '@/lib/classUtils';
 import React, { useMemo } from 'react'
-import { CalendarEvent } from '@/types/event';
+import { CalendarEvent, EventType } from '@/types/event';
 import { getOrdinal } from '@/lib/dateUtils';
 import { useModal } from '@/providers/ModalProvider';
 import EventsList from './EventsList';
 import Image from 'next/image';
 import { weekDays } from '@/constants/CalendarInfo';
 import { useIcons } from '@/constants/icons';
+import { useSettings } from '@/providers/SettingsProvider';
 
 type CalendarCardProps = {
     date: number;
@@ -22,21 +23,30 @@ type CalendarCardProps = {
 const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardProps) => {
     const icons = useIcons();
     
+    const { eventTypeOrder, updateEventTypeOrder } = useSettings();
     const { openModal } = useModal();
 
     const maxVisible = 5;
 
+    const initialEvents: EventType[] = [
+        { id: 'deadline', icon: icons.deadline },
+        { id: 'reminder', icon: icons.reminder },
+        { id: 'event', icon: icons.event },
+        { id: 'all day', icon: icons.allDay},
+    ]
+    
+
+    if (!eventTypeOrder) {
+        updateEventTypeOrder(initialEvents);
+    }
+
+    if (!eventTypeOrder) return null;
+
     const sortedEvents = useMemo(() => {
-        const typeOrder: Record<string, number> = {
-            deadline: 0,
-            reminder: 1,
-            event: 2,
-            'all day': 3,
-        };
 
         return [...events].sort((a, b) => {
-            const typeA = typeOrder[a.type] ?? 99;
-            const typeB = typeOrder[b.type] ?? 99;
+            const typeA = eventTypeOrder.findIndex((i) => i.id === a.type);
+            const typeB = eventTypeOrder.findIndex((i) => i.id === b.type);
 
             if (typeA !== typeB) {
                 return typeA - typeB;

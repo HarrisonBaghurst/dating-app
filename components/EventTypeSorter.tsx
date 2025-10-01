@@ -47,7 +47,7 @@ const EventTypeSorter = () => {
     }
 
     if (!eventTypeOrder) return null;
-
+87
     return (
         <div>
             <DndContext
