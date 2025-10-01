@@ -1,5 +1,6 @@
 'use client'
 
+import EventTypeSorter from '@/components/EventTypeSorter';
 import Toggle from '@/components/Toggle'
 import { useIcons } from '@/constants/icons';
 import { useSettings } from '@/providers/SettingsProvider';
@@ -14,7 +15,7 @@ const Page = () => {
             <h1 className='font-enorm title-large'>Appearance</h1>
             <div className='flex flex-col gap-[var(--gap-small)] w-full 2xl:w-1/2'>
                 <div className='flex justify-between items-center'>
-                    <p className='title-small font-enorm'>Theme</p>
+                    <p className='title-small'>Theme</p>
                     <Toggle 
                     keyText={'theme'}
                     state={theme}
@@ -24,7 +25,7 @@ const Page = () => {
                     />
                 </div>
                 <div className='flex justify-between items-center'>
-                    <p className='title-small font-enorm'>Input Field Titles</p>
+                    <p className='title-small'>Input field titles</p>
                     <Toggle 
                     keyText={'inputTitles'}
                     state={inputTitles}
@@ -34,6 +35,13 @@ const Page = () => {
                     />
                 </div>
             </div>
+                <h1 className='font-enorm title-large'>Events</h1>
+                <div className='flex flex-col gap-[var(--gap-large)] w-full 2xl:w-1/2'>
+                    <div className='flex flex-col gap-[var(--gap-medium)]'>
+                        <p className='title-small'>Event type priority</p>
+                        <EventTypeSorter />
+                    </div>
+                </div>
         </section>
     )
 }

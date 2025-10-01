@@ -26,6 +26,7 @@ const light = {
     darkMode: expand(relative)('moon-stars'),
     eye: expand(relative)('eye'),
     eyeClosed: expand(relative)('eye-closed'),
+    drag: expand(relative)('drag-vertical')
 }
 
 const dark = {
@@ -46,6 +47,7 @@ const dark = {
     darkMode: expand(darkRelative)('moon-stars'),
     eye: expand(darkRelative)('eye'),
     eyeClosed: expand(darkRelative)('eye-closed'),
+    drag: expand(darkRelative)('drag-vertical')
 }
 
 export const useIcons = () => {

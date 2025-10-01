@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import React from 'react'
 import Image from 'next/image'
-import { useIcons } from '@/constants/icons';
 
 type ToggleProps = {
     keyText: string;
@@ -23,9 +22,9 @@ const Toggle = ({ keyText, state, options, icons, onChange }: ToggleProps) => {
                 return (
                     <motion.div
                     key={i}
-                    whileHover={! (state === optionState) ? { borderColor: "var(--card-highlight)" } : {}}
+                    whileHover={! (state === optionState) ? { borderColor: "var(--card-grey)" } : {}}
                     transition={{ duration: 0.2 }}
-                    className={'relative p-[var(--padding-small)] rounded-[var(--rounding-small)] flex justify-center cursor-pointer border-[3px] border-transparent'}
+                    className={'relative p-[var(--padding-small)] rounded-[var(--rounding-small)] flex justify-center cursor-pointer border-[3px] border-background-light'}
                     onClick={() => {
                         if (state !== optionState) {
                             onChange()
@@ -35,7 +34,7 @@ const Toggle = ({ keyText, state, options, icons, onChange }: ToggleProps) => {
                         {state === optionState && (
                             <motion.div 
                             layoutId={keyText}
-                            className='absolute inset-0 bg-card-highlight rounded-[var(--rounding-small)]'
+                            className='absolute inset-0 bg-card-grey rounded-[var(--rounding-small)]'
                             transition={{
                                 type: 'spring',
                                 stiffness: 400,
