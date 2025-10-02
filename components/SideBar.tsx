@@ -70,16 +70,16 @@ const SideBar = () => {
 							href={link.dest}
 							>
 								<motion.div
-								whileHover={! (isActive) ? { borderColor: "var(--background-light)" } : {}}
+								whileHover={! (isActive) ? { borderColor: "var(--card-highlight)" } : {}}
 								className={cn(
-									'relative rounded-[var(--rounding-small)] p-[var(--padding-small)] cursor-pointer',
-									'border-[3px] border-background-dark'
+									'relative rounded-full py-[var(--padding-small)] px-[calc(var(--padding-small)*2)] cursor-pointer',
+									'border-[1px] border-background-dark'
 								)}
 								>	
 									{isActive && (
 										<motion.div
 										layoutId='activeBackground'
-										className='absolute inset-0 bg-background-light rounded-[var(--rounding-small)]'
+										className='absolute inset-0 bg-card-grey rounded-full'
 										transition={{ type: 'spring', stiffness: 400, damping: 30 }}
 										/>
 									)}
@@ -104,8 +104,8 @@ const SideBar = () => {
 			<motion.div
 			whileHover={{ borderColor: "var(--card-highlight)" }}
 			className={cn(
-				'relative rounded-[var(--rounding-small)] p-[var(--padding-small)] cursor-pointer',
-				'border-[3px] border-transparent'
+				'relative rounded-full py-[var(--padding-small)] px-[calc(var(--padding-small)*2)] cursor-pointer',
+				'border-[1px] border-transparent'
 			)}
 			>	
 				<div 

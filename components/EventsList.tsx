@@ -72,7 +72,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
     return (
 		<div className='bg-card-grey w-full rounded-[var(--rounding-large)] p-[var(--padding-medium)] paragraph-large flex flex-col gap-[var(--gap-medium)] h-fit border-[1px] border-card-highlight'>
 			{title && (
-				<h2 className='title-large font-enorm'>
+				<h2 className='title-small font-enorm'>
 					{title}
 				</h2>
 			)}
@@ -100,7 +100,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 			)}
 			<div className='flex flex-col gap-[var(--gap-large)]'>
 				{events.length === 0 && (
-					<h2 className='title-small font-enorm text-foreground-second'>Nothing Scheduled</h2>
+					<h2 className='paragraph-large text-foreground-second'>Nothing Scheduled</h2>
 				)}
 				{eventTypeOrder.map((eventType) => (
 					<EventSection 

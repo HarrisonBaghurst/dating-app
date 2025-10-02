@@ -70,7 +70,7 @@ const Page = () => {
 					<div className='h-fit rounded-[var(--rounding-large)] gap-[var(--gap-small)]'>
 						{events? (
 							<EventsList 
-							title='Today'
+							title="Today's Schedule"
 							events={events.filter((event: CalendarEvent) => (new Date(event.date)).getDate() === today.getDate()) ?? []}
 							/>
 						): <div className='relative h-[15rem]'><Loader /></div>}
@@ -78,7 +78,7 @@ const Page = () => {
 					<div className='h-fit rounded-[var(--rounding-large)] gap-[var(--gap-small)]'>
 						{events? (
 							<EventsList 
-							title='Tomorrow'
+							title="Tomorrow's Schedule"
 							events={events.filter((event: CalendarEvent) => (new Date(event.date)).getDate() === today.getDate() + 1) ?? []}
 							/>
 						): <div className='relative h-[15rem]'><Loader /></div>}

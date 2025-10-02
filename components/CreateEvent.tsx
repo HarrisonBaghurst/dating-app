@@ -123,8 +123,8 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
         <div className='h-fit w-full bg-card-grey rounded-[var(--rounding-large)] p-[var(--padding-medium)] flex flex-col gap-[var(--gap-large)] border-[1px] border-card-highlight'>
             {/* title */}
             <div className='flex flex-col gap-[var(--gap-medium)]'>
-                <h1 className='title-large font-enorm'>
-                    New Calendar Entry
+                <h1 className='title-small font-enorm'>
+                    Create New Entry
                 </h1>
                 {/* type of event selector */}
                 <div className='flex justify-between paragraph-large text-foreground-main'>
