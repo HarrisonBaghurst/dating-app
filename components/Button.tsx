@@ -16,7 +16,7 @@ const Button = ({ text, clickable, onClick }: ButtonProps) => {
             }
         }}
         className={cn(
-            'w-full h-fit flex justify-center items-center p-[var(--padding-small)] paragraph-large bg-card-highlight rounded-full border-[3px]',
+            'w-full h-fit flex justify-center items-center p-[var(--padding-small)] paragraph-large bg-card-highlight rounded-full border-[1px]',
             clickable ? 'opacity-100 border-transparent': 'opacity-10 border-foreground-second border-dashed'
         )}>
             {text}

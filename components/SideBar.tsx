@@ -72,7 +72,7 @@ const SideBar = () => {
 								<motion.div
 								whileHover={! (isActive) ? { borderColor: "var(--card-highlight)" } : {}}
 								className={cn(
-									'relative rounded-full py-[var(--padding-small)] px-[calc(var(--padding-small)*2)] cursor-pointer',
+									'relative rounded-full py-[var(--padding-small)] px-[calc(var(--padding-small)*1.5)] cursor-pointer',
 									'border-[1px] border-background-dark'
 								)}
 								>	
@@ -104,7 +104,7 @@ const SideBar = () => {
 			<motion.div
 			whileHover={{ borderColor: "var(--card-highlight)" }}
 			className={cn(
-				'relative rounded-full py-[var(--padding-small)] px-[calc(var(--padding-small)*2)] cursor-pointer',
+				'relative rounded-full py-[var(--padding-small)] px-[calc(var(--padding-small)*1.5)] cursor-pointer',
 				'border-[1px] border-transparent'
 			)}
 			>	

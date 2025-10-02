@@ -15,7 +15,7 @@ type ToggleProps = {
 const Toggle = ({ keyText, state, options, icons, onChange }: ToggleProps) => {
 
     return (
-        <div className='flex gap-[var(--gap-medium)] paragraph-large'>
+        <div className='flex gap-[var(--gap-medium)] paragraph-large text-foreground-light'>
             {options.map((option , i) => {
                 const optionState = option.split(' ')[0].toLowerCase();
 
@@ -24,7 +24,7 @@ const Toggle = ({ keyText, state, options, icons, onChange }: ToggleProps) => {
                     key={i}
                     whileHover={! (state === optionState) ? { borderColor: "var(--card-highlight)" } : {}}
                     transition={{ duration: 0.2 }}
-                    className={'relative py-[var(--padding-small)] px-[calc(var(--padding-small)*2)] rounded-full flex justify-center cursor-pointer border-[1px] border-card-grey'}
+                    className={'relative py-[var(--padding-small)] px-[calc(var(--padding-small)*1.5)] rounded-full flex justify-center cursor-pointer border-[1px] border-card-grey'}
                     onClick={() => {
                         if (state !== optionState) {
                             onChange()

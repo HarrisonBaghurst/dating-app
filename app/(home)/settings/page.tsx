@@ -16,7 +16,7 @@ const Page = () => {
                 <h1 className='font-enorm title-large'>Appearance</h1>
                 <div className='flex flex-col gap-[var(--gap-small)]'>
                     <div className='flex justify-between items-center'>
-                        <p className='title-small'>Theme</p>
+                        <p className='title-small text-foreground-second'>Theme</p>
                         <Toggle 
                         keyText={'theme'}
                         state={theme}
@@ -26,7 +26,7 @@ const Page = () => {
                         />
                     </div>
                     <div className='flex justify-between items-center'>
-                        <p className='title-small'>Input field titles</p>
+                        <p className='title-small text-foreground-second'>Input field titles</p>
                         <Toggle 
                         keyText={'inputTitles'}
                         state={inputTitles}
@@ -41,7 +41,7 @@ const Page = () => {
                 <h1 className='font-enorm title-large'>Events</h1>
                 <div className='flex flex-col gap-[var(--gap-large)]'>
                     <div className='flex flex-col gap-[var(--gap-medium)]'>
-                        <p className='title-small'>Event type priority</p>
+                        <p className='title-small text-foreground-second'>Event type priority</p>
                         <EventTypeSorter />
                     </div>
                 </div>
