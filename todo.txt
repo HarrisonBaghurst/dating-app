@@ -4,4 +4,6 @@
 [ ] Repeat frequency (Weekly, Monthly) 
 [ ] Incorrect password handling 
 [ ] Shopping list 
-[ ] Custom event order
+[ ] Countdown event type 
+
+[x] Custom event order
