@@ -1,9 +1,10 @@
 [ ] Share event with link 
-[ ] Change event information 
 [ ] Event types (Birthdays, Bills, Meal)
 [ ] Repeat frequency (Weekly, Monthly) 
 [ ] Incorrect password handling 
 [ ] Shopping list 
 [ ] Countdown event type 
+[ ] Add to do list component
 
+[x] Change event information 
 [x] Custom event order
