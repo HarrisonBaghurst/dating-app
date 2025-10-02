@@ -1,14 +1,20 @@
 'use client'
 
-import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react'
 import { Input } from './ui/input';
 import DatePicker from './DatePicker';
 import Button from './Button';
 import { useModal } from '@/providers/ModalProvider';
 import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
-import Image from 'next/image';
 import { useIcons } from '@/constants/icons';
+import Image from 'next/image'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 type CreateEventProps = {
     defaultDate?: Date | null;
@@ -127,41 +133,34 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                     Create New Entry
                 </h1>
                 {/* type of event selector */}
-                <div className='flex justify-between paragraph-large text-foreground-main'>
-                    {eventTypes.map((eventType, i) => (
-                        <motion.div
-                        key={i}
-                        whileHover={! (selected === eventType[0]) ? { borderColor: "var(--card-highlight)" } : {}}
-                        transition={{ duration: 0.2 }}
-                        className={'relative p-[var(--padding-small)] rounded-[var(--rounding-small)] flex justify-center cursor-pointer border-[3px] border-card-grey'}
-                        onClick={() => setSelected(eventType[0])}
-                        >
-                            {selected === eventType[0] && (
-                                <motion.div 
-                                layoutId='highlight'
-                                className='absolute inset-0 bg-card-highlight rounded-[var(--rounding-small)]'
-                                transition={{
-                                    type: 'spring',
-                                    stiffness: 400,
-                                    damping: 30,
-                                }}
-                                />
-                            )}
-                                <div className='relative z-10 flex gap-[var(--gap-small)] items-center'>
-                                <Image 
-                                src={eventType[1]}
-                                alt='event type image'
-                                width={0}
-                                height={0}
-                                className='w-[var(--icon-large)] h-[var(--icon-large)]'
-                                />
-                                <div className='hidden 2xl:block'>
+                <Select
+                value={selected}
+                onValueChange={(value) =>
+                    setSelected(value as 'Deadline' | 'Reminder' | 'Event' | 'All Day')
+                }>
+                    <SelectTrigger className='w-full'>
+                        <SelectValue placeholder="Event type"/>
+                    </SelectTrigger>
+                    <SelectContent>
+                        {eventTypes.map((eventType, i) => (
+                            <SelectItem 
+                            key={i}
+                            value={eventType[0]}
+                            >
+                                <div className='flex gap-[var(--gap-medium)] items-center'>
+                                    <Image 
+                                    src={eventType[1]}
+                                    alt='event image'
+                                    width={0}
+                                    height={0}
+                                    className='w-[var(--icon-large)] h-[var(--icon-large)]'
+                                    />
                                     {eventType[0]}
                                 </div>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
             </div>
             <div className='flex flex-col gap-[var(--gap-small)]'>
                 {/* title of event input field */}
