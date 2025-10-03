@@ -13,10 +13,10 @@ const Page = () => {
     return (
         <section className='bg-background-light w-full min-h-screen p-[var(--padding-large)] paragraph-large flex flex-col gap-[var(--gap-large)]'>
             <div className='flex flex-col gap-[var(--gap-medium)] bg-card-grey w-full 2xl:w-1/2 p-[var(--padding-medium)] rounded-[var(--rounding-large)] border-[1px] border-card-highlight'>
-                <h1 className='font-enorm title-large'>Appearance</h1>
+                <h1 className='font-enorm title-small'>Appearance</h1>
                 <div className='flex flex-col gap-[var(--gap-small)]'>
                     <div className='flex justify-between items-center'>
-                        <p className='title-small text-foreground-second'>Theme</p>
+                        <p className='paragraph-large text-foreground-second'>Theme</p>
                         <Toggle 
                         keyText={'theme'}
                         state={theme}
@@ -26,7 +26,7 @@ const Page = () => {
                         />
                     </div>
                     <div className='flex justify-between items-center'>
-                        <p className='title-small text-foreground-second'>Input field titles</p>
+                        <p className='paragraph-large text-foreground-second'>Input field titles</p>
                         <Toggle 
                         keyText={'inputTitles'}
                         state={inputTitles}
@@ -38,10 +38,10 @@ const Page = () => {
                 </div>
             </div>
             <div className='flex flex-col gap-[var(--gap-medium)] bg-card-grey w-full 2xl:w-1/2 p-[var(--padding-medium)] rounded-[var(--rounding-large)] border-[1px] border-card-highlight'>
-                <h1 className='font-enorm title-large'>Events</h1>
+                <h1 className='font-enorm title-small'>Events</h1>
                 <div className='flex flex-col gap-[var(--gap-large)]'>
                     <div className='flex flex-col gap-[var(--gap-medium)]'>
-                        <p className='title-small text-foreground-second'>Event type priority</p>
+                        <p className='paragraph-large text-foreground-second'>Event type priority</p>
                         <EventTypeSorter />
                     </div>
                 </div>

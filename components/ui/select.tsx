@@ -62,7 +62,7 @@ function SelectContent({
       <SelectPrimitive.Content
         data-slot="select-content"
         className={cn(
-          "bg-card-highlight text-foreground-main rounded-[var(--rounding-small)] border border-transparent shadow-none",
+          "bg-card-grey text-foreground-main rounded-[var(--rounding-small)] border border-transparent shadow-none",
           "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto",
           position === "popper" &&
             "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
@@ -74,7 +74,7 @@ function SelectContent({
         <SelectScrollUpButton />
         <SelectPrimitive.Viewport
           className={cn(
-            "p-1",
+            "p-[var(--padding-medium)] border-[1px] border-card-highlight flex flex-col gap-[var(--gap-small)]",
             position === "popper" &&
               "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1"
           )}
@@ -109,10 +109,11 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "text-foreground-main paragraph-large p-[var(--padding-small)] rounded-[var(--rounding-small)] cursor-default select-none",
+        "bg-background-light text-foreground-main paragraph-large p-[var(--padding-small)] rounded-[var(--rounding-small)] cursor-default select-none",
         "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         "relative flex w-full items-center gap-2 pr-8",
         "outline-none",
+        "border-[1px] border-background-light hover:border-card-highlight duration-200",
         className
       )}
       {...props}
