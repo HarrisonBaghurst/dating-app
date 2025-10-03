@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/lib/classUtils';
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { CalendarEvent, EventType } from '@/types/event';
 import { getOrdinal } from '@/lib/dateUtils';
 import { useModal } from '@/providers/ModalProvider';
@@ -33,12 +33,16 @@ const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardP
         { id: 'reminder', icon: icons.reminder },
         { id: 'event', icon: icons.event },
         { id: 'all day', icon: icons.allDay},
+        { id: 'birthday', icon: icons.birthday},
+        { id: 'bill', icon: icons.bill},
     ]
     
+    useEffect(() => {
+        if (!eventTypeOrder) {
+            updateEventTypeOrder(initialEvents);
+        }
+    }, [eventTypeOrder, updateEventTypeOrder])
 
-    if (!eventTypeOrder) {
-        updateEventTypeOrder(initialEvents);
-    }
 
     if (!eventTypeOrder) return null;
 
@@ -68,6 +72,8 @@ const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardP
             case 'deadline': return icons.deadline
             case 'reminder': return icons.reminder
             case 'event': return icons.event
+            case 'birthday': return icons.birthday
+            case 'bill': return icons.bill
             default: return icons.allDay
         }
     }

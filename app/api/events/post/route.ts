@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     if (userErr || !user) return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
 
     try {
-        const { title, date, location, startTime, endTime, extraInfo, remind, eventType } = await request.json();
+        const { title, date, location, cost, startTime, endTime, extraInfo, eventType } = await request.json();
     
         const { data, error } = await supabase
             .from('full-schedule')
@@ -18,6 +18,7 @@ export async function POST(request: Request) {
                     title,
                     date,
                     location,
+                    cost,
                     start_time: startTime,
                     end_time: endTime,
                     extra_info: extraInfo,

@@ -1,7 +1,7 @@
 'use client'
 
 import { useIcons } from '@/constants/icons';
-import React from 'react'
+import React, { useEffect } from 'react'
 import toTitleCase from '@/lib/stringUtils';
 
 import {
@@ -39,15 +39,19 @@ const EventTypeSorter = () => {
         { id: 'reminder', icon: icons.reminder },
         { id: 'event', icon: icons.event },
         { id: 'all day', icon: icons.allDay},
+        { id: 'birthday', icon: icons.birthday},
+        { id: 'bill', icon: icons.bill},
     ]
     
+    useEffect(() => {
+        if (!eventTypeOrder) {
+            updateEventTypeOrder(initialEvents);
+        }
+    }, [eventTypeOrder, updateEventTypeOrder])
 
-    if (!eventTypeOrder) {
-        updateEventTypeOrder(initialEvents);
-    }
 
     if (!eventTypeOrder) return null;
-87
+
     return (
         <div>
             <DndContext

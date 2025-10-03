@@ -24,10 +24,11 @@ type EventPayload = {
   title: string;
   date: string;
   location: string;
+  cost: string;
   startTime: string;
   endTime: string;
   extraInfo: string;
-  eventType: 'deadline' | 'reminder' | 'event' | 'all day';
+  eventType: 'deadline' | 'reminder' | 'event' | 'all day' | 'birthday' | 'bill';
 };
 
 const CreateEvent = ({ defaultDate }: CreateEventProps) => {
@@ -35,13 +36,14 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
 
     const { refresh } = useRefreshEventsContext();
     const { closeModal } = useModal();
-    const eventTypes = [['Deadline', icons.deadline], ['Reminder', icons.reminder], ['Event', icons.event], ['All Day', icons.allDay]] as const;
+    const eventTypes = [['Deadline', icons.deadline], ['Reminder', icons.reminder], ['Event', icons.event], ['All Day', icons.allDay], ['Birthday', icons.birthday], ['Bill', icons.bill]] as const;
     const [clicked, setClicked] = useState(false);
 
     // storing input information
-    const [selected, setSelected] = useState<'Deadline' | 'Reminder' | 'Event' | 'All Day'>('Deadline');
+    const [selected, setSelected] = useState<'Deadline' | 'Reminder' | 'Event' | 'All Day' | 'Birthday' | 'Bill'>('Deadline');
     const [title, setTitle] = useState<string>('');
     const [location, setLocation] = useState<string>('');
+    const [cost, setCost] = useState<string>('');
     const [date, setDate] = useState<Date | null>(null);
     const [startTime, setStartTime] = useState<string>('00:00');
     const [endTime, setEndTime] = useState<string>('00:00');
@@ -57,14 +59,16 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                 (selected === 'Deadline' && startTime !== '00:00') || 
                 (selected === 'Reminder' && startTime !== '00:00') ||
                 (selected === 'Event' && startTime !== '00:00' && endTime !== '00:00' && location !== '') ||
-                (selected === 'All Day')
+                (selected === 'All Day') ||
+                (selected === 'Birthday') || 
+                (selected === 'Bill' && cost !== '')
             )
         ) {
             setClickable(true);
             return;
         }
         setClickable(false);
-    }, [selected, title, date, startTime, endTime, clicked]);
+    }, [selected, title, date, startTime, endTime, clicked, cost]);
 
     const createEvent = async () => {
         if (!date) return;
@@ -87,6 +91,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                     title,
                     date: formattedDate,
                     location,
+                    cost,
                     startTime,
                     endTime,
                     extraInfo,
@@ -136,7 +141,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                 <Select
                 value={selected}
                 onValueChange={(value) =>
-                    setSelected(value as 'Deadline' | 'Reminder' | 'Event' | 'All Day')
+                    setSelected(value as 'Deadline' | 'Reminder' | 'Event' | 'All Day' | 'Birthday')
                 }>
                     <SelectTrigger className='w-full'>
                         <SelectValue placeholder="Event type"/>
@@ -181,13 +186,23 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                     onChange={(e) => setLocation(e.target.value)}
                     />
                 )}
+                {/* cost of event input field */}
+                {selected === 'Bill' && (
+                    <Input 
+                    type='text'
+                    title='Cost'
+                    placeholder='Cost'
+                    value={cost}
+                    onChange={(e) => setCost(e.target.value)}
+                    />
+                )}
                 {/* date of event selector */}
                 <DatePicker 
                 defaultDate={defaultDate}
                 onChange={(newDate) => setDate(newDate)}
                 />
                 {/* time of event selector - conditional render based on type of event */}
-                {selected !== 'All Day' && (
+                {selected !== 'All Day' && selected !== 'Birthday' && selected !== 'Bill' && (
                     <div className='flex gap-[var(--gap-small)]'>
                         <Input
                         type='time'

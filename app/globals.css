@@ -126,6 +126,8 @@ input:focus {
   --event-pink: hsl(348, 64%, 55%);
   --event-blue: hsl(188, 46%, 49%);
   --event-purple: hsl(267, 74%, 66%);
+  --event-orange: hsl(28, 74%, 54%);
+  --event-green: hsl(127, 54%, 43%);
 
   --delete-red: hsl(4, 75%, 55%);
 

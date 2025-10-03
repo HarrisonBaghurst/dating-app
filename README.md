@@ -41,6 +41,7 @@ created_at: timestamptz
 title: text
 date: date
 location: text
+cost: text
 start_time: time
 end_time: time
 extra_info: text

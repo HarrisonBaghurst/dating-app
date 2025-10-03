@@ -1,6 +1,5 @@
 'use client'
 
-import { useIcons } from '@/constants/icons';
 import { EventType } from '@/types/event';
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
@@ -48,7 +47,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 
 		// event type order setup 
 		const storedEventTypeOrder = localStorage.getItem('eventTypeOrder') as string | null;
-		if (storedEventTypeOrder) {
+		if (storedEventTypeOrder && storedEventTypeOrder.length === 6) {
 			try {
 				setEventTypeOrder(JSON.parse(storedEventTypeOrder));
 			}

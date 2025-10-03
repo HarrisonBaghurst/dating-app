@@ -46,26 +46,20 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 		setGroupedEvents(groupedEvents);
 	}, [events])
 
-	const getEventIcon = (type: string) => {
-		switch (type) {
-			case 'deadline': return icons.deadline
-			case 'reminder': return icons.reminder
-			case 'event': return icons.event
-			default: return icons.allDay
-		}
-	}
-
 	const initialEvents: EventType[] = [
 		{ id: 'deadline', icon: icons.deadline },
 		{ id: 'reminder', icon: icons.reminder },
 		{ id: 'event', icon: icons.event },
 		{ id: 'all day', icon: icons.allDay},
+		{ id: 'birthday', icon: icons.birthday},
+		{ id: 'bill', icon: icons.bill},
 	]
 	
-
-	if (!eventTypeOrder) {
-		updateEventTypeOrder(initialEvents);
-	}
+	useEffect(() => {
+		if (!eventTypeOrder) {
+			updateEventTypeOrder(initialEvents);
+		}
+	}, [eventTypeOrder, updateEventTypeOrder])
 
 	if (!eventTypeOrder) return null;
 
@@ -78,7 +72,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 			)}
 			{date && month && year && (
 				<div className='flex justify-between items-center'>
-					<h1 className='flex items-baseline text-foreground-main font-enorm title-large'>
+					<h1 className='flex items-baseline text-foreground-main font-enorm title-small'>
 						{date}
 						<span className='title-small pr-4'>{getOrdinal(date)}</span>
 						{` ${months[month]}, `} 

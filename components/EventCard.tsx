@@ -11,12 +11,13 @@ type EventCardProps = {
 	id: number;
     title: string;
 	location: string;
+	cost: string;
 	startTime: string;
 	endTime: string;
 	extraInfo: string;
 }
 
-const EventCard = ({ id, title, location, startTime, endTime, extraInfo }: EventCardProps) => {
+const EventCard = ({ id, title, location, cost, startTime, endTime, extraInfo }: EventCardProps) => {
 	const icons = useIcons();
 	const { closeModal } = useModal();
 	const { refresh } = useRefreshEventsContext();
@@ -74,6 +75,10 @@ const EventCard = ({ id, title, location, startTime, endTime, extraInfo }: Event
 					) : 
 						null
 					}
+					{/* cost */}
+					{cost !== '' && cost != null && (
+						<p className='text-right'>{cost}</p>
+					)}
 				</div>
 				<Image 
 				src={icons.remove}

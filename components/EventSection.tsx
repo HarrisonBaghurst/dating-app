@@ -31,6 +31,7 @@ const EventSection = ({ title, events, icon }: EventSectionProps) => {
                         id={event.id}
                         title={event.title}
                         location={event.location}
+                        cost={event.cost}
                         startTime={event.start_time}
                         endTime={event.end_time}
                         extraInfo={event.extra_info}
