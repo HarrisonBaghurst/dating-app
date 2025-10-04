@@ -36,7 +36,6 @@ const Page = () => {
 					setEvents([]);
 				}
 				const data = await res.json();
-				console.log(data);
 				setEvents(data.events);
 			} catch (err) {
 				console.error(err);
