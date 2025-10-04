@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SettingsProvider } from "@/providers/SettingsProvider";
+import { ModalProvider } from "@/providers/ModalProvider";
+import { RefreshEventsProvider } from "@/providers/RefreshEventsProvider";
 
 export const metadata: Metadata = {
   title: "Personal Calendar",
@@ -18,7 +20,11 @@ export default function RootLayout({
         className='antialiased flex'
       >
         <SettingsProvider>
-          {children}
+          <RefreshEventsProvider>
+            <ModalProvider>
+              {children}
+            </ModalProvider>
+          </RefreshEventsProvider>
         </SettingsProvider>
       </body>
     </html>

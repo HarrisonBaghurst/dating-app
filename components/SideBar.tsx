@@ -8,6 +8,8 @@ import { usePathname, useRouter } from 'next/navigation'
 import React from 'react'
 import { supabaseBrowser } from '@/lib/supabase/browserClient'
 import { useIcons } from '@/constants/icons'
+import CreateEvent from './CreateEvent'
+import { useModal } from '@/providers/ModalProvider'
 
 const SideBar = () => {	
 	const icons = useIcons();
@@ -30,6 +32,8 @@ const SideBar = () => {
 	]
 	
 	const router = useRouter()
+
+	const { openModal } = useModal();
 	
 	const handleLogout = async () => {
 		await supabaseBrowser.auth.signOut();
@@ -70,7 +74,7 @@ const SideBar = () => {
 							href={link.dest}
 							>
 								<motion.div
-								whileHover={! (isActive) ? { borderColor: "var(--card-highlight)" } : {}}
+								whileHover={! (isActive) ? { borderColor: "var(--card-grey)" } : {}}
 								className={cn(
 									'relative rounded-full py-[var(--padding-small)] px-[calc(var(--padding-small)*1.5)] cursor-pointer',
 									'border-[1px] border-background-dark'
@@ -100,9 +104,37 @@ const SideBar = () => {
 						)
 					})}
 				</div>
+				<div className='h-[1px] bg-background-light w-full'/>
+				<motion.div
+				whileHover={{ borderColor: "var(--card-grey)" }}
+				className={cn(
+					'relative rounded-full py-[var(--padding-small)] px-[calc(var(--padding-small)*1.5)] cursor-pointer',
+					'border-[1px] border-transparent'
+				)}
+				>	
+					<div 
+					onClick={() => {openModal(
+						<CreateEvent 
+						
+						/>
+					)}}
+					className='relative flex items-center gap-[var(--gap-medium)] paragraph-large'
+					>
+						<Image 
+						src={icons.create}
+						alt={`create icon`}
+						width={0}
+						height={0}
+						className='w-[var(--icon-large)] h-[var(--icon-large)]'
+						/>
+						<div className='hidden 2xl:block'>
+							{'Create New'}
+						</div>
+					</div>
+				</motion.div>
 			</div>
 			<motion.div
-			whileHover={{ borderColor: "var(--card-highlight)" }}
+			whileHover={{ borderColor: "var(--card-grey)" }}
 			className={cn(
 				'relative rounded-full py-[var(--padding-small)] px-[calc(var(--padding-small)*1.5)] cursor-pointer',
 				'border-[1px] border-transparent'

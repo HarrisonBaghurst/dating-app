@@ -11,6 +11,7 @@
 ## Bugs
 - [ ] show incorrect password
 - [ ] event priority resetting on reload
+- [ ] sidebar incorrect style on mobile
 
 ## Complete
 - [x] change event information 
