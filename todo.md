@@ -10,6 +10,7 @@
 
 ## Bugs
 - [ ] show incorrect password
+- [ ] event priority resetting on reload
 
 ## Complete
 - [x] change event information 
