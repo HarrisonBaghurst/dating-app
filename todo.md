@@ -14,7 +14,7 @@
 - [ ] sidebar incorrect style on mobile
 
 ## Complete
-- [x] change event information 
-- [x] custom event order
-- [x] add birthday event type
-- [x] add bill event type
+- [x] ~~change event information~~ 
+- [x] ~~custom event order~~
+- [x] ~~add birthday event type~~
+- [x] ~~add bill event type~~

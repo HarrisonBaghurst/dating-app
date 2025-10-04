@@ -8,7 +8,6 @@ import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
 import { CalendarEvent } from '@/types/event';
 import React, { useEffect, useState } from 'react';
 import Loader from '@/components/Loader';
-import CreateEvent from '@/components/CreateEvent';
 
 const Page = () => {
 	const today = new Date();
