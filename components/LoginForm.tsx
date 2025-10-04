@@ -47,7 +47,7 @@ const LoginForm = () => {
             w-[75%]
             2xl:w-[35%]
             '>
-                <h1 className='title-large font-enorm'>
+                <h1 className='title-small font-enorm'>
                     Calendar Login
                 </h1>
                 <div className='flex flex-col gap-[var(--gap-small)]'>
