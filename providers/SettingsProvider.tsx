@@ -47,7 +47,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 
 		// event type order setup 
 		const storedEventTypeOrder = localStorage.getItem('eventTypeOrder') as string | null;
-		if (storedEventTypeOrder && storedEventTypeOrder.length === 6) {
+		if (storedEventTypeOrder) {
 			try {
 				setEventTypeOrder(JSON.parse(storedEventTypeOrder));
 			}

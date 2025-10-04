@@ -7,13 +7,14 @@
 - [ ] add shopping list
 - [ ] add count down event type 
 - [ ] add to do list component
+- [ ] load in animation
 
 ## Bugs
 - [ ] show incorrect password
-- [ ] event priority resetting on reload
 - [ ] sidebar incorrect style on mobile
 
 ## Complete
+- [x] ~~event priority resetting on reload~~
 - [x] ~~change event information~~ 
 - [x] ~~custom event order~~
 - [x] ~~add birthday event type~~
