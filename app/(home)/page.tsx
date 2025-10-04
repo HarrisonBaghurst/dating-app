@@ -66,26 +66,21 @@ const Page = () => {
 			grid-cols-1
 			2xl:grid-cols-2
 			'>
-				<div className='flex flex-col gap-[var(--gap-large)]'>
-					<div className='h-fit rounded-[var(--rounding-large)] gap-[var(--gap-small)]'>
-						{events? (
-							<EventsList 
-							title="Today's Schedule"
-							events={events.filter((event: CalendarEvent) => (new Date(event.date)).getDate() === today.getDate()) ?? []}
-							/>
-						): <div className='relative h-[15rem]'><Loader /></div>}
-					</div>
-					<div className='h-fit rounded-[var(--rounding-large)] gap-[var(--gap-small)]'>
-						{events? (
-							<EventsList 
-							title="Tomorrow's Schedule"
-							events={events.filter((event: CalendarEvent) => (new Date(event.date)).getDate() === today.getDate() + 1) ?? []}
-							/>
-						): <div className='relative h-[15rem]'><Loader /></div>}
-					</div>
+				<div className='h-fit rounded-[var(--rounding-large)] gap-[var(--gap-small)]'>
+					{events? (
+						<EventsList 
+						title="Today's Schedule"
+						events={events.filter((event: CalendarEvent) => (new Date(event.date)).getDate() === today.getDate()) ?? []}
+						/>
+					): <div className='relative h-[15rem]'><Loader /></div>}
 				</div>
-				<div className='h-fit rounded-[var(--rounding-large)]'>
-					<CreateEvent />
+				<div className='h-fit rounded-[var(--rounding-large)] gap-[var(--gap-small)]'>
+					{events? (
+						<EventsList 
+						title="Tomorrow's Schedule"
+						events={events.filter((event: CalendarEvent) => (new Date(event.date)).getDate() === today.getDate() + 1) ?? []}
+						/>
+					): <div className='relative h-[15rem]'><Loader /></div>}
 				</div>
 			</div>
 			
