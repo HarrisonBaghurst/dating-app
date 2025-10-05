@@ -7,9 +7,8 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import CreateEvent from './CreateEvent';
 import { useIcons } from '@/constants/icons';
-import EventSection from './EventSection';
-import toTitleCase from '@/lib/stringUtils';
 import { useSettings } from '@/providers/SettingsProvider';
+import EventCard from './EventCard';
 
 type EventsListProps = {
     date?: number;
@@ -92,21 +91,50 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 					/>
 				</div>
 			)}
-			<div className='flex flex-col gap-[var(--gap-large)]'>
+			<div className='grid grid-cols-3 gap-[var(--gap-small)]'>
 				{events.length === 0 && (
 					<h2 className='paragraph-large text-foreground-second'>Nothing Scheduled</h2>
 				)}
-				{eventTypeOrder.map((eventType) => (
-					<EventSection 
-					key={eventType.id}
-					title={toTitleCase(eventType.id)}
-					events={groupedEvents[eventType.id] || []} 
-					icon={eventType.icon}
-					/>
-				))}
+				{eventTypeOrder
+				.filter(eventType => (groupedEvents[eventType.id] || []).length > 0)
+				.map((eventType) => (
+					(groupedEvents[eventType.id] || []).map((event) => (
+						<EventCard 
+						key={event.id}
+						id={event.id}
+						title={event.title}
+						location={event.location}
+						cost={event.cost}
+						startTime={event.start_time}
+						endTime={event.end_time}
+						extraInfo={event.extra_info}
+						/>
+					))
+				))
+				}
 			</div>
 		</div>
     )
 }
 
 export default EventsList
+
+/*
+<div key={i}>
+	{(groupedEvents[eventType.id] || []).length !== 0 && 
+		(groupedEvents[eventType.id] || []).map((event, j) => (
+			<EventCard 
+			key={j}
+			id={event.id}
+			title={event.title}
+			location={event.location}
+			cost={event.cost}
+			startTime={event.start_time}
+			endTime={event.end_time}
+			extraInfo={event.extra_info}
+			/>
+		))
+	}
+</div>
+
+*/
