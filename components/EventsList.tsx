@@ -101,13 +101,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 					(groupedEvents[eventType.id] || []).map((event) => (
 						<EventCard 
 						key={event.id}
-						id={event.id}
-						title={event.title}
-						location={event.location}
-						cost={event.cost}
-						startTime={event.start_time}
-						endTime={event.end_time}
-						extraInfo={event.extra_info}
+						event={event}
 						/>
 					))
 				))
