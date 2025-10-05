@@ -22,7 +22,7 @@ const Modal = ({ isOpen, onClose, children, modalKey }: ModalProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className='fixed inset-0 z-50 flex justify-center bg-black/95 w-full h-full pt-[10dvh]'
+            className='fixed inset-0 z-50 flex justify-center bg-black/60 w-full h-screen pt-[10dvh] backdrop-blur-md'
             >
                 <motion.div
                 key={modalKey}
