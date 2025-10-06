@@ -29,6 +29,7 @@ const light = {
     drag: expand(relative)('drag-vertical'),
     birthday: expand(relative)('confetti'),
     bill: expand(relative)('dollar-minimalistic'),
+    menu: expand(relative)('menu-dots'),
 }
 
 const dark = {
@@ -52,6 +53,7 @@ const dark = {
     drag: expand(darkRelative)('drag-vertical'),
     birthday: expand(darkRelative)('confetti'),
     bill: expand(darkRelative)('dollar-minimalistic'),
+    menu: expand(darkRelative)('menu-dots'),
 }
 
 export const useIcons = () => {

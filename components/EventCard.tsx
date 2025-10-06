@@ -16,7 +16,7 @@ const EventCard = ({ event }: EventCardProps) => {
 	const icons = useIcons();
 	const { closeModal } = useModal();
 	const { refresh } = useRefreshEventsContext();
-
+	
 	const [clickable, setClickable] = useState(true);
 
 	const deleteEvent = async (id: number) => {
@@ -55,47 +55,75 @@ const EventCard = ({ event }: EventCardProps) => {
         }
     }
 
+	const getEventColour = (type: string) => {
+		switch (type) {
+			case 'deadline': return 'var(--event-red)'
+            case 'reminder': return 'var(--event-yellow)'
+            case 'event': return 'var(--event-blue)'
+            case 'birthday': return 'var(--event-orange)'
+            case 'bill': return 'var(--event-green)'
+            default: return 'var(--event-purple)'
+		}
+	}
+
 	return (
 		<div
 		className={cn(
-			'flex flex-col gap-[var(--gap-small)] bg-background-light p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small h-fit',
+			'flex gap-[var(--gap-medium)] bg-background-light p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small h-fit',
 			clickable? 'opacity-100' : 'opacity-10'
 		)}
 		>
-			<div className='flex gap-[var(--gap-small)] items-center'>
-				{/* event type icon */}
-				<Image 
-				src={getEventImage(event.type)}
-				alt='event type icon'
-				width={0}
-				height={0}
-				className='w-[var(--icon-small)] h-[var(--icon-small)]'
-				/>
-				{/* event title */}
-				<h2 className='text-foreground-main paragraph-large'>
-					{event.title}
-				</h2>
-			</div>
-			
-			<div className='flex gap-[var(--gap-large)] items-center'>
-				{/* start and end time */}
-				{event.start_time !== '' && event.end_time !== '' && event.end_time.substring(0, 5) !== '00:00' ? (
-					<p>{`${event.start_time.substring(0, 5)} - ${event.end_time.substring(0, 5)}`}</p>
-				) : event.start_time !== '' && event.start_time.substring(0, 5) !== '00:00' ? (
-					<p>{`${event.start_time.substring(0, 5)}`}</p>
-				) : 
-					null
-				}
-				{/* location */}
-				{event.location !== '' && (
-					<p>{event.location}</p>
+			<div 
+			className='w-[1px] min-h-full'
+			style={{ backgroundColor: getEventColour(event.type) }}
+			/>
+			<div className='flex flex-col gap-[var(--gap-small)] w-full'>
+				<div className='flex justify-between items-center'>
+					<div className='flex gap-[var(--gap-small)] items-center'>
+						{/* event type icon */}
+						<Image 
+						src={getEventImage(event.type)}
+						alt='event type icon'
+						width={0}
+						height={0}
+						className='w-[var(--icon-small)] h-[var(--icon-small)]'
+						/>
+						{/* event title */}
+						<h2 className='text-foreground-main paragraph-large'>
+							{event.title}
+						</h2>
+					</div>
+					<Image 
+					src={icons.menu}
+					alt='remove event icon'
+					width={0}
+					height={0}
+					className='w-[var(--icon-small)] h-[var(--icon-small)] cursor-pointer'
+					onClick={() => {}} 
+					/>
+				</div>
+				
+				{event.type !== 'birthday' && event.type !== 'all day' && (
+					<div className='flex gap-[var(--gap-large)] items-center'>
+						{/* start and end time */}
+						{event.start_time !== '' && event.end_time !== '' && event.end_time.substring(0, 5) !== '00:00' ? (
+							<p>{`${event.start_time.substring(0, 5)} - ${event.end_time.substring(0, 5)}`}</p>
+						) : event.start_time !== '' && event.start_time.substring(0, 5) !== '00:00' ? (
+							<p>{`${event.start_time.substring(0, 5)}`}</p>
+						) : 
+							null
+						}
+						{/* location */}
+						{event.location !== '' && (
+							<p>{event.location}</p>
+						)}
+						{/* bill cost */} 
+						{event.cost !== '' && (
+							<p>{event.cost}</p>
+						)}
+					</div>
 				)}
-				{/* bill cost */} 
-				{event.cost !== '' && (
-					<p>{event.cost}</p>
-				)}
 			</div>
-			
 		</div>
 	)
 }
