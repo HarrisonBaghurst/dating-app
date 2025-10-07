@@ -8,6 +8,13 @@ import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
 import { cn } from '@/lib/classUtils';
 import { CalendarEvent } from '@/types/event';
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 type EventCardProps = {
 	event: CalendarEvent;
 }
@@ -57,7 +64,7 @@ const EventCard = ({ event }: EventCardProps) => {
 
 	const getEventColour = (type: string) => {
 		switch (type) {
-			case 'deadline': return 'var(--event-red)'
+			case 'deadline': return 'var(--event-pink)'
             case 'reminder': return 'var(--event-yellow)'
             case 'event': return 'var(--event-blue)'
             case 'birthday': return 'var(--event-orange)'
@@ -66,10 +73,18 @@ const EventCard = ({ event }: EventCardProps) => {
 		}
 	}
 
+	const dropDownOptions = [
+		{
+			"text": "Delete Event",
+			"icon": icons.remove,
+			"onClick": () => deleteEvent(event.id),
+		},
+	]
+
 	return (
 		<div
 		className={cn(
-			'flex gap-[var(--gap-medium)] bg-background-light p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small h-fit',
+			'flex gap-[var(--padding-small)] bg-background-light p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small h-fit',
 			clickable? 'opacity-100' : 'opacity-10'
 		)}
 		>
@@ -93,14 +108,39 @@ const EventCard = ({ event }: EventCardProps) => {
 							{event.title}
 						</h2>
 					</div>
-					<Image 
-					src={icons.menu}
-					alt='remove event icon'
-					width={0}
-					height={0}
-					className='w-[var(--icon-small)] h-[var(--icon-small)] cursor-pointer'
-					onClick={() => {}} 
-					/>
+					{/* menu icon */}
+					<DropdownMenu>
+						<DropdownMenuTrigger>
+							<Image 
+							src={icons.menu}
+							alt='remove event icon'
+							width={0}
+							height={0}
+							className='w-[var(--icon-small)] h-[var(--icon-small)] cursor-pointer'
+							onClick={() => {}} 
+							/>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent>
+							{dropDownOptions.map((option, i) => (
+								<DropdownMenuItem>
+									<div 
+									key={i}
+									className='flex gap-[var(--gap-medium)] items-center'
+									onClick={() => option.onClick()}
+									>
+										<Image
+										src={option.icon}
+										alt='dropdown icon'
+										width={0}
+										height={0}
+										className='w-[var(--icon-small)] h-[var(--icon-small)]'
+										/>
+										{option.text}
+									</div>
+								</DropdownMenuItem>
+							))}
+						</DropdownMenuContent>
+					</DropdownMenu>
 				</div>
 				
 				{event.type !== 'birthday' && event.type !== 'all day' && (
@@ -123,46 +163,15 @@ const EventCard = ({ event }: EventCardProps) => {
 						)}
 					</div>
 				)}
+
+				{event.extra_info !== 'NULL' && event.extra_info !== '' && (
+					<p>
+						{event.extra_info}
+					</p>
+				)}
 			</div>
 		</div>
 	)
 }
 
 export default EventCard
-
-{/*
-<div className='flex gap-[var(--gap-large)] items-center'>
-	<div className=' grid grid-cols-4 items-center w-full'>
-
-		<p className='text-foreground-main paragraph-large col-span-2'>{title}</p>
-
-		{location !== '' ? (
-			<p className='text-right'>{location}</p>
-		) : <div></div>}
-
-		{startTime !== '' && endTime !== '' && endTime.substring(0, 5) !== '00:00' ? (
-			<p className='text-right'>{`${startTime.substring(0, 5)} - ${endTime.substring(0, 5)}`}</p>
-		) : startTime !== '' && startTime.substring(0, 5) !== '00:00' ? (
-			<p className='text-right'>{`${startTime.substring(0, 5)}`}</p>
-		) : 
-			null
-		}
-		{cost !== '' && cost != null && (
-			<p className='text-right'>{cost}</p>
-		)}
-	</div>
-	<Image 
-	src={icons.remove}
-	alt='delete icon'
-	width={0}
-	height={0}
-	className='w-[var(--icon-small)] h-[var(--icon-small)]'
-	onClick={() => deleteEvent(id)}
-	/>
-</div>
-{extraInfo !== 'NULL' && extraInfo !== '' && (
-	<p>
-		{extraInfo}
-	</p>
-)}
-*/}
