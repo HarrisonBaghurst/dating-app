@@ -83,7 +83,7 @@ const SideBar = () => {
 									{isActive && (
 										<motion.div
 										layoutId='activeBackground'
-										className='absolute inset-0 bg-card-grey rounded-full'
+										className='absolute inset-0 bg-card-grey pill-style'
 										transition={{ type: 'spring', stiffness: 400, damping: 30 }}
 										/>
 									)}

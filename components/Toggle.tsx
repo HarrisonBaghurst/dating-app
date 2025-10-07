@@ -34,7 +34,7 @@ const Toggle = ({ keyText, state, options, icons, onChange }: ToggleProps) => {
                         {state === optionState && (
                             <motion.div 
                             layoutId={keyText}
-                            className='absolute inset-0 bg-card-highlight rounded-full'
+                            className='absolute inset-0 button-style'
                             transition={{
                                 type: 'spring',
                                 stiffness: 400,

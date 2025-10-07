@@ -13,6 +13,7 @@
 ## Bugs
 - [ ] show incorrect password
 - [ ] sidebar incorrect style on mobile
+- [ ] current day highlight not showing after restyle
 
 ## Complete
 - [x] ~~event priority resetting on reload~~
