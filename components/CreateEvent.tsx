@@ -15,21 +15,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { EventPayload } from '@/types/event';
 
 type CreateEventProps = {
     defaultDate?: Date | null;
 }
-
-type EventPayload = {
-  title: string;
-  date: string;
-  location: string;
-  cost: string;
-  startTime: string;
-  endTime: string;
-  extraInfo: string;
-  eventType: 'deadline' | 'reminder' | 'event' | 'all day' | 'birthday' | 'bill';
-};
 
 const CreateEvent = ({ defaultDate }: CreateEventProps) => {
     const icons = useIcons();

@@ -15,3 +15,14 @@ export type EventType = {
 	id: string;
 	icon: string;
 };
+
+export type EventPayload = {
+  title: string;
+  date: string;
+  location: string;
+  cost: string;
+  startTime: string;
+  endTime: string;
+  extraInfo: string;
+  eventType: 'deadline' | 'reminder' | 'event' | 'all day' | 'birthday' | 'bill';
+};

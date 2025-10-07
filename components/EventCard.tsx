@@ -51,6 +51,31 @@ const EventCard = ({ event }: EventCardProps) => {
 		}
 	}
 
+	const copyEventToClipboard = async () => {
+		const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+
+		const params = new URLSearchParams({
+			title: event.title,
+			date: event.date,
+			location: event.location || '',
+			cost: event.cost || '',
+			'start-time': event.start_time || '',
+			'end-time': event.end_time || '', 
+			'extra-info': event.extra_info || '',
+			'event-type': event.type,
+		})
+
+		const eventUrl = `${baseUrl}/shared-event?${params.toString()}`;
+
+		try {
+			await navigator.clipboard.writeText(eventUrl);
+			console.log('Copied event link to clipboard: ', eventUrl);
+		} catch (err) {
+			console.error('Failed to copy event link: ', err);
+			alert('Could not copy event link to clipboard');
+		}
+	}
+
 	const getEventImage = (type: string) => {
         switch (type) {
             case 'deadline': return icons.deadline
@@ -74,6 +99,11 @@ const EventCard = ({ event }: EventCardProps) => {
 	}
 
 	const dropDownOptions = [
+		{
+			"text": "Copy Share Link",
+			"icon": icons.copy,
+			"onClick": () => copyEventToClipboard(),
+		},
 		{
 			"text": "Delete Event",
 			"icon": icons.remove,
@@ -134,7 +164,7 @@ const EventCard = ({ event }: EventCardProps) => {
 										alt='dropdown icon'
 										width={0}
 										height={0}
-										className='w-[var(--icon-small)] h-[var(--icon-small)]'
+										className='w-[var(--icon-large)] h-[var(--icon-large)]'
 										/>
 										{option.text}
 									</div>

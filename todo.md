@@ -1,7 +1,6 @@
 # Calendar Todo List
 
 ## Features
-- [ ] share event with sendable link
 - [ ] add meal event type 
 - [ ] repeat frequency - dayly, weekly, monthly, annually
 - [ ] add shopping list
@@ -9,13 +8,15 @@
 - [ ] add to do list component
 - [ ] load in animation
 - [ ] add list view with filters for events
+- [ ] add 'relevant to' highlight
 
 ## Bugs
 - [ ] show incorrect password
 - [ ] sidebar incorrect style on mobile
-- [ ] current day highlight not showing after restyle
+- [ ] current day highlight not showing
 
 ## Complete
+- [x] ~~share event with sendable link~~
 - [x] ~~event priority resetting on reload~~
 - [x] ~~change event information~~ 
 - [x] ~~custom event order~~

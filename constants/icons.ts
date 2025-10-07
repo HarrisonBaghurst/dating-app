@@ -14,7 +14,7 @@ const light = {
     calendar: expand(relative)('calendar'),
     logout: expand(relative)('logout-3'),
     create: expand(relative)('widget-add'),
-    remove: expand(relative)('backspace'),
+    remove: expand(relative)('trash-bin-trash'),
     deadline: expand(relative)('stopwatch-play'),
     reminder: expand(relative)('lightbulb'),
     event: expand(relative)('ticket'),
@@ -30,6 +30,7 @@ const light = {
     birthday: expand(relative)('confetti'),
     bill: expand(relative)('dollar-minimalistic'),
     menu: expand(relative)('menu-dots'),
+    copy: expand(relative)('copy'),
 }
 
 const dark = {
@@ -38,7 +39,7 @@ const dark = {
     calendar: expand(darkRelative)('calendar'),
     logout: expand(darkRelative)('logout-3'),
     create: expand(darkRelative)('widget-add'),
-    remove: expand(darkRelative)('backspace'),
+    remove: expand(darkRelative)('trash-bin-trash'),
     deadline: expand(darkRelative)('stopwatch-play'),
     reminder: expand(darkRelative)('lightbulb'),
     event: expand(darkRelative)('ticket'),
@@ -54,6 +55,7 @@ const dark = {
     birthday: expand(darkRelative)('confetti'),
     bill: expand(darkRelative)('dollar-minimalistic'),
     menu: expand(darkRelative)('menu-dots'),
+    copy: expand(darkRelative)('copy'),
 }
 
 export const useIcons = () => {
