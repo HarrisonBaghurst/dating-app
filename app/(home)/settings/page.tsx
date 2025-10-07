@@ -12,7 +12,7 @@ const Page = () => {
 
     return (
         <section className='bg-background-light w-full min-h-screen p-[var(--padding-large)] paragraph-large flex flex-col gap-[var(--gap-large)]'>
-            <div className='flex flex-col gap-[var(--gap-medium)] bg-card-grey w-full 2xl:w-1/2 p-[var(--padding-medium)] rounded-[var(--rounding-large)] border-[1px] border-card-highlight'>
+            <div className='flex flex-col gap-[var(--gap-medium)] w-full 2xl:w-1/2 p-[var(--padding-medium)] card-style'>
                 <h1 className='font-enorm title-small'>Appearance</h1>
                 <div className='flex flex-col gap-[var(--gap-small)]'>
                     <div className='flex justify-between items-center'>
@@ -37,7 +37,7 @@ const Page = () => {
                     </div>
                 </div>
             </div>
-            <div className='flex flex-col gap-[var(--gap-medium)] bg-card-grey w-full 2xl:w-1/2 p-[var(--padding-medium)] rounded-[var(--rounding-large)] border-[1px] border-card-highlight'>
+            <div className='flex flex-col gap-[var(--gap-medium)] w-full 2xl:w-1/2 p-[var(--padding-medium)] card-style'>
                 <h1 className='font-enorm title-small'>Events</h1>
                 <div className='flex flex-col gap-[var(--gap-large)]'>
                     <div className='flex flex-col gap-[var(--gap-medium)]'>

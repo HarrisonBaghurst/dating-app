@@ -81,8 +81,7 @@ const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardP
     return (
         <div
         className={cn(
-            'p-[var(--padding-small)] rounded-[var(--rounding-small)] flex flex-col gap-[var(--gap-small)] cursor-pointer',
-            'border-[1px] border-card-highlight',
+            'card-style p-[var(--padding-small)] flex flex-col gap-[var(--gap-small)] cursor-pointer',
             isToday ? 'bg-card-highlight' : 'bg-card-grey',
             'h-[18vh] 2xl:h-[10vw]'
         )}
