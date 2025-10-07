@@ -122,9 +122,10 @@ const EventCard = ({ event }: EventCardProps) => {
 						</DropdownMenuTrigger>
 						<DropdownMenuContent>
 							{dropDownOptions.map((option, i) => (
-								<DropdownMenuItem>
+								<DropdownMenuItem
+								key={i}
+								>
 									<div 
-									key={i}
 									className='flex gap-[var(--gap-medium)] items-center'
 									onClick={() => option.onClick()}
 									>
