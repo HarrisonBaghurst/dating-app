@@ -5,7 +5,7 @@ import { EventPayload } from '@/types/event'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useRef } from 'react'
 
-const page = () => {
+const Page = () => {
     const router = useRouter();
     const params = useSearchParams();
 
@@ -84,4 +84,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
