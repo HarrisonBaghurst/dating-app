@@ -24,7 +24,7 @@ const Toggle = ({ keyText, state, options, icons, onChange }: ToggleProps) => {
                     key={i}
                     whileHover={! (state === optionState) ? { borderColor: "var(--card-highlight)" } : {}}
                     transition={{ duration: 0.2 }}
-                    className={'relative py-[var(--padding-small)] px-[calc(var(--padding-small)*1.5)] rounded-full flex justify-center cursor-pointer border-[1px] border-card-grey'}
+                    className={'relative py-[var(--padding-small)] px-[calc(var(--padding-small)*1.5)] rounded-full flex justify-center cursor-pointer toggle-style-inset'}
                     onClick={() => {
                         if (state !== optionState) {
                             onChange()
@@ -42,7 +42,7 @@ const Toggle = ({ keyText, state, options, icons, onChange }: ToggleProps) => {
                             }}
                             />
                         )}
-                            <div className='relative z-10 flex gap-[var(--gap-small)] items-center'>
+                        <div className='relative z-10 flex gap-[var(--gap-small)] items-center'>
                             <Image 
                             src={icons[i]}
                             alt='event type image'

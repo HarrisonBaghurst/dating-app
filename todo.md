@@ -14,6 +14,7 @@
 - [ ] show incorrect password
 - [ ] sidebar incorrect style on mobile
 - [ ] current day highlight not showing
+- [ ] toggles not showing border on hover
 
 ## Complete
 - [x] ~~share event with sendable link~~

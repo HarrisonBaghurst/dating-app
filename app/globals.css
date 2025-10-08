@@ -103,6 +103,13 @@
       inset 0 1px 1px var(--button-bright),
       0 2px 2px var(--button-shadow);
   }
+  .toggle-style-inset {
+    background-color: var(--background-light);
+    border-radius: calc(infinity * 1px);
+    box-shadow: 
+      0 2px 2px var(--card-highlight),
+      inset 0 1px 1px var(--background-dark);
+  }
 }
 
 body {
@@ -218,7 +225,7 @@ input:focus {
   --foreground-second: hsl(0, 0%, 70%);
 
   --card-bright: hsl(222, 16%, 38%);
-  --card-shadow: hsl(222, 16%, 16%);
+  --card-shadow: hsl(222, 16%, 12%);
 
   --button-bright: hsl(219, 16%, 50%);
   --button-shadow: hsl(219, 16%, 25%);
