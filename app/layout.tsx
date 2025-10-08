@@ -5,8 +5,8 @@ import { ModalProvider } from "@/providers/ModalProvider";
 import { RefreshEventsProvider } from "@/providers/RefreshEventsProvider";
 
 export const metadata: Metadata = {
-  title: "Personal Calendar",
-  description: "Calendar for Me, Myself and I",
+  title: "Dating App",
+  description: "Dates you wont forget",
 };
 
 export default function RootLayout({
