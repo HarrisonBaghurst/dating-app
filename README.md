@@ -1,18 +1,18 @@
-<h1 align="center">📍Dating App</h1> 
-<p align="center"><b>Calendar app focusing on minimalistic design and user experience.</b></p>
+<h1 align="center">📍Dating App<p><i>Dates you won't forget.</i></p></h1> 
 
 <div align="center">
 
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
-![Styling](https://img.shields.io/badge/Tailwind-4-lightblue?logo=tailwindcss)
-![Structure](https://img.shields.io/badge/React-19-blue?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-white?logo=typescript)
+![Styling](https://img.shields.io/badge/Tailwind-4-white?logo=tailwindcss)
+![Structure](https://img.shields.io/badge/React-19-white?logo=react)
 ![Next.js](https://img.shields.io/badge/Next.js-15-white?logo=nextdotjs)
-![Supabase](https://img.shields.io/badge/Supabase-Current-green?logo=supabase)
+![Supabase](https://img.shields.io/badge/Supabase-Current-white?logo=supabase)
 ![Deploy](https://img.shields.io/badge/Vercel-Current-white?logo=vercel)
-![License](https://img.shields.io/badge/MIT%20License-2025-red)
+![License](https://img.shields.io/badge/MIT%20License-2025-white)
   
 </div>
 
+<p align="center"><b>Calendar app focusing on minimalistic design and user experience.</b></p>
 
 </br>
 
@@ -81,9 +81,6 @@ NEXT_PUBLIC_SUPABASE_URL=*****
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=*****
 SUPABASE_SERVICE_ROLE_KEY=*****
 ```
-
-## Technologies
-[![My Skills](https://skillicons.dev/icons?i=typescript,react,nextjs,tailwind,supabase,vercel)](https://skillicons.dev)
 
 ## Todo List
 
