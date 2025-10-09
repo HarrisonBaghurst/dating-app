@@ -87,6 +87,7 @@ SUPABASE_SERVICE_ROLE_KEY=*****
 - [ ] toggles not showing border on hover
 
 ### Complete
+- [x] ~~updated to pwa~~
 - [x] ~~share event with sendable link~~
 - [x] ~~event priority resetting on reload~~
 - [x] ~~change event information~~ 

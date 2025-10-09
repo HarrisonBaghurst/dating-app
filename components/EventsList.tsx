@@ -91,7 +91,10 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 					/>
 				</div>
 			)}
-			<div className='grid grid-cols-2 gap-[var(--gap-small)]'>
+			<div className='
+			grid grid-cols-1 gap-[var(--gap-small)]
+			2xl:grid-cols-2
+			'>
 				{events.length === 0 && (
 					<h2 className='paragraph-large text-foreground-second'>Nothing Scheduled</h2>
 				)}
