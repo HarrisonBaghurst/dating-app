@@ -104,7 +104,7 @@ const SideBar = () => {
 						)
 					})}
 				</div>
-				<div className='h-[1px] bg-background-light w-full'/>
+				<div className='w-[1px] min-h-full 2xl:h-[1px] bg-background-light 2xl:w-full'/>
 				<motion.div
 				whileHover={{ borderColor: "var(--card-grey)" }}
 				className={cn(
