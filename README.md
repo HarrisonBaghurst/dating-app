@@ -3,13 +3,13 @@
 
 <div align="center">
 
-![Scripts](https://img.shields.io/badge/Scripts-TypeScript-blue)
-![Styling](https://img.shields.io/badge/Styling-Tailwind-lightblue)
-![Structure](https://img.shields.io/badge/Structure-React-blue)
-![Next.js](https://img.shields.io/badge/Routing-Next.js-white)
-![Supabase](https://img.shields.io/badge/Backend-Supabase-darkgreen)
-![Deploy](https://img.shields.io/badge/Deployed%20On-Vercel-white)
-![License](https://img.shields.io/badge/License-MIT-red)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![Styling](https://img.shields.io/badge/Tailwind-4-lightblue?logo=tailwindcss)
+![Structure](https://img.shields.io/badge/React-19-blue?logo=react)
+![Next.js](https://img.shields.io/badge/Next.js-15-white?logo=nextdotjs)
+![Supabase](https://img.shields.io/badge/Supabase-Current-green?logo=supabase)
+![Deploy](https://img.shields.io/badge/Vercel-Current-white?logo=vercel)
+![License](https://img.shields.io/badge/MIT%20License-2025-red)
   
 </div>
 
