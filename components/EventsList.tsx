@@ -9,6 +9,7 @@ import CreateEvent from './CreateEvent';
 import { useIcons } from '@/constants/icons';
 import { useSettings } from '@/providers/SettingsProvider';
 import EventCard from './EventCard';
+import { Underline } from 'lucide-react';
 
 type EventsListProps = {
     date?: number;
@@ -69,7 +70,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 					{title}
 				</h2>
 			)}
-			{date && month && year && (
+			{date !== undefined && month !== undefined && year !== undefined && (
 				<div className='flex justify-between items-center'>
 					<h1 className='flex items-baseline text-foreground-main font-enorm title-small'>
 						{date}
