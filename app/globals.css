@@ -110,6 +110,13 @@
       0 2px 2px var(--card-highlight),
       inset 0 1px 1px var(--background-dark);
   }
+  .dark-card-style {
+    background-color: var(--background-light);
+    border-radius: var(--rounding-small);
+    box-shadow: 
+      inset 0 1px 1px var(--card-highlight),
+      0 2px 2px var(--background-dark);
+  }
 }
 
 body {

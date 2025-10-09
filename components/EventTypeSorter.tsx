@@ -74,7 +74,7 @@ const EventTypeSorter = () => {
                     <div className='flex flex-col gap-[var(--gap-small)]'>
                         {eventTypeOrder.map((event) => (
                             <SortableItem key={event.id} id={event.id}>
-                                <div className='bg-background-light p-[var(--padding-small)] rounded-[var(--rounding-small)] flex justify-between items-center'>
+                                <div className='p-[var(--padding-small)] flex justify-between items-center dark-card-style'>
                                     <div className='flex gap-[var(--gap-medium)] items-center'>
                                         <Image 
                                         src={event.icon}

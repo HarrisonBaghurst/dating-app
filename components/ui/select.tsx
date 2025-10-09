@@ -37,7 +37,7 @@ function SelectTrigger({
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "bg-background-light flex justify-between placeholder:text-foreground-second text-foreground-main p-[var(--padding-small)] paragraph-large items-center rounded-[var(--rounding-small)]",
+        "flex justify-between placeholder:text-foreground-second text-foreground-main p-[var(--padding-small)] paragraph-large items-center dark-card-style",
         "outline-none",
         className
       )}
@@ -109,7 +109,7 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "bg-background-light text-foreground-main paragraph-large p-[var(--padding-small)] rounded-[var(--rounding-small)] cursor-default select-none",
+        "text-foreground-main paragraph-large p-[var(--padding-small)] dark-card-style cursor-default select-none",
         "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         "relative flex w-full items-center gap-2 pr-8",
         "outline-none",

@@ -78,7 +78,7 @@ function DropdownMenuItem({
       data-inset={inset}
       data-variant={variant}
       className={cn(
-        "bg-background-light text-foreground-main paragraph-large p-[var(--padding-small)] rounded-[var(--rounding-small)] cursor-default select-none",
+        "text-foreground-main paragraph-large p-[var(--padding-small)] dark-card-style cursor-default select-none",
         "relative flex w-full items-center gap-2 pr-8 outline-none",
         "border-[1px] border-background-light hover:border-card-highlight duration-200",
         "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",

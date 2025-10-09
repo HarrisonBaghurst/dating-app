@@ -114,7 +114,7 @@ const EventCard = ({ event }: EventCardProps) => {
 	return (
 		<div
 		className={cn(
-			'flex gap-[var(--padding-small)] bg-background-light p-[var(--padding-small)] rounded-[var(--rounding-small)] text-foreground-second paragraph-small h-fit',
+			'flex gap-[var(--padding-small)] p-[var(--padding-small)] text-foreground-second paragraph-small h-fit dark-card-style',
 			clickable? 'opacity-100' : 'opacity-10'
 		)}
 		>
