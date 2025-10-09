@@ -100,6 +100,7 @@ SUPABASE_SERVICE_ROLE_KEY=*****
 - [ ] toggles not showing border on hover
 
 ### Complete
+- [x] ~~day, month, year showing as 0 in january~~
 - [x] ~~sidebar incorrect style on mobile~~
 - [x] ~~updated to pwa~~
 - [x] ~~share event with sendable link~~
