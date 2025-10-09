@@ -22,6 +22,7 @@ type CalendarCardProps = {
 
 const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardProps) => {
     const icons = useIcons();
+    console.log(date, month, year);
     
     const { eventTypeOrder, updateEventTypeOrder } = useSettings();
     const { openModal } = useModal();

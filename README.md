@@ -96,11 +96,11 @@ SUPABASE_SERVICE_ROLE_KEY=*****
 
 ### Bugs
 - [ ] show incorrect password
-- [ ] sidebar incorrect style on mobile
 - [ ] current day highlight not showing
 - [ ] toggles not showing border on hover
 
 ### Complete
+- [x] ~~sidebar incorrect style on mobile~~
 - [x] ~~updated to pwa~~
 - [x] ~~share event with sendable link~~
 - [x] ~~event priority resetting on reload~~
