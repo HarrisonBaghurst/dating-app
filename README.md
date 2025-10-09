@@ -1,6 +1,5 @@
-# Personal Calendar
-My own calendar built to include the features that I want and use. </br>
-A large focus was placed on design and interactive components.
+# Dating App - Dates you wont forget. 📍
+Calendar app focusing on minimalistic design and user experience.
 
 ## Setup
 Prerequisites: 
