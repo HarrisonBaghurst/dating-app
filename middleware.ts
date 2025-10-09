@@ -4,7 +4,14 @@ import { updateSession } from './lib/supabase/middleware'
 const PUBLIC_PATHS = [
   '/login',
   '/fonts',
-  '/public/*'
+  '/public/*',
+  '/manifest.json',
+  '/manifest.webmanifest',
+  '/serwist-sw.js',
+  '/sw.js',
+  '/favicon.ico',
+  '/icon-192.png',
+  '/icon-512x512.png',
 ]
 
 function isPublicPath(pathname: string) {
