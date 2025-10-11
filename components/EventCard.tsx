@@ -114,10 +114,93 @@ const EventCard = ({ event }: EventCardProps) => {
 	return (
 		<div
 		className={cn(
-			'flex gap-[var(--padding-small)] p-[var(--padding-small)] text-foreground-second paragraph-small h-fit dark-card-style',
+			'flex flex-col gap-[var(--padding-small)] p-[var(--padding-small)] text-foreground-second paragraph-small h-fit dark-card-style',
 			clickable? 'opacity-100' : 'opacity-10'
 		)}
 		>
+			{/* title and corresponding icon */}
+			<div className='w-full text-foreground-main paragraph-large font-enorm flex items-center justify-between'>
+				{event.title}
+				<Image 
+				src={getEventImage(event.type)}
+				alt='event type icon'
+				width={0}
+				height={0}
+				className='w-[var(--icon-small)] h-[var(--icon-small)]'
+				/>
+			</div>
+
+			{/* colour separation bar */}
+			<div 
+			className='h-[1px] min-w-full'
+			style={{ backgroundColor: getEventColour(event.type) }}
+			/>
+
+			{event.type !== 'all day' && event.type !== 'birthday' && 
+				<div>
+					{/* time */}
+					{event.start_time !== '' && event.end_time !== '' && event.end_time.substring(0, 5) !== '00:00' ? (
+						<p>{`${event.start_time.substring(0, 5)} - ${event.end_time.substring(0, 5)}`}</p>
+					) : event.start_time !== '' && event.start_time.substring(0, 5) !== '00:00' ? (
+						<p>{`${event.start_time.substring(0, 5)}`}</p>
+					) : 
+						null
+					}
+
+					{/* location */}
+					{event.location !== '' && (
+						<p>{event.location}</p>
+					)}
+
+					{/* cost */}
+					{event.cost !== '' && (
+						<p>{event.cost}</p>
+					)}
+
+					{/* extra information */}
+					{event.extra_info !== 'NULL' && event.extra_info !== '' && (
+						<p>{event.extra_info}</p>
+					)}
+				</div>
+			}
+
+			<div className='flex justify-end'>
+				<DropdownMenu>
+					<DropdownMenuTrigger>
+						<Image 
+						src={icons.menu}
+						alt='remove event icon'
+						width={0}
+						height={0}
+						className='w-[var(--icon-small)] h-[var(--icon-small)] cursor-pointer'
+						onClick={() => {}} 
+						/>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent>
+						{dropDownOptions.map((option, i) => (
+							<DropdownMenuItem
+							key={i}
+							>
+								<div 
+								className='flex gap-[var(--gap-medium)] items-center'
+								onClick={() => option.onClick()}
+								>
+									<Image
+									src={option.icon}
+									alt='dropdown icon'
+									width={0}
+									height={0}
+									className='w-[var(--icon-large)] h-[var(--icon-large)]'
+									/>
+									{option.text}
+								</div>
+							</DropdownMenuItem>
+						))}
+					</DropdownMenuContent>
+				</DropdownMenu>
+			</div>
+
+			{/*
 			<div 
 			className='w-[1px] min-h-full'
 			style={{ backgroundColor: getEventColour(event.type) }}
@@ -125,7 +208,6 @@ const EventCard = ({ event }: EventCardProps) => {
 			<div className='flex flex-col gap-[var(--gap-small)] w-full'>
 				<div className='flex justify-between items-center'>
 					<div className='flex gap-[var(--gap-small)] items-center'>
-						{/* event type icon */}
 						<Image 
 						src={getEventImage(event.type)}
 						alt='event type icon'
@@ -133,12 +215,10 @@ const EventCard = ({ event }: EventCardProps) => {
 						height={0}
 						className='w-[var(--icon-small)] h-[var(--icon-small)]'
 						/>
-						{/* event title */}
 						<h2 className='text-foreground-main paragraph-large'>
 							{event.title}
 						</h2>
 					</div>
-					{/* menu icon */}
 					<DropdownMenu>
 						<DropdownMenuTrigger>
 							<Image 
@@ -175,8 +255,7 @@ const EventCard = ({ event }: EventCardProps) => {
 				</div>
 				
 				{event.type !== 'birthday' && event.type !== 'all day' && (
-					<div className='flex gap-[var(--gap-large)] items-center'>
-						{/* start and end time */}
+					<div className='flex flex-col gap-[calc(var(--gap-small)/2)]'>
 						{event.start_time !== '' && event.end_time !== '' && event.end_time.substring(0, 5) !== '00:00' ? (
 							<p>{`${event.start_time.substring(0, 5)} - ${event.end_time.substring(0, 5)}`}</p>
 						) : event.start_time !== '' && event.start_time.substring(0, 5) !== '00:00' ? (
@@ -184,23 +263,20 @@ const EventCard = ({ event }: EventCardProps) => {
 						) : 
 							null
 						}
-						{/* location */}
 						{event.location !== '' && (
 							<p>{event.location}</p>
 						)}
-						{/* bill cost */} 
 						{event.cost !== '' && (
 							<p>{event.cost}</p>
+						)}
+						{event.extra_info !== 'NULL' && event.extra_info !== '' && (
+							<p>{event.extra_info}</p>
 						)}
 					</div>
 				)}
 
-				{event.extra_info !== 'NULL' && event.extra_info !== '' && (
-					<p>
-						{event.extra_info}
-					</p>
-				)}
 			</div>
+			*/}
 		</div>
 	)
 }
