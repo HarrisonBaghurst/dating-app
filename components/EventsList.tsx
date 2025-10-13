@@ -10,12 +10,14 @@ import { useIcons } from '@/constants/icons';
 import { useSettings } from '@/providers/SettingsProvider';
 import EventCard from './EventCard';
 import { Underline } from 'lucide-react';
+import Loader from './Loader';
+import EventCardLoader from './EventCardLoader';
 
 type EventsListProps = {
     date?: number;
 	month?: number;
 	year?: number;
-    events: CalendarEvent[];
+    events?: CalendarEvent[];
 	title?: string;
 }
 
@@ -31,6 +33,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 	const [groupedEvents, setGroupedEvents] = useState<Record<string, CalendarEvent[]>>({});
 
 	useEffect(() => {
+		if (!events) return;
 		const sortedEvents = [...events].sort((a, b) => 
 			a.start_time.localeCompare(b.start_time)
 		);
@@ -92,24 +95,32 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 					/>
 				</div>
 			)}
-			<div className='
-			grid grid-cols-1 gap-[var(--gap-small)]
-			'>
-				{events.length === 0 && (
-					<h2 className='paragraph-large text-foreground-second'>Nothing Scheduled</h2>
-				)}
-				{eventTypeOrder
-				.filter(eventType => (groupedEvents[eventType.id] || []).length > 0)
-				.map((eventType) => (
-					(groupedEvents[eventType.id] || []).map((event) => (
-						<EventCard 
-						key={event.id}
-						event={event}
-						/>
+			{events ? (
+				<div className='
+				grid grid-cols-1 gap-[var(--gap-small)]
+				'> 	
+					{events.length === 0 && (
+						<h2 className='paragraph-large text-foreground-second'>Nothing Scheduled</h2>
+					)}
+					{eventTypeOrder
+					.filter(eventType => (groupedEvents[eventType.id] || []).length > 0)
+					.map((eventType) => (
+						(groupedEvents[eventType.id] || []).map((event) => (
+							<EventCard 
+							key={event.id}
+							event={event}
+							/>
+						))
 					))
-				))
-				}
-			</div>
+					}
+				</div>
+			) : (
+				<div className='grid grid-cols-1 gap-[var(--gap-small)]'>
+					{[...Array(3)].map((_, i) => (
+						<EventCardLoader key={i} />
+					))}
+				</div>
+			)}
 		</div>
     )
 }

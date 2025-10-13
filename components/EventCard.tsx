@@ -194,7 +194,6 @@ const EventCard = ({ event }: EventCardProps) => {
 						{event.cost !== '' && (
 							<p>{event.cost}</p>
 						)}
-
 					</div>
 				)}
 

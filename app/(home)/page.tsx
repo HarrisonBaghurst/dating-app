@@ -64,18 +64,14 @@ const Page = () => {
 			grid-cols-1
 			2xl:grid-cols-3
 			'>
-				{events? (
-					<EventsList 
-					title="Today's Schedule"
-					events={events.filter((event: CalendarEvent) => (new Date(event.date)).getDate() === today.getDate()) ?? []}
-					/>
-				): <div className='relative h-[15rem]'><Loader /></div>}
-				{events? (
-					<EventsList 
-					title="Tomorrow's Schedule"
-					events={events.filter((event: CalendarEvent) => (new Date(event.date)).getDate() === today.getDate() + 1) ?? []}
-					/>
-				): <div className='relative h-[15rem]'><Loader /></div>}
+				<EventsList 
+				title="Today's Schedule"
+				events={events? (events.filter((event: CalendarEvent) => (new Date(event.date)).getDate() === today.getDate()) ?? []) : undefined}
+				/>
+				<EventsList 
+				title="Tomorrow's Schedule"
+				events={events? (events.filter((event: CalendarEvent) => (new Date(event.date)).getDate() === today.getDate() + 1) ?? []) : undefined}
+				/>
 			</div>
 			
 		</section>
