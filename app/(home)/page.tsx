@@ -62,7 +62,7 @@ const Page = () => {
 			<div className='
 			grid gap-[var(--gap-large)]
 			grid-cols-1
-			2xl:grid-cols-2
+			2xl:grid-cols-3
 			'>
 				{events? (
 					<EventsList 
