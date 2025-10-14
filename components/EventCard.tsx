@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import toTitleCase from '@/lib/stringUtils';
+import EventCardLoader from './EventCardLoader';
 
 type EventCardProps = {
 	event: CalendarEvent;
@@ -112,13 +113,11 @@ const EventCard = ({ event }: EventCardProps) => {
 		},
 	]
 
+	if (!clickable) return <EventCardLoader />
+
 	return (
 		<div
-		className={cn(
-			'flex gap-[var(--padding-small)] p-[var(--padding-small)] text-foreground-second paragraph-small h-fit dark-card-style',
-			clickable? 'opacity-100' : 'opacity-10'
-		)}
-		>
+		className='flex gap-[var(--padding-small)] p-[var(--padding-small)] text-foreground-second paragraph-small h-fit dark-card-style'>
 			<div className='w-[2px] min-h-full' style={{ backgroundColor: getEventColour(event.type) }}/>
 			<div className='flex flex-col gap-[var(--gap-small)] w-full'>
 				<div className='flex w-full justify-between items-center'>
