@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from 'react'
 import CalendarCard from './CalendarCard'
-import Loader from './Loader';
 import type { CalendarEvent } from '@/types/event'
 import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
 import { weekDays } from '@/constants/CalendarInfo';
+import EventsList from './EventsList';
 
 type CalendarProps = {
     month: number;
@@ -15,6 +15,8 @@ type CalendarProps = {
 const Calendar = ({ month, year }: CalendarProps) => {
     const { trigger } = useRefreshEventsContext();
     const [events, setEvents] = useState<CalendarEvent[] | null>(null);
+    const [days, setDays] = useState<React.JSX.Element[]>([]);
+    const [selectedEvents, setSelectedEvents] = useState<CalendarEvent[]>([]);
 
     // fetch events for month
     useEffect(() => {
@@ -43,9 +45,6 @@ const Calendar = ({ month, year }: CalendarProps) => {
         fetchEvents();
     }, [month, year, trigger])
 
-    // don't show calendar until events are loaded
-    if (events === null) return <Loader />;
-
     // days setup for visuals of calendar
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     let firstDayOfMonth = new Date(year, month, 1).getDay();
@@ -60,50 +59,65 @@ const Calendar = ({ month, year }: CalendarProps) => {
     const todayMonth = today.getMonth();
     const todayYear = today.getFullYear();
 
-    // create list of calendar cards
-    const days = Array.from({ length: daysInMonth }, (_, i) => {
-        const dayNum = i + 1;
-        const isToday = dayNum === todayDate && month === todayMonth && year === todayYear;
-        
-        const dayEvents = events.filter(event => {
-            const [y, m, d] = event.date.split('-').map(Number);
-            return d === dayNum && (m - 1) === month && y === year;
-        });
-
-
-        return (
-            <CalendarCard 
-            key={dayNum}
-            date={dayNum}
-            month={month}
-            year={year}
-            day={(i + firstDayOfMonth) % 7}
-            isToday={isToday}
-            events={dayEvents}
-            />
-        );
-    });
+    useEffect(() => {
+        // create list of calendar cards
+        setDays(Array.from({ length: daysInMonth }, (_, i) => {
+            const dayNum = i + 1;
+            const isToday = dayNum === todayDate && month === todayMonth && year === todayYear;
+            
+            let dayEvents
+            if (events) {
+                dayEvents = events.filter(event => {
+                    const [y, m, d] = event.date.split('-').map(Number);
+                    return d === dayNum && (m - 1) === month && y === year;
+                });
+                if (dayNum === 0 || isToday) {
+                    setSelectedEvents(dayEvents);
+                }
+            }
+    
+            return (
+                <CalendarCard 
+                key={dayNum}
+                date={dayNum}
+                month={month}
+                year={year}
+                day={(i + firstDayOfMonth) % 7}
+                isToday={isToday}
+                events={dayEvents}
+                />
+            );
+        }))
+    }, [events]);
 
     return (
-        <div className='flex flex-col gap-[var(--gap-large)]'>
-            <div className='flex flex-col gap-[var(--gap-small)]'>
-                <div className='hidden 2xl:grid grid-cols-7 gap-[var(--gap-small)]'>
-                    {weekDays.map((day, i) => (
-                        <div 
-                        key={i}
-                        className='w-full p-[var(--padding-small)] flex justify-center paragraph-large bg-background-dark rounded-[var(--rounding-small)]'
-                        >
-                            {day}
-                        </div>
-                    ))} 
-                </div>
-                <div className='
-                grid gap-[var(--gap-small)]
-                grid-cols-2
-                2xl:grid-cols-7
-                '>
-                    {blanks}
-                    {days}
+        <div className='grid grid-cols-3 gap-[var(--gap-large)]'>
+            <EventsList 
+            events={selectedEvents}
+            date={1}
+            month={month}
+            year={year}
+            />
+            <div className='col-span-2 flex flex-col gap-[var(--gap-large)] card-style p-[var(--padding-medium)] h-fit'>
+                <div className='flex flex-col gap-[var(--gap-medium)]'>
+                    <div className='hidden 2xl:grid grid-cols-7 gap-[var(--gap-small)]'>
+                        {weekDays.map((day, i) => (
+                            <div 
+                            key={i}
+                            className='w-full p-[var(--padding-small)] flex justify-center font-enorm text-foreground-second paragraph-small dark-card-style'
+                            >
+                                {day}
+                            </div>
+                        ))} 
+                    </div>
+                    <div className='
+                    grid gap-[var(--gap-small)]
+                    grid-cols-2
+                    2xl:grid-cols-7
+                    '>
+                        {blanks}
+                        {days}
+                    </div>
                 </div>
             </div>
         </div>

@@ -9,8 +9,6 @@ import CreateEvent from './CreateEvent';
 import { useIcons } from '@/constants/icons';
 import { useSettings } from '@/providers/SettingsProvider';
 import EventCard from './EventCard';
-import { Underline } from 'lucide-react';
-import Loader from './Loader';
 import EventCardLoader from './EventCardLoader';
 
 type EventsListProps = {

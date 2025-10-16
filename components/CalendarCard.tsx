@@ -1,12 +1,9 @@
 'use client'
 
 import { cn } from '@/lib/classUtils';
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CalendarEvent, EventType } from '@/types/event';
 import { getOrdinal } from '@/lib/dateUtils';
-import { useModal } from '@/providers/ModalProvider';
-import EventsList from './EventsList';
-import Image from 'next/image';
 import { weekDays } from '@/constants/CalendarInfo';
 import { useIcons } from '@/constants/icons';
 import { useSettings } from '@/providers/SettingsProvider';
@@ -17,16 +14,15 @@ type CalendarCardProps = {
     year: number;
     day: number;
     isToday: boolean;
-    events: CalendarEvent[]
+    events?: CalendarEvent[]
 }
 
 const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardProps) => {
     const icons = useIcons();
     
     const { eventTypeOrder, updateEventTypeOrder } = useSettings();
-    const { openModal } = useModal();
 
-    const maxVisible = 5;
+    const [sortedEvents, setSortedEvents] = useState<CalendarEvent[]>([]);
 
     const initialEvents: EventType[] = [
         { id: 'deadline', icon: icons.deadline },
@@ -41,63 +37,46 @@ const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardP
         if (!eventTypeOrder) {
             updateEventTypeOrder(initialEvents);
         }
-    }, [eventTypeOrder, updateEventTypeOrder])
+    }, [eventTypeOrder])
 
+    useEffect(() => {
+        if (!events || !eventTypeOrder) return; 
+
+        const sorted = [...events].sort((a, b) => {
+            const indexA = eventTypeOrder.findIndex(et => et.id === a.type);
+            const indexB = eventTypeOrder.findIndex(et => et.id === b.type);
+            return indexA - indexB;
+        })
+
+        setSortedEvents(sorted)
+
+    }, [events, eventTypeOrder])
 
     if (!eventTypeOrder) return null;
 
-    const sortEvents = ((events: CalendarEvent[]) => {
-
-        return [...events].sort((a, b) => {
-            const typeA = eventTypeOrder.findIndex((i) => i.id === a.type);
-            const typeB = eventTypeOrder.findIndex((i) => i.id === b.type);
-
-            if (typeA !== typeB) {
-                return typeA - typeB;
-            }
-
-            // Compare by start_time if both have it
-            if (a.start_time && b.start_time) {
-                return a.start_time.localeCompare(b.start_time);
-            }
-
-            return 0;
-        });
-    });
-
-    const sortedEvents = sortEvents(events);
-
-    const getEventImage = (type: string) => {
-        switch (type) {
-            case 'deadline': return icons.deadline
-            case 'reminder': return icons.reminder
-            case 'event': return icons.event
-            case 'birthday': return icons.birthday
-            case 'bill': return icons.bill
-            default: return icons.allDay
-        }
-    }
+    const getEventColour = (type: string) => {
+		switch (type) {
+			case 'deadline': return 'var(--event-pink)'
+            case 'reminder': return 'var(--event-yellow)'
+            case 'event': return 'var(--event-blue)'
+            case 'birthday': return 'var(--event-orange)'
+            case 'bill': return 'var(--event-green)'
+            default: return 'var(--event-purple)'
+		}
+	}
 
     return (
         <div
         className={cn(
-            'card-style p-[var(--padding-small)] flex flex-col gap-[var(--gap-small)] cursor-pointer',
-            isToday ? 'bg-card-highlight' : 'bg-card-grey',
-            'h-[18vh] 2xl:h-[10vw]'
+            'dark-card-style p-[var(--padding-small)] flex flex-col gap-[var(--gap-small)] cursor-pointer aspect-square',
+            isToday ? 'border-[3px] border-card-highlight' : 'border-0',
         )}
         onClick={() => {
-            openModal(
-                <EventsList 
-                date={date}
-                month={month}
-                year={year}
-                events={events}
-                />
-            )
+            console.log('not implemented yet');
         }}
         >
             <div className='flex flex-row-reverse justify-end 2xl:justify-start 2xl:flex-row gap-[var(--gap-small)] items-center'>
-                <p className='flex items-baseline text-foreground-main'>
+                <p className='flex items-baseline text-foreground-main font-enorm'>
                     <span className='paragraph-large'>{date}</span>
                     <span className='paragraph-small'>{getOrdinal(date)}</span>
                 </p>
@@ -105,25 +84,14 @@ const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardP
                     {weekDays[day].slice(0,3)}
                 </p>
             </div>
-            <div className='paragraph-small text-foreground-second'>
-                {sortedEvents.slice(0, maxVisible - (sortedEvents.length > maxVisible ? 1 : 0)).map((event, i) => (
+            <div className='flex flex-wrap gap-[var(--gap-xsmall)]'>
+                {sortedEvents.map((event, i) => (
                     <div 
-                    key={i}
-                    className='flex items-center gap-[var(--gap-xsmall)]'
-                    >
-                        <Image 
-                        src={getEventImage(event.type)}
-                        alt='event icon'
-                        width={0}
-                        height={0}
-                        className='w-[var(--icon-small)] h-[var(--icon-small)]'
-                        />
-                        {event.title}
-                    </div>
+                    key={i} 
+                    className='w-[calc(var(--icon-small)/2)] h-[calc(var(--icon-small)/2)] rounded-full'
+                    style={{ backgroundColor: getEventColour(event.type) }}
+                    />
                 ))}
-                {sortedEvents.length > maxVisible && (
-                    <div>+{sortedEvents.length - (maxVisible - 1)} more</div>
-                )}
             </div>
         </div>
     )
