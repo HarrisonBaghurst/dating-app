@@ -16,10 +16,13 @@ const Calendar = ({ month, year }: CalendarProps) => {
     const { trigger } = useRefreshEventsContext();
     const [events, setEvents] = useState<CalendarEvent[] | null>(null);
     const [days, setDays] = useState<React.JSX.Element[]>([]);
-    const [selectedEvents, setSelectedEvents] = useState<CalendarEvent[]>([]);
+    const [selectedEvents, setSelectedEvents] = useState<CalendarEvent[] | undefined>(undefined);
+    const [selectedDate, setSelectedDate] = useState<number | null>(null);
 
     // fetch events for month
     useEffect(() => {
+        setSelectedDate(null);
+
         setEvents(null);
         const fetchEvents = async () => {
             try {
@@ -60,6 +63,7 @@ const Calendar = ({ month, year }: CalendarProps) => {
     const todayYear = today.getFullYear();
 
     useEffect(() => {
+
         // create list of calendar cards
         setDays(Array.from({ length: daysInMonth }, (_, i) => {
             const dayNum = i + 1;
@@ -70,10 +74,7 @@ const Calendar = ({ month, year }: CalendarProps) => {
                 dayEvents = events.filter(event => {
                     const [y, m, d] = event.date.split('-').map(Number);
                     return d === dayNum && (m - 1) === month && y === year;
-                });
-                if (dayNum === 0 || isToday) {
-                    setSelectedEvents(dayEvents);
-                }
+                })
             }
     
             return (
@@ -85,19 +86,20 @@ const Calendar = ({ month, year }: CalendarProps) => {
                 day={(i + firstDayOfMonth) % 7}
                 isToday={isToday}
                 events={dayEvents}
+                onSelect={(date, events) => {
+                    setSelectedDate(date);
+                    setSelectedEvents(events);
+                }}
                 />
             );
         }))
     }, [events]);
 
     return (
-        <div className='grid grid-cols-3 gap-[var(--gap-large)]'>
-            <EventsList 
-            events={selectedEvents}
-            date={1}
-            month={month}
-            year={year}
-            />
+        <div className='
+        grid grid-cols-1 gap-[var(--gap-large)]
+        2xl:grid-cols-3
+        '>
             <div className='col-span-2 flex flex-col gap-[var(--gap-large)] card-style p-[var(--padding-medium)] h-fit'>
                 <div className='flex flex-col gap-[var(--gap-medium)]'>
                     <div className='hidden 2xl:grid grid-cols-7 gap-[var(--gap-small)]'>
@@ -120,6 +122,14 @@ const Calendar = ({ month, year }: CalendarProps) => {
                     </div>
                 </div>
             </div>
+            {selectedDate && (
+                <EventsList 
+                events={selectedEvents}
+                date={selectedDate}
+                month={month}
+                year={year}
+                />
+            )}
         </div>
     )
 }

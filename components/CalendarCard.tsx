@@ -15,9 +15,10 @@ type CalendarCardProps = {
     day: number;
     isToday: boolean;
     events?: CalendarEvent[]
+    onSelect?: (date: number, evenst: CalendarEvent[]) => void;
 }
 
-const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardProps) => {
+const CalendarCard = ({ date, month, year, day, isToday, events, onSelect }: CalendarCardProps) => {
     const icons = useIcons();
     
     const { eventTypeOrder, updateEventTypeOrder } = useSettings();
@@ -72,7 +73,7 @@ const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardP
             isToday ? 'border-[3px] border-card-highlight' : 'border-0',
         )}
         onClick={() => {
-            console.log('not implemented yet');
+            if (onSelect && events) onSelect(date, events);
         }}
         >
             <div className='flex flex-row-reverse justify-end 2xl:justify-start 2xl:flex-row gap-[var(--gap-small)] items-center'>
@@ -84,15 +85,26 @@ const CalendarCard = ({ date, month, year, day, isToday, events }: CalendarCardP
                     {weekDays[day].slice(0,3)}
                 </p>
             </div>
-            <div className='flex flex-wrap gap-[var(--gap-xsmall)]'>
-                {sortedEvents.map((event, i) => (
-                    <div 
-                    key={i} 
-                    className='w-[calc(var(--icon-small)/2)] h-[calc(var(--icon-small)/2)] rounded-full'
-                    style={{ backgroundColor: getEventColour(event.type) }}
-                    />
-                ))}
-            </div>
+            {events !== undefined ? (
+                <div className='flex flex-wrap gap-[var(--gap-xsmall)]'>
+                    {sortedEvents.map((event, i) => (
+                        <div 
+                        key={i} 
+                        className='w-[calc(var(--icon-small)/2)] h-[calc(var(--icon-small)/2)] rounded-full'
+                        style={{ backgroundColor: getEventColour(event.type) }}
+                        />
+                    ))}
+                </div>
+            ): (
+                <div className='flex flex-wrap gap-[var(--gap-xsmall)]'>
+                    {[...Array(3)].map((_, i) => (
+                        <div 
+                        key={i} 
+                        className='w-[calc(var(--icon-small)/2)] h-[calc(var(--icon-small)/2)] rounded-full bg-white opacity-15'
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     )
 }
