@@ -4,12 +4,13 @@ import { getOrdinal } from '@/lib/dateUtils';
 import { useModal } from '@/providers/ModalProvider';
 import { CalendarEvent, EventType } from '@/types/event';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import CreateEvent from './CreateEvent';
 import { useIcons } from '@/constants/icons';
 import { useSettings } from '@/providers/SettingsProvider';
 import EventCard from './EventCard';
 import EventCardLoader from './EventCardLoader';
+import gsap from 'gsap';
 
 type EventsListProps = {
     date?: number;
@@ -20,7 +21,7 @@ type EventsListProps = {
 }
 
 const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
-	const icons = useIcons()
+	const icons = useIcons();
 
 	const { eventTypeOrder, updateEventTypeOrder } = useSettings();
 
@@ -29,6 +30,8 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 	const [groupedEvents, setGroupedEvents] = useState<Record<string, CalendarEvent[]>>({});
+
+	const listRef = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
 		if (!events) return;
@@ -62,10 +65,27 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 		}
 	}, [eventTypeOrder, updateEventTypeOrder])
 
+	useEffect(() => {
+		if (events && listRef.current) {
+			requestAnimationFrame(() => {
+				gsap.fromTo(
+					listRef.current,
+					{ opacity: 0.5, scale: 0.95 },
+					{ opacity: 1, scale: 1, duration: 0.25, ease: 'power2.out' }
+				)
+			})
+		}
+	}, [events])
+
 	if (!eventTypeOrder) return null;
 
     return (
-		<div className='card-style p-[var(--padding-medium)] w-full paragraph-large flex flex-col gap-[var(--gap-medium)] h-fit'>
+		<div
+		ref={listRef} 
+		className='
+		card-style p-[var(--padding-medium)] w-full paragraph-large flex flex-col gap-[var(--gap-medium)] h-fit
+		scale-95 opacity-50 will-change-transform
+		'>
 			{title && (
 				<h2 className='title-small font-enorm'>
 					{title}
