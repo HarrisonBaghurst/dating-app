@@ -75,7 +75,7 @@ const EventsList = ({ date, month, year, events, title }: EventsListProps) => {
 				)
 			})
 		}
-	}, [events])
+	}, [events]);
 
 	if (!eventTypeOrder) return null;
 

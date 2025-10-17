@@ -1,11 +1,12 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import CalendarCard from './CalendarCard'
 import type { CalendarEvent } from '@/types/event'
 import { useRefreshEventsContext } from '@/providers/RefreshEventsProvider';
 import { weekDays } from '@/constants/CalendarInfo';
 import EventsList from './EventsList';
+import gsap from 'gsap';
 
 type CalendarProps = {
     month: number;
@@ -18,6 +19,8 @@ const Calendar = ({ month, year }: CalendarProps) => {
     const [days, setDays] = useState<React.JSX.Element[]>([]);
     const [selectedEvents, setSelectedEvents] = useState<CalendarEvent[] | undefined>(undefined);
     const [selectedDate, setSelectedDate] = useState<number | null>(null);
+
+    const calendarRef = useRef<HTMLDivElement | null>(null);
 
     // fetch events for month
     useEffect(() => {
@@ -95,12 +98,29 @@ const Calendar = ({ month, year }: CalendarProps) => {
         }))
     }, [events]);
 
+    useEffect(() => {
+		if (events && calendarRef.current) {
+			requestAnimationFrame(() => {
+				gsap.fromTo(
+					calendarRef.current,
+					{ opacity: 0.5, scale: 0.95 },
+					{ opacity: 1, scale: 1, duration: 0.25, ease: 'power2.out' }
+				)
+			})
+		}
+	}, [events]);
+
     return (
         <div className='
         grid grid-cols-1 gap-[var(--gap-large)]
         2xl:grid-cols-3
         '>
-            <div className='col-span-2 flex flex-col gap-[var(--gap-large)] card-style p-[var(--padding-medium)] h-fit'>
+            <div 
+            ref={calendarRef}
+            className='
+            col-span-2 flex flex-col gap-[var(--gap-large)] card-style p-[var(--padding-medium)] h-fit
+            opacity-50 scale-95
+            '>
                 <div className='flex flex-col gap-[var(--gap-medium)]'>
                     <div className='hidden 2xl:grid grid-cols-7 gap-[var(--gap-small)]'>
                         {weekDays.map((day, i) => (
