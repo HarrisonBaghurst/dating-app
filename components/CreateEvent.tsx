@@ -16,6 +16,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { EventPayload } from '@/types/event';
+import { Switch } from './ui/switch';
+import { useSettings } from '@/providers/SettingsProvider';
 
 type CreateEventProps = {
     defaultDate?: Date | null;
@@ -23,13 +25,14 @@ type CreateEventProps = {
 
 const CreateEvent = ({ defaultDate }: CreateEventProps) => {
     const icons = useIcons();
+    const { inputTitles } = useSettings();
 
     const { refresh } = useRefreshEventsContext();
     const { closeModal } = useModal();
     const eventTypes = [['Deadline', icons.deadline], ['Reminder', icons.reminder], ['Event', icons.event], ['All Day', icons.allDay], ['Birthday', icons.birthday], ['Bill', icons.bill]] as const;
     const [clicked, setClicked] = useState(false);
 
-    // storing input information
+    // form state 
     const [selected, setSelected] = useState<'Deadline' | 'Reminder' | 'Event' | 'All Day' | 'Birthday' | 'Bill'>('Deadline');
     const [title, setTitle] = useState<string>('');
     const [location, setLocation] = useState<string>('');
@@ -38,7 +41,11 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
     const [startTime, setStartTime] = useState<string>('00:00');
     const [endTime, setEndTime] = useState<string>('00:00');
     const [extraInfo, setExtraInfo] = useState<string>('');
-    const [repeat, setRepeat] = useState<string>('1');
+
+    // repetition state 
+    const [isRepeating, setIsRepeating] = useState(false);
+    const [repeatFrequency, setRepeatFrequency] = useState<'weekly' | 'monthly' | 'annually'>('weekly');
+    const [repeatCount, setRepeatCount] = useState('1');
 
     // can click continue button
     const [clickable, setClickable] = useState(false);
@@ -65,12 +72,20 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
 
         setClicked(true);
 
-        const numRepeats = selected === 'Event' ? Math.max(1, parseInt(repeat || '1', 10) || 1) : 1;
+        const numRepeats = isRepeating ? Math.max(1, parseInt(repeatCount || '1', 10) || 1) : 1;
+
+        if (numRepeats > 5) return;
 
         try {
             for (let i = 0; i < numRepeats; i++) {
                 const newDate = new Date(date.getTime());
-                newDate.setDate(newDate.getDate() + i * 7);
+
+                // handle repeat interval 
+                if (i > 0 && isRepeating) {
+                    if (repeatFrequency === 'weekly') newDate.setDate(newDate.getDate() + i * 7);
+                    if (repeatFrequency === 'monthly') newDate.setMonth(newDate.getMonth() + i);
+                    if (repeatFrequency === 'annually') newDate.setFullYear(newDate.getFullYear() + i);
+                }
 
                 const y = newDate.getFullYear();
                 const m = String(newDate.getMonth() + 1).padStart(2, '0');
@@ -117,16 +132,21 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
         setStartTime('00:00');
         setEndTime('00:00');
         setExtraInfo('');
-        setRepeat('1');
+        setCost('');
+        setIsRepeating(false);
+        setRepeatFrequency('weekly');
+        setRepeatCount('1');
     }
 
     return (
         <div className='h-fit w-full card-style p-[var(--padding-medium)] flex flex-col gap-[var(--gap-large)]'>
-            {/* title */}
             <div className='flex flex-col gap-[var(--gap-medium)]'>
+
+                {/* title */}
                 <h1 className='title-small font-enorm'>
                     Create New Entry
                 </h1>
+
                 {/* type of event selector */}
                 <Select
                 value={selected}
@@ -158,6 +178,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                 </Select>
             </div>
             <div className='flex flex-col gap-[var(--gap-small)]'>
+                
                 {/* title of event input field */}
                 <Input 
                 type='text'
@@ -166,6 +187,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 />
+
                 {/* loaction of event input field */}
                 {selected === 'Event' && (
                     <Input 
@@ -176,6 +198,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                     onChange={(e) => setLocation(e.target.value)}
                     />
                 )}
+
                 {/* cost of event input field */}
                 {selected === 'Bill' && (
                     <Input 
@@ -186,11 +209,13 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                     onChange={(e) => setCost(e.target.value)}
                     />
                 )}
+
                 {/* date of event selector */}
                 <DatePicker 
                 defaultDate={defaultDate}
                 onChange={(newDate) => setDate(newDate)}
                 />
+                
                 {/* time of event selector - conditional render based on type of event */}
                 {selected !== 'All Day' && selected !== 'Birthday' && selected !== 'Bill' && (
                     <div className='flex gap-[var(--gap-small)]'>
@@ -210,6 +235,7 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                         )}
                     </div>
                 )}
+
                 {/* extra information input field */}
                 <Input 
                 type='text'
@@ -218,22 +244,50 @@ const CreateEvent = ({ defaultDate }: CreateEventProps) => {
                 value={extraInfo}
                 onChange={(e) => setExtraInfo(e.target.value)}
                 />
-                {/* repeat number */}
-                {selected === 'Event' && (
-                    <Input
-                    type='number'
-                    title='Repeat for # weeks'
-                    value={repeat}
-                    onChange={(e) => setRepeat(e.target.value)}
-                    />
-                )}
             </div>
+
+            {/* repetition handling inputs */}
+            <div className='flex items-center paragraph-small gap-[var(--gap-small)]'>
+                {inputTitles === 'show' && (
+                    <label className='font-small text-foreground-second'>Multi-schedule</label>
+                )}
+                <Switch checked={isRepeating} onCheckedChange={setIsRepeating} />
+            </div>
+            {isRepeating && (
+                <div className='flex flex-col gap-[var(--gap-small)]'>
+                    <Select
+                    value={repeatFrequency}
+                    onValueChange={(val) => setRepeatFrequency(val as typeof repeatFrequency)}
+                    >
+                        <SelectTrigger className='w-full'>
+                            <SelectValue placeholder="Repeat frequency" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value='weekly'>Weekly</SelectItem>
+                            <SelectItem value='monthly'>Monthly</SelectItem>
+                            <SelectItem value='annually'>Annually</SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <Input 
+                    type='number'
+                    title='Repeat how many times'
+                    value={repeatCount}
+                    onChange={(e) => setRepeatCount(e.target.value)}
+                    />
+                </div>
+            )}
+
             {/* final create button */}
             <Button 
             text='Create New Calendar Entry'
             clickable={clickable && !clicked}
             onClick={() => createEvent()}
             />
+            {inputTitles === 'show' && (
+                <p className='paragraph-small text-foreground-second'>
+                    * Do not multi-schedule more than 5 events
+                </p>
+            )}
         </div>
     )
 }

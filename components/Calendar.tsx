@@ -27,6 +27,7 @@ const Calendar = ({ month, year }: CalendarProps) => {
         setSelectedDate(null);
 
         setEvents(null);
+
         const fetchEvents = async () => {
             try {
                 const res = await fetch(`/api/events/get`, {

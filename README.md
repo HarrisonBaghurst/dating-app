@@ -86,7 +86,6 @@ SUPABASE_SERVICE_ROLE_KEY=*****
 
 ### Features
 - [ ] add meal event type 
-- [ ] repeat frequency - dayly, weekly, monthly, annually
 - [ ] add shopping list
 - [ ] add count down event type 
 - [ ] add to do list component
@@ -100,6 +99,7 @@ SUPABASE_SERVICE_ROLE_KEY=*****
 - [ ] toggles not showing border on hover
 
 ### Complete
+- [x] ~~repeat frequency - dayly, weekly, monthly, annually~~
 - [x] ~~day, month, year showing as 0 in january~~
 - [x] ~~sidebar incorrect style on mobile~~
 - [x] ~~updated to pwa~~
